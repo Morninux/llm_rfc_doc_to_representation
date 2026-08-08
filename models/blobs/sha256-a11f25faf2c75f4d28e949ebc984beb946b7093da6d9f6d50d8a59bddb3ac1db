@@ -1,0 +1,1 @@
+{"architecture":"amd64","base_name":"glm-5.2","capabilities":["thinking","completion","tools"],"context_length":1000000,"embedding_length":0,"file_type":"","model_type":"756B","os":"linux","remote_host":"https://ollama.com","remote_model":"glm-5.2","rootfs":{"diff_ids":[],"type":"layers"}}
