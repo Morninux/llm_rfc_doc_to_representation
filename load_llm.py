@@ -60,9 +60,10 @@ def run_model(model_name, user_text): #send text to one local Ollama model
     )
 
     try:
-        response = urllib.request.urlopen(request)  #call local ollama
-        result = json.loads(response.read().decode("utf-8"))
-        response.close()
+        with urllib.request.urlopen(request, timeout=300) as response:  #call local ollama
+            result = json.loads(response.read().decode("utf-8"))
         return result.get("response", "")
-    except urllib.error.URLError as error:
-        return "[error] " + str(error)  #return a simple error message
+    except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as error:
+        raise RuntimeError(
+            "Failed to run model " + model_name + ": " + str(error)
+        ) from error

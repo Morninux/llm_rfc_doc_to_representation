@@ -1,7 +1,11 @@
 import sys
 
 from load_llm import load_models
-from text_input import send_to_all_models, start_input
+from text_input import (
+    extract_rfc_packet_diagrams,
+    print_extraction_results,
+    start_input,
+)
 
 
 def main():
@@ -12,8 +16,12 @@ def main():
         return
 
     if len(sys.argv) > 1:
-        user_text = " ".join(sys.argv[1:])  #read text from command line
-        send_to_all_models(user_text, model_list)
+        rfc_number = sys.argv[1]
+        try:
+            results = extract_rfc_packet_diagrams(rfc_number, model_list)
+            print_extraction_results(results)
+        except (ValueError, FileNotFoundError, RuntimeError) as error:
+            print(error)
     else:
         start_input(model_list)  #start keyboard input
 
