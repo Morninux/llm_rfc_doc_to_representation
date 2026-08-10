@@ -1,4 +1,4 @@
-#run the first 50 rfc documents through every model and method combination
+#run selected rfc documents through every model and method combination
 
 import argparse
 import os
@@ -6,6 +6,7 @@ import sys
 import time
 
 from ascii_diagram_input import extract_rfc_from_ascii_diagrams
+from llm_ascii_diagram_input import extract_rfc_from_llm_ascii_diagrams
 from extraction_selector import ordered_models
 from load_llm import PROJECT_PATH, ensure_ollama_server, load_models
 from output_export import SAVEFILE_PATH, export_extraction_results, safe_filename_part
@@ -13,7 +14,7 @@ from text_input import extract_rfc_packet_diagrams
 
 
 RFC_DOCUMENT_PATH = os.path.join(PROJECT_PATH, "rfc_document_set")
-METHODS = ("full", "ascii")
+METHODS = ("full", "ascii", "llm_ascii")
 EXPECTED_MODEL_COUNT = 10
 RFC_LIMIT = 10
 
@@ -80,7 +81,7 @@ def parse_arguments():
     parser = argparse.ArgumentParser(
         description=(
             "Test the numerically first 50 RFC files with 10 Ollama models "
-            "using both the full and ASCII extraction methods."
+            "using the full, rule-based ASCII, and LLM-based ASCII methods."
         )
     )
     parser.add_argument(
@@ -117,8 +118,10 @@ def run_batch(models, rfc_numbers, output_path, overwrite=False):
             #choose the extraction function for the current method
             if method == "full":
                 extractor = extract_rfc_packet_diagrams
-            else:
+            elif method == "ascii":
                 extractor = extract_rfc_from_ascii_diagrams
+            else:
+                extractor = extract_rfc_from_llm_ascii_diagrams
 
             for model_name in models:
                 completed += 1
