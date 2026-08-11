@@ -1,5 +1,5 @@
-from extraction_selector import start_selection_input
-from load_llm import ensure_ollama_server, load_models
+from cli.interactive_menu import start_interactive_menu
+from ollama_client import ensure_ollama_server, load_models
 
 
 def main():
@@ -17,10 +17,7 @@ def main():
         return
 
     #always open the interactive method and model menu
-    try:
-        start_selection_input(model_list)
-    except ValueError as error:
-        print(error)
+    start_interactive_menu(model_list)
 
 
 if __name__ == "__main__":
