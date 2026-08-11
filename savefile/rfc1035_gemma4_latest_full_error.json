@@ -1,0 +1,100 @@
+{
+  "rfc": "1035",
+  "model": "gemma4:latest",
+  "method": "full",
+  "output": {
+    "references": [
+      {
+        "title": "USER DATAGRAM PROTOCOL (UDP)",
+        "rfc": "RFC-768",
+        "author": "J. Postel",
+        "date": "August 1980"
+      },
+      {
+        "title": "TRANSMISSION CONTROL PROTOCOL (TCP)",
+        "rfc": "RFC-793",
+        "author": "J. Postel",
+        "date": "September 1981"
+      },
+      {
+        "title": "INTERNET NAME DOMAINS (Early Hierarchy Suggestion)",
+        "rfc": "RFC-799",
+        "author": "D. Mills",
+        "date": "September 1981"
+      },
+      {
+        "title": "SIMPLE MAIL TRANSFER PROTOCOL (SMTP)",
+        "rfc": "RFC-821",
+        "author": "J. Postel",
+        "date": "August 1980"
+      },
+      {
+        "title": "DOMAIN NAME SERVICE (Early Concepts/Design)",
+        "rfc": "RFC-830",
+        "author": "Z. Su",
+        "date": "October 1982"
+      },
+      {
+        "title": "NICNAME/WHOIS QUERY SYSTEM",
+        "rfc": "RFC-812",
+        "rfc_details": "Developed by K. Harrenstien and V. White, initially used for querying network information.",
+        "date": "March 1982"
+      },
+      {
+        "title": "DOD HOST TABLE SPECIFICATION (Legacy)",
+        "rfc": "RFC-810",
+        "author": "E. Feinler et al.",
+        "date": "March 1982"
+      },
+      {
+        "title": "HOSTNAMES SERVER PROTOCOL (Obsolete/Pre-DNS)",
+        "rfc": "RFC-953",
+        "author": "K. Harrenstien et al.",
+        "date": "October 1985",
+        "status": "Obsoleted by DNS"
+      },
+      {
+        "title": "DOD INTERNET HOST TABLE SPECIFICATION (Legacy)",
+        "rfc": "RFC-952",
+        "author": "K. Harrenstien et al.",
+        "date": "October 1985",
+        "status": "Replaced by DNS"
+      },
+      {
+        "title": "INTERNET NAME DOMAINS FOR APPLICATIONS (Early Thoughts)",
+        "rfc": "RFC-819",
+        "author": "Z. Su and J. Postel",
+        "date": "August 1982",
+        "notes": "Conceptually different from current implementation."
+      },
+      {
+        "title": "DOMAIN NAMES: CONCEPTS AND FACILITIES",
+        "rfc": "RFC-882",
+        "author": "P. Mockapetris",
+        "date": "November 1983"
+      },
+      {
+        "title": "DOMAIN NAMES: IMPLEMENTATION AND SPECIFICATION",
+        "rfc": "RFC-883",
+        "author": "P. Mockapetris",
+        "date": "November 1983",
+        "superseded_by": "This memo (RFC 1035)"
+      },
+      {
+        "title": "DOMAIN REQUIREMENTS FOR TOP LEVEL DOMAINS",
+        "rfc": "RFC-920",
+        "author": "J. Postel and J. Reynolds",
+        "date": "October 1984",
+        "focus": "Tops-Level Domain (TLD) naming scheme."
+      },
+      {
+        "title": "NIC NAME SERVER CHANGES AND OBSERVATIONS",
+        "rfc": "RFC-973",
+        "author": "P. Mockapetris",
+        "date": "January 1986",
+        "notes": "Describes changes to RFC-882/883."
+      }
+    ]
+  },
+  "error": "Model gemma4:latest failed the representation contract after one retry: missing required keys: protocol, rfc, pdus, bit_string_types, enumerated_types, structure_types, array_types, parsing_context, helper_functions, transform_functions"
+}

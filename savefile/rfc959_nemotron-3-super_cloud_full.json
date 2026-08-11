@@ -1,0 +1,159 @@
+{
+  "rfc": "959",
+  "model": "nemotron-3-super:cloud",
+  "method": "full",
+  "output": {
+    "protocol": "File Transfer Protocol (FTP)",
+    "rfc": "RFC 959",
+    "pdus": [],
+    "bit_string_types": [],
+    "enumerated_types": [
+      {
+        "name": "page_type_t",
+        "variants": [
+          {
+            "name": "last_page",
+            "type": "integer",
+            "condition": "value == 0"
+          },
+          {
+            "name": "simple_page",
+            "type": "integer",
+            "condition": "value == 1"
+          },
+          {
+            "name": "descriptor_page",
+            "type": "integer",
+            "condition": "value == 2"
+          },
+          {
+            "name": "access_controlled_page",
+            "type": "integer",
+            "condition": "value == 3"
+          }
+        ]
+      }
+    ],
+    "structure_types": [
+      {
+        "name": "block_mode_header",
+        "header_size_bytes": 3,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "descriptor",
+            "display_name": "Descriptor",
+            "offset_bits": 0,
+            "size_bits": 8,
+            "type": null,
+            "optional": false,
+            "presence_condition": null,
+            "description": "Contains flags: bit 7 (128) = End of data block is EOR, bit 6 (64) = EOF, bit 5 (32) = Suspected errors in data block, bit 4 (16) = Data block is a restart marker",
+            "constraints": []
+          },
+          {
+            "name": "byte_count",
+            "display_name": "Byte Count",
+            "offset_bits": 8,
+            "size_bits": 16,
+            "type": null,
+            "optional": false,
+            "presence_condition": null,
+            "description": "Total length of the data block in bytes",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": "data",
+          "offset_bits": 24,
+          "size": "byte_count * 8"
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "page_structure_header",
+        "header_size_bytes": null,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "header_length",
+            "display_name": "Header Length",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": null,
+            "optional": false,
+            "presence_condition": null,
+            "description": "The number of logical bytes in the page header including this byte. The minimum header length is 4.",
+            "constraints": [
+              "header_length >= 4"
+            ]
+          },
+          {
+            "name": "page_index",
+            "display_name": "Page Index",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": null,
+            "optional": false,
+            "presence_condition": null,
+            "description": "The logical page number of this section of the file.",
+            "constraints": []
+          },
+          {
+            "name": "data_length",
+            "display_name": "Data Length",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": null,
+            "optional": false,
+            "presence_condition": null,
+            "description": "The number of logical bytes in the page data. The minimum data length is 0.",
+            "constraints": [
+              "data_length >= 0"
+            ]
+          },
+          {
+            "name": "page_type",
+            "display_name": "Page Type",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "page_type_t",
+            "optional": false,
+            "presence_condition": null,
+            "description": "The type of page this is. 0 = Last Page, 1 = Simple Page, 2 = Descriptor Page, 3 = Access Controlled Page",
+            "constraints": []
+          },
+          {
+            "name": "page_access_control",
+            "display_name": "Page Access Control",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": null,
+            "optional": false,
+            "presence_condition": null,
+            "description": "The access bits associated with the page in the file's page map.",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": "page_data",
+          "offset_bits": null,
+          "size": null
+        },
+        "constraints": [
+          "page_type == 0 => (header_length == 4 && data_length == 0)",
+          "page_type == 1 => header_length == 4",
+          "page_type == 3 => header_length == 5"
+        ],
+        "parse_from": null,
+        "serialize_to": null
+      }
+    ],
+    "array_types": [],
+    "parsing_context": [],
+    "helper_functions": [],
+    "transform_functions": []
+  }
+}

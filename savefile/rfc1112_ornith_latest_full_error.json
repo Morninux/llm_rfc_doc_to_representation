@@ -1,0 +1,12 @@
+{
+  "rfc": "1112",
+  "model": "ornith:latest",
+  "method": "full",
+  "output": {
+    "user": "@",
+    "model_name": "gpt-4o-mini",
+    "prompt": "What is the maximum report delay value D in IGMP as specified in RFC 1112?",
+    "response": "The maximum report delay, **D**, is **10 seconds**.\n\nThis is explicitly stated in RFC 1112 under the \"Protocol Parameters\" section:\n> The maximum report delay, D, is 10 seconds."
+  },
+  "error": "Model ornith:latest failed the representation contract after one retry: missing required keys: protocol, rfc, pdus, bit_string_types, enumerated_types, structure_types, array_types, parsing_context, helper_functions, transform_functions"
+}

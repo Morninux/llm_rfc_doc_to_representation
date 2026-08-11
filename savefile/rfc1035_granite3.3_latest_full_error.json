@@ -1,0 +1,102 @@
+{
+  "rfc": "1035",
+  "model": "granite3.3:latest",
+  "method": "full",
+  "output": {
+    "Standard": "RFC 1035",
+    "Title": "Domain Names - Implementation and Specification",
+    "Number": 1035,
+    "Date": "November 1987",
+    "Authors": [
+      "Paul Mockapetris"
+    ],
+    "Abstract": "This document specifies the data structures and an implementation of the domain system, along with the protocol that is used to access these data structures.",
+    "Keywords": [
+      "domain",
+      "name server",
+      "DNS",
+      "hierarchical names",
+      "resource records"
+    ],
+    "Sections": {
+      "1": {
+        "Title": "Introduction",
+        "Content": "This document specifies the data structures and an implementation of the domain system, along with the protocol that is used to access these data structures."
+      },
+      "2": {
+        "Title": "Terminology",
+        "Content": "Defines terms such as 'domain name', 'resource record', 'zone', 'master server', 'slave server', etc."
+      },
+      "3": {
+        "Title": "Data Structures",
+        "Content": "Describes the data structures used in the domain system, including SOA records, NS records, and various resource records like A, MX, and TXT."
+      },
+      "4": {
+        "Title": "Resource Records",
+        "Content": "Details the types of resource records supported by the DNS, such as A, MX, TXT, PTR, etc., along with their formats and purposes."
+      },
+      "5": {
+        "Title": "In-memory Representation",
+        "Content": "Discusses how domain data is represented in memory, including caching strategies and master-slave server relationships."
+      },
+      "6": {
+        "Title": "Name Server Software",
+        "Content": "Outlines the requirements and general design for name server software."
+      },
+      "7": {
+        "Title": "Stub Resolvers",
+        "Content": "Explains the role of stub resolvers, which are typically found in workstations, in resolving domain names."
+      },
+      "8": {
+        "Title": "Query Format",
+        "Content": "Details the format of DNS queries, including query types (QTYPE), class (QCLASS), and other parameters."
+      },
+      "9": {
+        "Title": "Resolver Algorithm",
+        "Content": "Describes the algorithm that resolvers use to query name servers and obtain domain information."
+      },
+      "10": {
+        "Title": "Data Changes Over Time",
+        "Content": "Discusses how data in the DNS can change over time, including caching and refreshing mechanisms."
+      },
+      "11": {
+        "Title": "Transport Issues",
+        "Content": "Addresses transport layer considerations, particularly the use of UDP for DNS queries and responses."
+      },
+      "12": {
+        "Title": "Security Considerations",
+        "Content": "Discusses security issues related to the domain system, including potential vulnerabilities and mitigation strategies."
+      },
+      "13": {
+        "Title": "Application Issues",
+        "Content": "Examines how applications can interface with the DNS for name resolution."
+      },
+      "References": [
+        "RFC-742: K. Harrenstien, 'NAME/FINGER'",
+        "RFC-768: J. Postel, 'User Datagram Protocol'",
+        "RFC-793: J. Postel, 'Transmission Control Protocol'",
+        "RFC-799: D. Mills, 'Internet Name Domains'",
+        "RFC-805: J. Postel, 'Computer Mail Meeting Notes'",
+        "RFC-810: E. Feinler, K. Harrenstien, Z. Su, and V. White, 'DOD Internet Host Table Specification'",
+        "RFC-811: K. Harrenstien, V. White, and E. Feinler, 'Hostname Server'",
+        "RFC-812: K. Harrenstien, and V. White, 'NICNAME/WHOIS'",
+        "RFC-819: Z. Su, and J. Postel, 'The Domain Naming Convention for Internet User Applications'",
+        "RFC-821: J. Postel, 'Simple Mail Transfer Protocol'",
+        "RFC-830: Z. Su, 'A Distributed System for Internet Name Service'",
+        "RFC-882: P. Mockapetris, 'Domain names - Concepts and Facilities'",
+        "RFC-883: P. Mockapetris, 'Domain names - Implementation and Specification'",
+        "RFC-920: J. Postel and J. Reynolds, 'Domain Requirements'",
+        "RFC-952: K. Harrenstien, M. Stahl, E. Feinler, 'DoD Internet Host Table Specification'",
+        "RFC-953: K. Harrenstien, M. Stahl, E. Feinler, 'HOSTNAME Server'",
+        "RFC-973: P. Mockapetris, 'Domain System Changes and Observations'",
+        "RFC-974: C. Partridge, 'Mail routing and the domain system'",
+        "RFC-1001: NetBIOS Working Group, 'Protocol standard for a NetBIOS service on a TCP/UDP transport: Concepts and Methods'",
+        "RFC-1002: NetBIOS Working Group, 'Protocol standard for a NetBIOS service on a TCP/UDP transport: Detailed Specifications'",
+        "RFC-1010: J. Reynolds, and J. Postel, 'Assigned Numbers'",
+        "RFC-1031: W. Lazear, 'MILNET Name Domain Transition'",
+        "RFC-1032: M. Stahl, 'Establishing a Domain - Guidelines for Administrators'"
+      ]
+    }
+  },
+  "error": "Model granite3.3:latest failed the representation contract after one retry: missing required keys: protocol, rfc, pdus, bit_string_types, enumerated_types, structure_types, array_types, parsing_context, helper_functions, transform_functions"
+}

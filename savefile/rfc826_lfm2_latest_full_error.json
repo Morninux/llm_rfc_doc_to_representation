@@ -1,0 +1,9 @@
+{
+  "rfc": "826",
+  "model": "lfm2:latest",
+  "method": "full",
+  "output": {
+    "answer": "The target hardware address refers to the unique identifier assigned to a network interface card (NIC) for communication on an Ethernet network. It is typically a 48-bit hexadecimal value represented as six pairs of bytes, such as `00:1A:2B:3C:4D:5E`. This address is crucial for direct device-to-device communication in local area networks (LANs)."
+  },
+  "error": "Model lfm2:latest failed the representation contract after one retry: missing required keys: protocol, rfc, pdus, bit_string_types, enumerated_types, structure_types, array_types, parsing_context, helper_functions, transform_functions"
+}

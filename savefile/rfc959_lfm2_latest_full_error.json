@@ -1,0 +1,44 @@
+{
+  "rfc": "959",
+  "model": "lfm2:latest",
+  "method": "full",
+  "output": {
+    "title": "File Transfer Protocol (FTP)",
+    "date": "16 April 1971",
+    "status": "Proposed Standard",
+    "type": "MIME-Text",
+    "author": "Jon Postel and Eric Harslem",
+    "abstract": "Defines a user interface for file transfer between hosts using a set of simple commands. Emphasizes efficiency, simplicity, and extensibility.",
+    "references": [
+      {
+        "title": "Comments on RFC 114 (A File Transfer Protocol)",
+        "rfc_number": "141",
+        "date": "29 April 1971"
+      },
+      {
+        "title": "The File Transfer Protocol",
+        "rfc_number": "172",
+        "date": "23 June 1971"
+      },
+      {
+        "title": "Comments on DTP and FTP Proposals",
+        "rfc_number": "238",
+        "date": "29 September 1971"
+      },
+      {
+        "title": "The File Transfer Protocol",
+        "rfc_number": "265",
+        "date": "17 November 1971"
+      }
+    ],
+    "keywords": [
+      "File Transfer",
+      "Protocol",
+      "MIME-Text",
+      "Command Interface",
+      "Efficiency",
+      "Extensibility"
+    ]
+  },
+  "error": "Model lfm2:latest failed the representation contract after one retry: missing required keys: protocol, rfc, pdus, bit_string_types, enumerated_types, structure_types, array_types, parsing_context, helper_functions, transform_functions"
+}

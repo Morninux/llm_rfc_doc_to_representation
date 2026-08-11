@@ -1,0 +1,10 @@
+{
+  "rfc": "854",
+  "model": "minicpm-v4.6:latest",
+  "method": "full",
+  "output": {
+    "response": "The sequence \"CR LF\" causes the NVT to be positioned at the left margin of the next print line, and should be treated as a single new line character. It must be used when combining carriage return and line feed effects are intended; \"CR NUL\" is for carriage return alone; and \"CR\" should be avoided in other contexts. Both \"CR LF\" and \"CR NUL\" are required in both directions.",
+    "check_answer": "true"
+  },
+  "error": "Model minicpm-v4.6:latest failed the representation contract after one retry: missing required keys: protocol, rfc, pdus, bit_string_types, enumerated_types, structure_types, array_types, parsing_context, helper_functions, transform_functions"
+}

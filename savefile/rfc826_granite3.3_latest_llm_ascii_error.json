@@ -1,0 +1,37 @@
+{
+  "rfc": "826",
+  "model": "granite3.3:latest",
+  "method": "llm_ascii",
+  "output": {
+    "Scenario": "An example involving machines X and Y connected on the same 10Mbit Ethernet cable with specific Ethernet addresses (EA(X) and EA(Y)) and DOD Internet addresses (IPA(X) and IPA(Y)). The Ethernet type for Internet is ET(IP). Machine X, upon start, wants to send an Internet packet to machine Y on the same cable but initially lacks the necessary Ethernet address conversion information.",
+    "Steps": [
+      {
+        "Step": 1,
+        "Action": "Machine X knows it needs to send to IPA(Y) and informs its Ethernet driver with IPA(Y)."
+      },
+      {
+        "Step": 2,
+        "Action": "The Ethernet driver consults the Address Resolution (ARP) module to convert <ET(IP), IPA(Y)> into a 48-bit Ethernet address."
+      },
+      {
+        "Step": 3,
+        "Action": "Since Machine X has just started and does not have the conversion information stored, it discards any attempted Internet packet transmission to Y."
+      },
+      {
+        "Step": 4,
+        "Action": "Instead of transmitting the Internet packet, Machine X constructs an ARP request packet with the following details:"
+      },
+      {
+        "Sub-step": "arp$hrd = ares_hrd$Ethernet"
+      },
+      {
+        "Sub-step": "arp$pro = ET(IP)"
+      },
+      {
+        "Sub-step": "arp$hln = length(EA(X))"
+      }
+    ],
+    "Outcome": "The ARP request packet, broadcast over the Ethernet, allows a monitor to capture and debug if needed. This process helps in populating the ARP table with the missing Ethernet address <IPA(Y), EA(Y)>. Once this information is obtained, Machine X can successfully transmit Internet packets to Y in future communications."
+  },
+  "error": "Model granite3.3:latest failed the representation contract after one retry: missing required keys: protocol, rfc, pdus, bit_string_types, enumerated_types, structure_types, array_types, parsing_context, helper_functions, transform_functions"
+}

@@ -1,0 +1,9 @@
+{
+  "rfc": "1191",
+  "model": "minicpm-v4.6:latest",
+  "method": "full",
+  "output": {
+    "text": "7.1. A better way to detect PMTU increases\n\nSection 6.3 suggests detecting increases in the PMTU value by periodically increasing the PTMU estimate to the first-hop MTU.\nSince it is likely that this process will simply \"rediscover\" the current PTMU estimate, at the cost of several dropped datagrams, it should not be done often.\n\nA better approach is to periodically increase the PMTU estimate to the next-highest value in the plateau table (or the first-hop MTU, if that is smaller).  If the increased estimate is wrong, at most one round-trip time is wasted before the correct value is rediscovered.\nIf the increased estimate is still too low, a higher estimate will be attempted somewhat later.\n\nBecause it may take several such periods to discover a significant increase in the PMTU, we recommend that a short timeout period should be used after the estimate is increased, and a longer timeout be used"
+  },
+  "error": "Model minicpm-v4.6:latest failed the representation contract after one retry: missing required keys: protocol, rfc, pdus, bit_string_types, enumerated_types, structure_types, array_types, parsing_context, helper_functions, transform_functions"
+}

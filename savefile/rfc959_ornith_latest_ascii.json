@@ -1,0 +1,164 @@
+{
+  "rfc": "959",
+  "model": "ornith:latest",
+  "method": "ascii",
+  "output": {
+    "protocol": "FTP",
+    "rfc": "RFC 959 - File Transfer Protocol",
+    "pdus": [
+      "Block Header",
+      "Byte String",
+      "Replicated Byte"
+    ],
+    "bit_string_types": [
+      {
+        "name": "block_header_byte_0",
+        "size_bits": 8,
+        "description": "Descriptor byte: bit flags indicating EOR (128), EOF (64), suspected errors (32), restart marker (16)"
+      },
+      {
+        "name": "byte_string_count_byte",
+        "size_bits": 9,
+        "description": "Leading byte of a byte string: MSB=0, lower 7 bits contain count n (1 to 127)"
+      },
+      {
+        "name": "replicated_byte_header",
+        "size_bits": 8,
+        "description": "First byte of compressed data: MSB=1, second bit=0, lower 6 bits contain replication count n"
+      }
+    ],
+    "enumerated_types": [],
+    "structure_types": [
+      {
+        "name": "block_header",
+        "header_size_bytes": null,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "descriptor_byte",
+            "display_name": "Descriptor",
+            "offset_bits": 0,
+            "size_bits": 8,
+            "type": "bit_string_type",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Contains bit flags: EOR (128), EOF (64), suspected errors (32), restart marker (16). Multiple bits may be flagged.",
+            "constraints": []
+          },
+          {
+            "name": "byte_count",
+            "display_name": "Byte Count",
+            "offset_bits": 8,
+            "size_bits": null,
+            "type": "bit_string_type",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Number of bytes in the data block following this header.",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": "data_block_payload",
+          "offset_bits": 16,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "byte_string",
+        "header_size_bytes": null,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "count_byte",
+            "display_name": "Byte String Count",
+            "offset_bits": 0,
+            "size_bits": 9,
+            "type": "bit_string_type",
+            "optional": null,
+            "presence_condition": null,
+            "description": "MSB=0, lower 7 bits contain count n of regular data bytes. Count must be positive (1 to 127).",
+            "constraints": [
+              "count >= 1"
+            ]
+          },
+          {
+            "name": "data_bytes",
+            "display_name": "Data Bytes",
+            "offset_bits": 9,
+            "size_bits": null,
+            "type": "bit_string_type",
+            "optional": null,
+            "presence_condition": null,
+            "description": "n bytes of regular data d(1),...,d(n) following the count byte.",
+            "constraints": [
+              "length == count - 9"
+            ]
+          }
+        ],
+        "payload": {
+          "name": "byte_string_payload",
+          "offset_bits": null,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "replicated_byte",
+        "header_size_bytes": null,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "count_byte",
+            "display_name": "Replication Count Byte",
+            "offset_bits": 0,
+            "size_bits": 8,
+            "type": "bit_string_type",
+            "optional": null,
+            "presence_condition": null,
+            "description": "MSB=1, second bit=0, lower 6 bits contain replication count n.",
+            "constraints": []
+          },
+          {
+            "name": "data_byte",
+            "display_name": "Replicated Data Byte",
+            "offset_bits": 8,
+            "size_bits": 8,
+            "type": "bit_string_type",
+            "optional": null,
+            "presence_condition": null,
+            "description": "The data byte d that is replicated n times.",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": "replicated_byte_payload",
+          "offset_bits": 16,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      }
+    ],
+    "array_types": [
+      {
+        "name": "byte_string_data",
+        "element_type": "bit_string_type",
+        "length": "count - 9"
+      },
+      {
+        "name": "replicated_byte_replications",
+        "element_type": "bit_string_type",
+        "length": null
+      }
+    ],
+    "parsing_context": [],
+    "helper_functions": [],
+    "transform_functions": []
+  }
+}

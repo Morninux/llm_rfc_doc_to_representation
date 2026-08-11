@@ -1,0 +1,36 @@
+{
+  "rfc": "1191",
+  "model": "gemma4:latest",
+  "method": "full",
+  "output": {
+    "summary": "This document describes Path MTU Discovery (PMTUD), a mechanism to determine the largest packet size (MTU) that can traverse all links along a communication path. It outlines technical recommendations for implementing PMTUD, suggests additions to common MTU tables, proposes an improved method for periodically increasing the PMTU estimate, and discusses security considerations related to malicious manipulation of Datagram Too Big messages.",
+    "sections": [
+      {
+        "title": "Common MTUs (Table 7-1)",
+        "content_summary": "A table lists common Maximum Transmission Unit (MTU) values used in various networking standards and protocols, ranging from the official maximum of 65535 to an official minimum of 68. Examples include IEEE 802.5 (4Mb max) at 4464, Ethernet Networks at 1500, and X.25 Networks at 576.",
+        "key_details": [
+          "The table covers MTUs for standards like Hyperchannel (RFC 1044), IEEE 802.4, FDDI (Revised) (RFC 1188), and Ethernet Networks (RFC 894).",
+          "Recommended additions include entries near small powers of 2 plus 40 (for IP/TCP headers) and slightly less than large powers of 2 (to favor lower estimates)."
+        ]
+      },
+      {
+        "title": "A better way to detect PMTU increases",
+        "content_summary": "The document criticizes the idea of frequently resetting the PMTU estimate to the first-hop MTU, as this wastes resources. It proposes a superior approach: periodically increasing the PMTU estimate to the next-highest value listed in the 'plateau table' (or the smaller first-hop MTU). This minimizes wasted effort; if the guess is wrong, only one round-trip time is lost.",
+        "key_details": [
+          "The new approach involves stepping through predefined MTU plateaus rather than repeatedly checking the first-hop limit.",
+          "It recommends setting a short timeout after an increase and a longer timeout after a decrease. The minimum timeout should never be shorter than the estimated round-trip time."
+        ]
+      },
+      {
+        "title": "Security considerations",
+        "content_summary": "PMTUD is susceptible to Denial-of-Service (DoS) attacks based on malicious actors sending false 'Datagram Too Big' messages. The text details two primary attack vectors and suggests mitigation strategies.",
+        "key_details": [
+          "**Small PMTU Attack:** False messages reporting a much smaller MTU can slow data flow, though the victim should never drop below an absolute minimum (e.g., 8 octets).",
+          "**Large PMTU Attack:** False high reports could cause temporary blockages as the host sends oversized packets that are dropped. Mitigation relies on the host correctly discarding any attempt to raise its PMTU estimate based solely on a 'Datagram Too Big' message.",
+          "Stopping reception of legitimate messages is noted as a separate, simpler DoS concern."
+        ]
+      }
+    ]
+  },
+  "error": "Model gemma4:latest failed the representation contract after one retry: missing required keys: protocol, rfc, pdus, bit_string_types, enumerated_types, structure_types, array_types, parsing_context, helper_functions, transform_functions"
+}

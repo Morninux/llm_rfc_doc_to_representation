@@ -1,0 +1,57 @@
+{
+  "rfc": "1112",
+  "model": "granite3.3:latest",
+  "method": "full",
+  "output": {
+    "RFC": {
+      "number": "1112",
+      "title": "Host Extensions for IP Multicasting",
+      "authorship": {
+        "authors": [
+          {
+            "name": "Steve Deering",
+            "organization": "Stanford University"
+          }
+        ]
+      },
+      "abstract": "This RFC describes a set of extensions to the Internet Protocol (IP) and the Address Resolution Protocol (ARP) that allows IP multicasting. It includes specifications for IGMP, which is used by hosts for joining or leaving multicast groups, and describes how IP layer multicast addresses are assigned.",
+      "sections": [
+        {
+          "title": "Introduction",
+          "content": "This RFC introduces the concept of Internet Protocol (IP) multicasting, where datagrams can be sent to a group of hosts, identified by a multicast address. It explains the purpose and benefits of multicasting."
+        },
+        {
+          "title": "Multicast Address Assignment",
+          "content": "The RFC describes how multicast addresses are assigned using the Internet Assigned Numbers Authority (IANA). It includes rules for allocating Class D IP addresses, which range from 224.0.0.0 to 239.255.255.255."
+        },
+        {
+          "title": "IGMP: The Internet Group Management Protocol",
+          "content": "This section details the Internet Group Management Protocol (IGMP), used by hosts to communicate their multicast group memberships to adjacent multicast routers. IGMP specifies how hosts declare themselves as members of particular multicast groups, and how they can leave such groups."
+        },
+        {
+          "title": "Multicast Router Discovery",
+          "content": "The RFC describes the method for multicast routers to discover each other and establish connectivity, enabling the forwarding of multicast traffic across networks. This involves sending out router advertisement messages with a special multicast IP address."
+        },
+        {
+          "title": "IP Multicasting Datagram Format",
+          "content": "This section details how datagrams are formatted for multicast delivery, including the use of the destination IP address field to specify multicast addresses and the implications for the Time-To-Live (TTL) field in the IP header."
+        },
+        {
+          "title": "Host Requirements for Multicasting",
+          "content": "The RFC outlines requirements for host implementations to support multicasting, such as handling IGMP messages, managing report delays, and ensuring proper processing of multicast datagrams."
+        },
+        {
+          "title": "Appendix I: Host Behavior",
+          "content": "This appendix provides a detailed state transition diagram describing how hosts should manage their multicast group memberships using the IGMP protocol."
+        },
+        {
+          "title": "Appendix II: Host Group Address Issues",
+          "content": "The appendix discusses issues related to IP host group addresses, such as binding mechanisms and transient address allocation, noting that IP host group addresses do not directly correlate with unicast IP addresses or specific hosts."
+        }
+      ],
+      "date": "August 1989",
+      "status": "INFORMATIONAL"
+    }
+  },
+  "error": "Model granite3.3:latest failed the representation contract after one retry: missing required keys: protocol, rfc, pdus, bit_string_types, enumerated_types, structure_types, array_types, parsing_context, helper_functions, transform_functions"
+}

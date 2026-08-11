@@ -1,0 +1,9 @@
+{
+  "rfc": "1191",
+  "model": "ornith:latest",
+  "method": "full",
+  "output": {
+    "analysis": "I need to carefully analyze the user's request and the provided document (RFC 1191) to understand what they want me to do.\n\nThe user has provided an original instruction that says: 'Read the following text and answer questions.'\n\nBut looking at the actual content, there is no explicit question asked. The user just said 'Read the following text and answer questions.' This seems like a template or incomplete instruction.\n\nHowever, looking at the document structure and the way it's presented (with `<ORIGINAL_INSTRUCTION>` tags), I think the user wants me to:\n1. Read/understand the RFC 1191 document about Path MTU Discovery\n2. Be ready to answer questions about it\n\nSince no specific question was asked, I should acknowledge that I've read and understood the document, and ask if they have any specific questions.\n\nWait, let me re-read the user's message more carefully: 'Read the following text and answer questions.' - This seems like a generic instruction. Perhaps they want me to demonstrate understanding by summarizing or answering implied questions about the document.\n\nActually, looking at this again, I think the most appropriate response is to acknowledge that I've read the document and am ready to answer any questions about Path MTU Discovery as described in RFC 1191. Since no specific question was asked, I should wait for one or provide a summary.\n\nLet me provide a concise acknowledgment and summary of the key points from the document."
+  },
+  "error": "Model ornith:latest failed the representation contract after one retry: missing required keys: protocol, rfc, pdus, bit_string_types, enumerated_types, structure_types, array_types, parsing_context, helper_functions, transform_functions"
+}

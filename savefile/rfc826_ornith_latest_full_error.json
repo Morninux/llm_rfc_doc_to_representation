@@ -1,0 +1,61 @@
+{
+  "rfc": "826",
+  "model": "ornith:latest",
+  "method": "full",
+  "output": {
+    "user_intent": "The user wants me to summarize the provided RFC document (RFC 826 - Address Resolution Protocol) in a structured way.",
+    "document_analysis": {
+      "title": "Address Resolution Protocol",
+      "author": "David R. Pogson",
+      "date": "1982-03-01",
+      "abstract_summary": "Describes how hardware and protocol addresses are translated on local networks, specifically Ethernet.",
+      "sections_identified": [
+        {
+          "section": "1. Introduction",
+          "content": "Explains the need for address translation (hardware to protocol), mentions ARP as a name for this process."
+        },
+        {
+          "section": "2. The Problem with Hardware Addresses",
+          "content": "Hardware addresses are 48-bit and opaque, while network protocols use shorter addresses like Internet Protocol's 32-bit addresses. This mismatch causes routing issues on local networks."
+        },
+        {
+          "section": "3. Network Addressing",
+          "content": "Compares Ethernet (48-bit) vs DECnet/FDDI (60-bit) and discusses how protocols like CHAOS, Internet, PUP, and DECnet use different address lengths."
+        },
+        {
+          "section": "4. The Address Resolution Protocol",
+          "content": "Defines the packet structure with fields like ar$hrd, ar$pro, ar$hln, etc. Describes how packets are constructed for requests and replies."
+        },
+        {
+          "section": "5. ARP Operations",
+          "content": "Explains REQUEST vs REPLY opcodes, broadcasting requests, and direct replies."
+        },
+        {
+          "section": "6. Network Monitoring",
+          "content": "Describes how a monitor can use ARP to debug other protocols without understanding them by observing hardware/protocol address mappings."
+        },
+        {
+          "section": "7. Example",
+          "content": "Walks through a scenario where machines X and Y communicate via Internet protocol on Ethernet, showing the request-reply cycle."
+        },
+        {
+          "section": "8. Related Issues (Aging/Timeouts)",
+          "content": "Discusses table aging, timeouts for moved hosts, daemon-based timeout mechanisms, and resetting tables manually."
+        }
+      ],
+      "key_concepts": [
+        "ARP",
+        "Ethernet",
+        "Address Resolution",
+        "REQUEST/REPLY",
+        "Broadcasting",
+        "Network Monitoring"
+      ],
+      "formatting_notes": [
+        "Document is in plain text with some ASCII art representations of packet structures.",
+        "Uses $ sign for field names (e.g., ar$hrd)."
+      ]
+    }
+  },
+  "error": "Model ornith:latest failed the representation contract after one retry: missing required keys: protocol, rfc, pdus, bit_string_types, enumerated_types, structure_types, array_types, parsing_context, helper_functions, transform_functions"
+}

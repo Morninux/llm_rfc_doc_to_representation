@@ -1,0 +1,11 @@
+{
+  "rfc": "1035",
+  "model": "lfm2:latest",
+  "method": "ascii",
+  "output": {
+    "question": "Which RFC defines the format and semantics of DNS resource records (RRs), including TTL, class, type, and data fields?",
+    "answer": "RFC 1035 (Domain Implementation and Specification)",
+    "additional_info": "RRs specify the meaning of data in the RDATA field for a domain name. TTL is a 32-bit unsigned integer indicating how long the RR can be cached. Common types include A (IPv4 address), AAAA (IPv6 address), MX (mail exchange), NS (name server), and CNAME (alias)."
+  },
+  "error": "Model lfm2:latest failed the representation contract after one retry: missing required keys: protocol, rfc, pdus, bit_string_types, enumerated_types, structure_types, array_types, parsing_context, helper_functions, transform_functions"
+}

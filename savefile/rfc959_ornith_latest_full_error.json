@@ -1,0 +1,10 @@
+{
+  "rfc": "959",
+  "model": "ornith:latest",
+  "method": "full",
+  "output": {
+    "role": "user",
+    "content": "Thank you for the context. I understand the protocol and history.\n\nNow let's start a new conversation where I can ask questions or discuss things about FTP:\n"
+  },
+  "error": "Model ornith:latest failed the representation contract after one retry: missing required keys: protocol, rfc, pdus, bit_string_types, enumerated_types, structure_types, array_types, parsing_context, helper_functions, transform_functions"
+}

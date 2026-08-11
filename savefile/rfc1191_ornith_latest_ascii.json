@@ -1,0 +1,147 @@
+{
+  "rfc": "1191",
+  "model": "ornith:latest",
+  "method": "ascii",
+  "output": {
+    "protocol": "ICMP",
+    "rfc": "RFC 1191 - Path MTU Discovery",
+    "pdus": [
+      "icmp_type_3_code_4"
+    ],
+    "bit_string_types": [
+      {
+        "name": "icmp_header",
+        "size_bits": null,
+        "description": "ICMP header containing Type, Code, Checksum fields"
+      },
+      {
+        "name": "next_hop_mtu_field",
+        "size_bits": 16,
+        "description": "Low-order 16 bits of ICMP unused field carrying Next-Hop MTU value"
+      }
+    ],
+    "enumerated_types": [
+      {
+        "name": "icmp_message_type",
+        "variants": [
+          {
+            "name": "destination_unreachable",
+            "type": "bit_string",
+            "condition": "type == 3"
+          }
+        ]
+      },
+      {
+        "name": "icmp_destination_unreachable_code",
+        "variants": [
+          {
+            "name": "fragmentation_needed_df_set",
+            "type": "bit_string",
+            "condition": "code == 4"
+          }
+        ]
+      }
+    ],
+    "structure_types": [
+      {
+        "name": "icmp_type_3_code_4_packet",
+        "header_size_bytes": null,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "type_field",
+            "display_name": "Type",
+            "offset_bits": 0,
+            "size_bits": 8,
+            "type": "enumerated",
+            "optional": false,
+            "presence_condition": null,
+            "description": "ICMP Type field with value 3 for Destination Unreachable",
+            "constraints": [
+              "type == 3"
+            ]
+          },
+          {
+            "name": "code_field",
+            "display_name": "Code",
+            "offset_bits": 8,
+            "size_bits": 8,
+            "type": "enumerated",
+            "optional": false,
+            "presence_condition": null,
+            "description": "ICMP Code field with value 4 for fragmentation needed and DF set",
+            "constraints": [
+              "code == 4"
+            ]
+          },
+          {
+            "name": "checksum_field",
+            "display_name": "Checksum",
+            "offset_bits": 16,
+            "size_bits": 16,
+            "type": "bit_string",
+            "optional": false,
+            "presence_condition": null,
+            "description": "ICMP Checksum field"
+          },
+          {
+            "name": "unused_field_high",
+            "display_name": "Unused (High)",
+            "offset_bits": 32,
+            "size_bits": 16,
+            "type": "bit_string",
+            "optional": false,
+            "presence_condition": null,
+            "description": "High-order 16 bits of ICMP unused field, must be set to zero",
+            "constraints": [
+              "unused_high == 0"
+            ]
+          },
+          {
+            "name": "next_hop_mtu_field",
+            "display_name": "Next-Hop MTU",
+            "offset_bits": 48,
+            "size_bits": 16,
+            "type": "bit_string",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Low-order 16 bits of ICMP unused field carrying the Next-Hop MTU value",
+            "constraints": []
+          },
+          {
+            "name": "original_datagram_data",
+            "display_name": "Original Datagram Data",
+            "offset_bits": 64,
+            "size_bits": null,
+            "type": "bit_string",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Internet Header plus 64 bits of original datagram data"
+          }
+        ],
+        "payload": {
+          "name": "original_datagram_data_payload",
+          "offset_bits": 64,
+          "size": null
+        },
+        "constraints": [
+          "type == 3",
+          "code == 4",
+          "unused_high == 0"
+        ],
+        "parse_from": null,
+        "serialize_to": null
+      }
+    ],
+    "array_types": [],
+    "parsing_context": [
+      {
+        "name": "icmp_original_datagram",
+        "type": "bit_string",
+        "description": "The original datagram that triggered the ICMP message, whose Internet Header and first 64 bits of data are included in the ICMP packet"
+      }
+    ],
+    "helper_functions": [],
+    "transform_functions": []
+  }
+}

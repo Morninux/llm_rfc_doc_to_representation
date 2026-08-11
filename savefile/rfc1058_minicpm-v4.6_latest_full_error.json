@@ -1,0 +1,17 @@
+{
+  "rfc": "1058",
+  "model": "minicpm-v4.6:latest",
+  "method": "full",
+  "output": {
+    "model._meta": {
+      "modified": "2025-11-04T16:57:17Z",
+      "created": "2025-11-04T16:57:17Z"
+    },
+    "formatted_rfc_content": "ヅイランジラン (RFC 1058)、。\n、、If, after split horizon processing, a changed route will appear identical on a network as it did previously, the route need not be sent; if, as a result, no routes need be sent, the update may be omitted on that network. (If a route had only a metric change, or uses a new gateway that is on the same network as the old gateway, the route will be sent to the network of the old gateway with a metric of infinity both before and after the change.) Once all of the triggered updates have been generated, the route change flags should be cleared.",
+    "model_user_context": {
+      "modified": "2025-11-04T16:57:17Z"
+    },
+    "custom_headers": null
+  },
+  "error": "Model minicpm-v4.6:latest failed the representation contract after one retry: missing required keys: protocol, rfc, pdus, bit_string_types, enumerated_types, structure_types, array_types, parsing_context, helper_functions, transform_functions"
+}

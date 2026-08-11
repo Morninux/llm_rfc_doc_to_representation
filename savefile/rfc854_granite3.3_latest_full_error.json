@@ -1,0 +1,175 @@
+{
+  "rfc": "854",
+  "model": "granite3.3:latest",
+  "method": "full",
+  "output": {
+    "title": "TELNET Protocol Specification",
+    "version": "RFC 854 - May 1983",
+    "authors": [
+      "Jon Postel, Bob Braden"
+    ],
+    "publication_date": "May 1983",
+    "abstract": "This RFC defines the TELNET protocol which is a standard method for communicating with remote hosts via a network. It specifies the Network Virtual Terminal (NVT) as an abstract character-at-a-time model, the TELNET command set, and connection establishment procedures.",
+    "sections": [
+      {
+        "number": 1,
+        "title": "Introduction",
+        "content": "TELNET is a network protocol used for remote terminal connections. It provides standardized methods to communicate with a remote host over a network."
+      },
+      {
+        "number": 2,
+        "title": "Network Virtual Terminal (NVT)",
+        "content": "The NVT abstracts common characteristics of various terminal types to provide a consistent interface for remote terminal access."
+      },
+      {
+        "number": 3,
+        "title": "Character Set",
+        "content": "TELNET uses the USASCII character set by default. The NVT keyboard can generate all 128 USASCII codes and additional keys for specific functions.",
+        "key_descriptions": [
+          {
+            "name": "CR",
+            "description": "Carriage Return - Moves the printer to the beginning of the current line."
+          },
+          {
+            "name": "LF",
+            "description": "Line Feed - Moves the printer to the next line."
+          },
+          {
+            "name": "FF",
+            "description": "Form Feed - Moves the printer to the top of the next page."
+          },
+          {
+            "name": "Synch",
+            "description": "Allows the user to clear their data path to the other party."
+          },
+          {
+            "name": "Break (BRK)",
+            "description": "A signal outside the USASCII set, currently given local meaning within many systems, indicating the Break Key or Attention Key was hit."
+          },
+          {
+            "name": "Interrupt Process (IP)",
+            "description": "Suspends, interrupts, aborts, or terminates the process connected to the NVT."
+          },
+          {
+            "name": "Abort Output (AO)",
+            "description": "Allows the current process to complete without sending output to the user and sends a Synch to the user."
+          },
+          {
+            "name": "Are You There (AYT)",
+            "description": "Requests evidence that the AYT was received, typically in the form of visible characters."
+          },
+          {
+            "name": "Erase Character (EC)",
+            "description": "Deletes the last preceding undeleted character from the data stream."
+          },
+          {
+            "name": "Erase Line (EL)",
+            "description": "Deletes characters from the data stream back to but not including the previous 'CR LF' sequence."
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "title": "TELNET Command Structure",
+        "content": "All TELNET commands are at least two bytes long: the Interpret as Command (IAC) escape character followed by a command code. Option negotiation commands are three-byte sequences, with the third byte indicating the referenced option."
+      },
+      {
+        "number": 5,
+        "title": "TELNET Commands",
+        "content": "A list of defined TELNET commands including their codes and meanings.",
+        "commands": [
+          {
+            "code": 240,
+            "name": "SE",
+            "meaning": "End of subnegotiation parameters."
+          },
+          {
+            "code": 241,
+            "name": "NOP",
+            "meaning": "No operation."
+          },
+          {
+            "code": 242,
+            "name": "Data Mark",
+            "meaning": "Part of the Synch, should always be accompanied by a TCP Urgent notification."
+          },
+          {
+            "code": 243,
+            "name": "Break",
+            "meaning": "NVT character BRK."
+          },
+          {
+            "code": 244,
+            "name": "Interrupt Process",
+            "meaning": "The function IP."
+          },
+          {
+            "code": 245,
+            "name": "Abort output",
+            "meaning": "The function AO."
+          },
+          {
+            "code": 246,
+            "name": "Are You There",
+            "meaning": "The function AYT."
+          },
+          {
+            "code": 247,
+            "name": "Erase character",
+            "meaning": "The function EC."
+          },
+          {
+            "code": 248,
+            "name": "Erase Line",
+            "meaning": "The function EL."
+          },
+          {
+            "code": 249,
+            "name": "Go ahead",
+            "meaning": "The GA signal."
+          },
+          {
+            "code": 250,
+            "name": "SB",
+            "meaning": "Indicates that what follows is subnegotiation of the indicated option."
+          },
+          {
+            "code": 251,
+            "name": "WILL (option code)",
+            "meaning": "Indicates the desire to begin performing, or confirmation that you are now performing, the indicated option."
+          },
+          {
+            "code": 252,
+            "name": "WON'T (option code)",
+            "meaning": "Indicates the refusal to perform, or continue performing, the indicated option."
+          },
+          {
+            "code": 253,
+            "name": "DO (option code)",
+            "meaning": "Indicates the request that the other party perform, or confirmation that you are expecting the other party to perform, the indicated option."
+          },
+          {
+            "code": 254,
+            "name": "DON'T (option code)",
+            "meaning": "Indicates the demand that the other party stop performing, or confirmation that you are no longer expecting the other party to perform, the indicated option."
+          },
+          {
+            "code": 255,
+            "name": "IAC",
+            "meaning": "Data Byte 255."
+          }
+        ]
+      },
+      {
+        "number": 6,
+        "title": "Connection Establishment",
+        "content": "The TELNET connection is established between a user's port (U) and the server's well-known port (L=23 for remote terminal access). The server listens on its port L for incoming connections.",
+        "port_assignment": {
+          "server_port": 23,
+          "comment": "Used for remote user access to service hosts (remote terminal access)."
+        }
+      }
+    ]
+  },
+  "error": "Model granite3.3:latest failed the representation contract after one retry: missing required keys: protocol, rfc, pdus, bit_string_types, enumerated_types, structure_types, array_types, parsing_context, helper_functions, transform_functions"
+}

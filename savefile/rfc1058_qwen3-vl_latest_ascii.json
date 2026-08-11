@@ -1,0 +1,144 @@
+{
+  "rfc": "1058",
+  "model": "qwen3-vl:latest",
+  "method": "ascii",
+  "output": {
+    "protocol": "RIP",
+    "rfc": "RFC 1058",
+    "pdus": [
+      "RIPv1 Datagram"
+    ],
+    "bit_string_types": [
+      {
+        "name": "command",
+        "size_bits": 8,
+        "description": "Command field indicating the purpose of the packet."
+      },
+      {
+        "name": "version",
+        "size_bits": 8,
+        "description": "Version number (must be zero for version 1)."
+      },
+      {
+        "name": "address_family_identifier",
+        "size_bits": 16,
+        "description": "Address family identifier (2 octets)."
+      },
+      {
+        "name": "ip_address",
+        "size_bits": 32,
+        "description": "IP address (4 octet Internet address in network order)."
+      },
+      {
+        "name": "metric",
+        "size_bits": 32,
+        "description": "Metric value for routing information."
+      }
+    ],
+    "enumerated_types": [
+      {
+        "name": "command_field",
+        "variants": [
+          {
+            "name": "request",
+            "type": "string",
+            "condition": null
+          },
+          {
+            "name": "response",
+            "type": "string",
+            "condition": null
+          }
+        ]
+      }
+    ],
+    "structure_types": [
+      {
+        "name": "RIPv1 Datagram",
+        "header_size_bytes": 24,
+        "byte_order": "big_endian",
+        "fields": [
+          {
+            "name": "command",
+            "display_name": "Command",
+            "offset_bits": 0,
+            "size_bits": 8,
+            "type": "bit_string",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Command field indicating the purpose of the packet.",
+            "constraints": []
+          },
+          {
+            "name": "version",
+            "display_name": "Version",
+            "offset_bits": 8,
+            "size_bits": 8,
+            "type": "bit_string",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Version number (must be zero for version 1).",
+            "constraints": [
+              "value == 0"
+            ]
+          },
+          {
+            "name": "address_family_identifier",
+            "display_name": "Address Family Identifier",
+            "offset_bits": 16,
+            "size_bits": 16,
+            "type": "bit_string",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Address family identifier (2 octets).",
+            "constraints": [
+              "value == 0"
+            ]
+          },
+          {
+            "name": "ip_address",
+            "display_name": "IP Address",
+            "offset_bits": 32,
+            "size_bits": 32,
+            "type": "bit_string",
+            "optional": false,
+            "presence_condition": null,
+            "description": "IP address (4 octet Internet address in network order).",
+            "constraints": []
+          },
+          {
+            "name": "metric",
+            "display_name": "Metric",
+            "offset_bits": 64,
+            "size_bits": 32,
+            "type": "bit_string",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Metric value for routing information.",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": "RIPv1 Payload",
+          "offset_bits": 96,
+          "size": null
+        },
+        "constraints": [
+          "command == request or command == response"
+        ],
+        "parse_from": null,
+        "serialize_to": null
+      }
+    ],
+    "array_types": [
+      {
+        "name": "RIPv1 Entry",
+        "element_type": "structure_type",
+        "length": null
+      }
+    ],
+    "parsing_context": [],
+    "helper_functions": [],
+    "transform_functions": []
+  }
+}

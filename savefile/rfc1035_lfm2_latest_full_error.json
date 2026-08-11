@@ -1,0 +1,38 @@
+{
+  "rfc": "1035",
+  "model": "lfm2:latest",
+  "method": "full",
+  "output": {
+    "title": "The CSNET Name Server",
+    "author": "M. Solomon, L. Landweber, and D. Neuhengen",
+    "abstract": "Describes a name service for CSNET independent of the DNS.",
+    "keywords": [
+      "CSNET",
+      "name server",
+      "distributed system"
+    ],
+    "references": [
+      {
+        "title": "The CSNET Name Server",
+        "author": "M. Solomon et al.",
+        "year": "1982"
+      },
+      {
+        "title": "Distributed Computing in the 1980s",
+        "author": "L. Landweber",
+        "year": "1984"
+      }
+    ],
+    "index": [
+      [
+        "CSNET Name Server",
+        "13"
+      ],
+      [
+        "Distributed Systems",
+        "11"
+      ]
+    ]
+  },
+  "error": "Model lfm2:latest failed the representation contract after one retry: missing required keys: protocol, rfc, pdus, bit_string_types, enumerated_types, structure_types, array_types, parsing_context, helper_functions, transform_functions"
+}

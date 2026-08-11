@@ -1,0 +1,9 @@
+{
+  "rfc": "959",
+  "model": "minicpm-v4.6:latest",
+  "method": "full",
+  "output": {
+    "content": "Postel & Reynolds                                               [Page 66]                                                                                                                RFC 959                                                     October 1985 File Transfer Protocol                                                                                                 \n   Bressler, Bob, and Bob Thomas, "
+  },
+  "error": "Model minicpm-v4.6:latest failed the representation contract after one retry: missing required keys: protocol, rfc, pdus, bit_string_types, enumerated_types, structure_types, array_types, parsing_context, helper_functions, transform_functions"
+}
