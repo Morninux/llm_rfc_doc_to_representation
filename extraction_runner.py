@@ -1,7 +1,10 @@
 #run every extraction method through one shared model loop
 
 from extractors import EVIDENCE_EXTRACTORS
-from representation_generator import generate_representation
+from representation_generator import (
+    RepresentationGenerationError,
+    generate_representation,
+)
 from rfc_loader import load_rfc_document
 
 
@@ -31,6 +34,9 @@ def run_extraction(rfc_number, method, model_names):
             evidence = evidence_extractor(number, document, model_name)
             answer = generate_representation(model_name, evidence)
             results.append((model_name, answer, None, None))
+        except RepresentationGenerationError as error:
+            #preserve invalid output so it can be exported with an error suffix
+            results.append((model_name, error.answer, None, str(error)))
         except (RuntimeError, ValueError) as error:
             results.append((model_name, None, None, str(error)))
     return results

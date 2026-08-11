@@ -72,6 +72,8 @@ def print_extraction_results(results):
         print("\n====================>> " + model_name + " <<====================")
         if error:
             print("Error: " + error)
+            if result_path:
+                print("Saved invalid output: " + result_path)
         elif result_path:
             print("Saved: " + result_path)
         else:

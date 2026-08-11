@@ -28,20 +28,28 @@ def serializable_output(answer):
         return raw_output
 
 
-def get_result_path(rfc_number, model_name, method, output_path=SAVEFILE_PATH):
+def get_result_path(
+    rfc_number, model_name, method, output_path=SAVEFILE_PATH, error=False
+):
     #use one filename rule for exporting and batch resume checks
-    filename = "rfc{}_{}_{}.json".format(
+    filename = "rfc{}_{}_{}".format(
         safe_filename_part(str(rfc_number).strip()),
         safe_filename_part(model_name),
         safe_filename_part(str(method).strip().lower()),
     )
+    if error:
+        filename += "_error"
+    filename += ".json"
     return os.path.join(output_path, filename)
 
 
 def result_exists(rfc_number, model_name, method, output_path=SAVEFILE_PATH):
-    #return whether one exact method result has already been saved
-    path = get_result_path(rfc_number, model_name, method, output_path)
-    return os.path.isfile(path)
+    #accept either a successful result or a saved validation error
+    result_path = get_result_path(rfc_number, model_name, method, output_path)
+    error_path = get_result_path(
+        rfc_number, model_name, method, output_path, error=True
+    )
+    return os.path.isfile(result_path) or os.path.isfile(error_path)
 
 
 def export_extraction_results(results, rfc_number, method, output_path=SAVEFILE_PATH):
@@ -49,12 +57,17 @@ def export_extraction_results(results, rfc_number, method, output_path=SAVEFILE_
     os.makedirs(output_path, exist_ok=True)
     exported_results = []
     for model_name, answer, _, error in results:
-        if error:
+        #do not create a file when no model response is available
+        if error and answer is None:
             exported_results.append((model_name, answer, None, error))
             continue
         try:
             result_path = get_result_path(
-                rfc_number, model_name, method, output_path
+                rfc_number,
+                model_name,
+                method,
+                output_path,
+                error=bool(error),
             )
             exported_data = {
                 "rfc": str(rfc_number).strip(),
@@ -62,10 +75,12 @@ def export_extraction_results(results, rfc_number, method, output_path=SAVEFILE_
                 "method": str(method).strip().lower(),
                 "output": serializable_output(answer),
             }
+            if error:
+                exported_data["error"] = str(error)
             with open(result_path, "w", encoding="utf-8", newline="\n") as file:
                 json.dump(exported_data, file, ensure_ascii=False, indent=2)
                 file.write("\n")
-            exported_results.append((model_name, answer, result_path, None))
+            exported_results.append((model_name, answer, result_path, error))
         except OSError as export_error:
             exported_results.append(
                 (model_name, answer, None, "Export failed: " + str(export_error))
