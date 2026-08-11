@@ -1,0 +1,27 @@
+{
+  "rfc": "768",
+  "model": "minicpm-v4.6:latest",
+  "method": "llm_ascii",
+  "output": {
+    "protocol": "User Datagram Protocol",
+    "rfc": "<RFC DOCUMENT>",
+    "pdus": [
+      "Introduction",
+      "Format"
+    ],
+    "bit_string_types": [],
+    "enumerated_types": [],
+    "structure_types": [
+      {
+        "name": "Protocol Data Unit"
+      },
+      {
+        "name": "PDU Structure"
+      }
+    ],
+    "array_types": [],
+    "parsing_context": [],
+    "helper_functions": [],
+    "transform_functions": []
+  }
+}

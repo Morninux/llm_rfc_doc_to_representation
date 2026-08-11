@@ -1,0 +1,16 @@
+{
+  "rfc": "792",
+  "model": "qwen3-vl:latest",
+  "method": "full",
+  "output": {
+    "request": {
+      "query": "What is the purpose of ICMP echo request and reply messages?",
+      "type": "question",
+      "context": {
+        "document": "RFC 792, which describes the Internet Control Message Protocol (ICMP)",
+        "specific_section": "Section describing Echo messages (pages 13-14)"
+      }
+    }
+  },
+  "error": "Model qwen3-vl:latest failed the representation contract after one retry: missing required keys: protocol, rfc, pdus, bit_string_types, enumerated_types, structure_types, array_types, parsing_context, helper_functions, transform_functions"
+}

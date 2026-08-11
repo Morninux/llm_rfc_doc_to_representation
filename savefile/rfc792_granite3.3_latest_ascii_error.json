@@ -1,0 +1,45 @@
+{
+  "rfc": "792",
+  "model": "granite3.3:latest",
+  "method": "ascii",
+  "output": {
+    "diagram_candidates": [
+      {
+        "candidate_number": 1,
+        "text": "Destination Unreachable Message\n\n0                    1                    2                    3\n0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n|     Type      |     Code      |          Checksum             |\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n|                             unused                            |\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n|      Internet Header + 64 bits of Original Data Datagram      |\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n\nip Fields:\n\nDestination Address\n\n     The source network and address from the original datagram's data.\nicmp Fields:\n\nType\n\n3",
+        "description": "This diagram represents the 'Destination Unreachable Message' with fields Type, Code, Checksum, unused, Internet Header, and Original Data. The Destination Address field contains the source network and address from the original datagram's data. The Type field is specified as 3."
+      },
+      {
+        "candidate_number": 2,
+        "text": "Time Exceeded Message\n\n0                    1                    2                    3\n0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n|     Type      |     Code      |          Checksum             |\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n|                             unused                            |\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n|      Internet Header + 64 bits of Original Data Datagram      |\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n\nip Fields:\n\nDestination Address\n\n     The source network and address from the original datagram's data.\nicmp Fields:\n\nType\n\n11",
+        "description": "This diagram represents the 'Time Exceeded Message' with fields Type, Code, Checksum, unused, Internet Header, and Original Data. The Destination Address field contains the source network and address from the original datagram's data. The Type field is specified as 11."
+      },
+      {
+        "candidate_number": 3,
+        "text": "Parameter Problem Message\n\n0                    1                    2                    3\n0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n|     Type      |     Code      |          Checksum             |\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n|    Pointer    |                   unused                      |\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n|      Internet Header + 64 bits of Original Data Datagram      |\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n\nip Fields:\n\nDestination Address\n\n     The source network and address from the original datagram's data.\nicmp Fields:\n\nType\n\n12",
+        "description": "This diagram represents the 'Parameter Problem Message' with fields Type, Code, Checksum, Pointer, unused, Internet Header, and Original Data. The Destination Address field contains the source network and address from the original datagram's data. The Type field is specified as 12."
+      },
+      {
+        "candidate_number": 4,
+        "text": "Source Quench Message\n\n0                    1                    2                    3\n0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n|     Type      |     Code      |          Checksum             |\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n|                             unused                            |\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n|      Internet Header + 64 bits of Original Data Datagram      |\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n\nip Fields:\n\nDestination Address\n\n     The source network and address of the original datagram's data.\nicmp Fields:\n\nType\n\n4",
+        "description": "This diagram represents the 'Source Quench Message' with fields Type, Code, Checksum, unused, Internet Header, and Original Data. The Destination Address field contains the source network and address of the original datagram's data. The Type field is specified as 4."
+      },
+      {
+        "candidate_number": 5,
+        "text": "Redirect Message\n\n0                    1                    2                    3\n0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n|     Type      |     Code      |          Checksum             |\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n|                 Gateway Internet Address                      |\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n|      Internet Header + 64 bits of Original Data Datagram      |\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n\nip Fields:\n\nDestination Address\n\n     The source network and address of the original datagram's data.\nicmp Fields:\n\nType\n\n5",
+        "description": "This diagram represents the 'Redirect Message' with fields Type, Code, Checksum, Gateway Internet Address, Internet Header, and Original Data. The Destination Address field contains the source network and address of the original datagram's data. The Type field is specified as 5."
+      },
+      {
+        "candidate_number": 6,
+        "text": "Echo or Echo Reply Message\n\n0                    1                    2                    3\n0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n|     Type      |     Code      |          Checksum             |\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n|           Identifier          |        Sequence Number        |\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n|     Data ...\n+-+-+-+-+-\n\nip Fields:\n\nAddresses\n\n     The address of the source in an echo message will be the destination of the echo reply message. To form an echo reply message, the source and destination addresses are simply reversed, the type code changed to 0, and the checksum recomputed.\nicmp Fields:\n\nType\n\n0",
+        "description": "This diagram represents the 'Echo or Echo Reply Message' with fields Type, Code, Checksum, Identifier, Sequence Number, and Data. The Addresses field description explains that source in an echo message becomes the destination for an echo reply by reversing source and destination addresses, changing type code to 0, and recomputing checksum."
+      },
+      {
+        "candidate_number": 7,
+        "text": "Timestamp or Timestamp Reply Message\n\n0                    1                    2                    3\n0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n|     Type      |      Code     |          Checksum             |\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n|           Identifier          |        Sequence Number        |\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n|     Originate Timestamp                                       |\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n|     Receive Timestamp                                         |\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n|     Transmit Timestamp                                        |\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n\nip Fields:\n\nAddresses\n\n     The address of the source in a timestamp message will be the destination of the timestamp reply message. To form a timestamp reply message, the source and destination addresses are simply reversed, the type code changed to 14, and the checksum recomputed.\nicmp Fields:\n\nType\n\n14",
+        "description": "This diagram represents the 'Timestamp or Timestamp Reply Message' with fields Type, Code, Checksum, Identifier, Sequence Number, Originate Timestamp, Receive Timestamp, and Transmit Timestamp. The Addresses field description explains that source in a timestamp message becomes the destination for a reply by reversing source and destination addresses, changing type code to 14, and recomputing checksum."
+      }
+    ]
+  },
+  "error": "Model granite3.3:latest failed the representation contract after one retry: missing required keys: protocol, rfc, pdus, bit_string_types, enumerated_types, structure_types, array_types, parsing_context, helper_functions, transform_functions"
+}

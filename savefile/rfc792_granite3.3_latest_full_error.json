@@ -1,0 +1,327 @@
+{
+  "rfc": "792",
+  "model": "granite3.3:latest",
+  "method": "full",
+  "output": {
+    "Message Types and Fields": {
+      "Echo Reply (0)": {
+        "Description": "Replies to an echo message with the source and destination IP addresses reversed, type changed to 0, and checksum recomputed.",
+        "Fields": [
+          {
+            "Name": "Type",
+            "Value": "0"
+          },
+          {
+            "Name": "Code",
+            "Value": "0"
+          },
+          {
+            "Name": "Checksum",
+            "Description": "16-bit ones's complement of the one's complement sum of the ICMP message starting with the ICMP Type; should be zero for checksum computation."
+          },
+          {
+            "Name": "Identifier",
+            "Description": "May be zero if Code = 0, aiding in matching requests and replies."
+          },
+          {
+            "Name": "Sequence Number",
+            "Description": "May be zero if Code = 0, aiding in matching requests and replies."
+          },
+          {
+            "Name": "Data",
+            "Description": "The data received in the echo message to be returned in the reply."
+          }
+        ]
+      },
+      "Destination Unreachable (3)": {
+        "Description": "Indicates that a datagram cannot be delivered to its destination because of a network configuration problem.",
+        "Fields": [
+          {
+            "Name": "Type",
+            "Value": "3"
+          },
+          {
+            "Name": "Code",
+            "Values": [
+              "0-3, 5-8, 11-12, 14-16"
+            ]
+          },
+          {
+            "Name": "Checksum",
+            "Description": "16-bit ones's complement of the one's complement sum of the ICMP message starting with the ICMP Type; should be zero for checksum computation."
+          },
+          {
+            "Name": "Identifier",
+            "Description": "May be zero if Code = 0, aiding in matching requests and replies."
+          },
+          {
+            "Name": "Sequence Number",
+            "Description": "May be zero if Code = 0, aiding in matching requests and replies."
+          },
+          {
+            "Name": "Code-specific data",
+            "Description": "Detailed information about why the packet couldn't be delivered."
+          }
+        ]
+      },
+      "Source Quench (4)": {
+        "Description": "Used to ask the sender to reduce its transmission rate.",
+        "Fields": [
+          {
+            "Name": "Type",
+            "Value": "4"
+          },
+          {
+            "Name": "Code",
+            "Value": "0"
+          },
+          {
+            "Name": "Checksum",
+            "Description": "16-bit ones's complement of the one's complement sum of the ICMP message starting with the ICMP Type; should be zero for checksum computation."
+          },
+          {
+            "Name": "Identifier",
+            "Description": "May be zero if Code = 0, aiding in matching requests and replies."
+          },
+          {
+            "Name": "Sequence Number",
+            "Description": "May be zero if Code = 0, aiding in matching requests and replies."
+          }
+        ]
+      },
+      "Redirect (5)": {
+        "Description": "Instructs the sender of a datagram to use a different route for future messages.",
+        "Fields": [
+          {
+            "Name": "Type",
+            "Value": "5"
+          },
+          {
+            "Name": "Code",
+            "Values": [
+              "0, 1"
+            ]
+          },
+          {
+            "Name": "Checksum",
+            "Description": "16-bit ones's complement of the one's complement sum of the ICMP message starting with the ICMP Type; should be zero for checksum computation."
+          },
+          {
+            "Name": "Identifier",
+            "Description": "May be zero if Code = 0, aiding in matching requests and replies."
+          },
+          {
+            "Name": "Sequence Number",
+            "Description": "May be zero if Code = 0, aiding in matching requests and replies."
+          },
+          {
+            "Name": "Gateway IP Address",
+            "Description": "The IP address of the first-hop router that can be used as an alternative to the current path."
+          }
+        ]
+      },
+      "Echo (8)": {
+        "Description": "Requests the sender to return the data it contained.",
+        "Fields": [
+          {
+            "Name": "Type",
+            "Value": "8"
+          },
+          {
+            "Name": "Code",
+            "Value": "0"
+          },
+          {
+            "Name": "Checksum",
+            "Description": "16-bit ones's complement of the one's complement sum of the ICMP message starting with the ICMP Type; should be zero for checksum computation."
+          },
+          {
+            "Name": "Identifier",
+            "Description": "May be zero if Code = 0, aiding in matching requests and replies."
+          },
+          {
+            "Name": "Sequence Number",
+            "Description": "May be zero if Code = 0, aiding in matching requests and replies."
+          },
+          {
+            "Name": "Data",
+            "Description": "The data to be echoed back."
+          }
+        ]
+      },
+      "Time Exceeded (11)": {
+        "Description": "Used when the Time-to-Live field in the IP header expires.",
+        "Fields": [
+          {
+            "Name": "Type",
+            "Value": "11"
+          },
+          {
+            "Name": "Code",
+            "Value": "0"
+          },
+          {
+            "Name": "Checksum",
+            "Description": "16-bit ones's complement of the one's complement sum of the ICMP message starting with the ICMP Type; should be zero for checksum computation."
+          },
+          {
+            "Name": "Identifier",
+            "Description": "May be zero if Code = 0, aiding in matching requests and replies."
+          },
+          {
+            "Name": "Sequence Number",
+            "Description": "May be zero if Code = 0, aiding in matching requests and replies."
+          },
+          {
+            "Name": "Original TTL",
+            "Description": "The Time-to-Live value of the original datagram."
+          }
+        ]
+      },
+      "Parameter Problem (12)": {
+        "Description": "Indicates problems with parameters passed in a header field.",
+        "Fields": [
+          {
+            "Name": "Type",
+            "Value": "12"
+          },
+          {
+            "Name": "Code",
+            "Values": [
+              "0, 1"
+            ]
+          },
+          {
+            "Name": "Checksum",
+            "Description": "16-bit ones's complement of the one's complement sum of the ICMP message starting with the ICMP Type; should be zero for checksum computation."
+          },
+          {
+            "Name": "Identifier",
+            "Description": "May be zero if Code = 0, aiding in matching requests and replies."
+          },
+          {
+            "Name": "Sequence Number",
+            "Description": "May be zero if Code = 0, aiding in matching requests and replies."
+          },
+          {
+            "Name": "Code-specific data",
+            "Description": "Identifies which parameter is causing the problem."
+          }
+        ]
+      },
+      "Timestamp (13)": {
+        "Description": "Sent to request or provide timestamp information.",
+        "Fields": [
+          {
+            "Name": "Type",
+            "Value": "13"
+          },
+          {
+            "Name": "Code",
+            "Value": "0"
+          },
+          {
+            "Name": "Checksum",
+            "Description": "16-bit ones's complement of the one's complement sum of the ICMP message starting with the ICMP Type; should be zero for checksum computation."
+          },
+          {
+            "Name": "Identifier",
+            "Description": "May be zero if Code = 0, aiding in matching requests and replies."
+          },
+          {
+            "Name": "Sequence Number",
+            "Description": "May be zero if Code = 0, aiding in matching requests and replies."
+          }
+        ]
+      },
+      "Timestamp Reply (14)": {
+        "Description": "Replies to a Timestamp message with source and destination IP addresses reversed, type changed to 14, and checksum recomputed.",
+        "Fields": [
+          {
+            "Name": "Type",
+            "Value": "14"
+          },
+          {
+            "Name": "Code",
+            "Value": "0"
+          },
+          {
+            "Name": "Checksum",
+            "Description": "16-bit ones's complement of the one's complement sum of the ICMP message starting with the ICMP Type; should be zero for checksum computation."
+          },
+          {
+            "Name": "Identifier",
+            "Description": "May be zero if Code = 0, aiding in matching requests and replies."
+          },
+          {
+            "Name": "Sequence Number",
+            "Description": "May be zero if Code = 0, aiding in matching requests and replies."
+          },
+          {
+            "Name": "Originate Timestamp",
+            "Description": "Timestamp when the sender last touched the message before sending it."
+          },
+          {
+            "Name": "Receive Timestamp",
+            "Description": "Timestamp when the echoer first touched it on receipt."
+          },
+          {
+            "Name": "Transmit Timestamp",
+            "Description": "Timestamp when the echoer last touched the message on sending it."
+          }
+        ]
+      },
+      "Information Request (15)": {
+        "Description": "Sent to request information about a host or network.",
+        "Fields": [
+          {
+            "Name": "Type",
+            "Value": "15"
+          },
+          {
+            "Name": "Code",
+            "Value": "0"
+          },
+          {
+            "Name": "Checksum",
+            "Description": "16-bit ones's complement of the one's complement sum of the ICMP message starting with the ICMP Type; should be zero for checksum computation."
+          },
+          {
+            "Name": "Identifier",
+            "Description": "May be zero if Code = 0, aiding in matching requests and replies."
+          },
+          {
+            "Name": "Sequence Number",
+            "Description": "May be zero if Code = 0, aiding in matching requests and replies."
+          }
+        ]
+      },
+      "Information Reply (16)": {
+        "Description": "Replies to an Information Request with source and destination IP addresses reversed, type changed to 16, and checksum recomputed.",
+        "Fields": [
+          {
+            "Name": "Type",
+            "Value": "16"
+          },
+          {
+            "Name": "Code",
+            "Value": "0"
+          },
+          {
+            "Name": "Checksum",
+            "Description": "16-bit ones's complement of the one's complement sum of the ICMP message starting with the ICMP Type; should be zero for checksum computation."
+          },
+          {
+            "Name": "Identifier",
+            "Description": "May be zero if Code = 0, aiding in matching requests and replies."
+          },
+          {
+            "Name": "Sequence Number",
+            "Description": "May be zero if Code = 0, aiding in matching requests and replies."
+          }
+        ]
+      }
+    }
+  },
+  "error": "Model granite3.3:latest failed the representation contract after one retry: missing required keys: protocol, rfc, pdus, bit_string_types, enumerated_types, structure_types, array_types, parsing_context, helper_functions, transform_functions"
+}

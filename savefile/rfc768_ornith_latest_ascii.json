@@ -1,0 +1,85 @@
+{
+  "rfc": "768",
+  "model": "ornith:latest",
+  "method": "ascii",
+  "output": {
+    "protocol": "udp",
+    "rfc": "rfc768",
+    "pdus": [
+      "user_datagram"
+    ],
+    "bit_string_types": [],
+    "enumerated_types": [],
+    "structure_types": [
+      {
+        "name": "user_datagram_header",
+        "header_size_bytes": null,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "source_port",
+            "display_name": "Source Port",
+            "offset_bits": 0,
+            "size_bits": 16,
+            "type": "u_int16_t",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Source Port is an optional field; when meaningful it indicates the port of the sending process. If not used, a value of zero is inserted.",
+            "constraints": []
+          },
+          {
+            "name": "destination_port",
+            "display_name": "Destination Port",
+            "offset_bits": 16,
+            "size_bits": 16,
+            "type": "u_int16_t",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Destination port for the receiving process.",
+            "constraints": []
+          },
+          {
+            "name": "length",
+            "display_name": "Length",
+            "offset_bits": 32,
+            "size_bits": 16,
+            "type": "u_int16_t",
+            "optional": null,
+            "presence_condition": null,
+            "description": "The length of the user datagram in octets.",
+            "constraints": []
+          },
+          {
+            "name": "checksum",
+            "display_name": "Checksum",
+            "offset_bits": 48,
+            "size_bits": 16,
+            "type": "u_int16_t",
+            "optional": null,
+            "presence_condition": null,
+            "description": "The 16-bit one's complement of the one's complement sum of a pseudo header of information from the IP header, the UDP header, and the data.",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": "data",
+          "offset_bits": 64,
+          "size": "length - 8"
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      }
+    ],
+    "array_types": [],
+    "parsing_context": [
+      {
+        "name": "ip_header",
+        "type": "external",
+        "description": "The protocol assumes that the Internet Protocol (IP) is used as the underlying protocol."
+      }
+    ],
+    "helper_functions": [],
+    "transform_functions": []
+  }
+}

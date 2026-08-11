@@ -1,0 +1,9 @@
+{
+  "rfc": "792",
+  "model": "gemma4:latest",
+  "method": "full",
+  "output": {
+    "reply": "The provided text is an excerpt from RFC 792 detailing various Internet Control Message Protocol (ICMP) message types, including Timestamp, Echo Reply/Request, and Information Request/Reply. There are no specific instructions or inputs given for me to process other than the context itself. \n\nIf you have a specific task—such as summarizing a particular section, explaining a field, or comparing two message types (e.g., 'How does Timestamp differ from Echo?')—please let me know!"
+  },
+  "error": "Model gemma4:latest failed the representation contract after one retry: missing required keys: protocol, rfc, pdus, bit_string_types, enumerated_types, structure_types, array_types, parsing_context, helper_functions, transform_functions"
+}

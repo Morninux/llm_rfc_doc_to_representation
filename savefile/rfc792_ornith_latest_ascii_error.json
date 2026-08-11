@@ -1,0 +1,17 @@
+{
+  "rfc": "792",
+  "model": "ornith:latest",
+  "method": "ascii",
+  "output": {
+    "type": "object",
+    "properties": {
+      "messages": [
+        {
+          "role": "user",
+          "content": "## Task\n\nFor each of the following questions, provide the most likely answer from the candidate options. Return your response in JSON format:\n```jsonl\n{\"question\": \"the question\",\"answer\": {\"option_number\": 1, \"option_content\": \"the content of selected option\"}}\n```\n\nPlease reason step-by-step before making your selection.\n\n<ORIGINAL_INSTRUCTION>"
+        }
+      ]
+    }
+  },
+  "error": "Model ornith:latest failed the representation contract after one retry: missing required keys: protocol, rfc, pdus, bit_string_types, enumerated_types, structure_types, array_types, parsing_context, helper_functions, transform_functions"
+}
