@@ -150,7 +150,15 @@ def run_model(model_name, user_text, json_output=False): #send text to a model r
     try:
         with urllib.request.urlopen(request, timeout=300) as response:  #call ollama
             result = json.loads(response.read().decode("utf-8"))
-        return result.get("response", "")
+        response_text = result.get("response", "")
+        if response_text:
+            return response_text
+
+        #keep thinking content when a reasoning model returns no response text
+        thinking_text = result.get("thinking", "")
+        if thinking_text:
+            return thinking_text
+        return ""
     except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as error:
         raise RuntimeError(
             "Failed to run model " + model_name + ": " + str(error)

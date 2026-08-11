@@ -37,6 +37,10 @@ def generate_representation(model_name, evidence):
         try:
             return validate_representation_json(repaired)
         except ValueError as second_error:
+            #keep the first response when the repair response is empty
+            error_answer = repaired
+            if not str(error_answer).strip():
+                error_answer = answer
             raise RepresentationGenerationError(
-                model_name, repaired, second_error
+                model_name, error_answer, second_error
             ) from second_error
