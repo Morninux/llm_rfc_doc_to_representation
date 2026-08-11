@@ -1,0 +1,676 @@
+{
+  "rfc": "959",
+  "model": "glm-5.2:cloud",
+  "method": "full",
+  "output": {
+    "protocol": "FTP",
+    "rfc": "RFC 959",
+    "pdus": [
+      "ftp_command",
+      "ftp_reply",
+      "block_mode_header",
+      "page_header",
+      "stream_record_control_code",
+      "compressed_byte_string",
+      "compressed_replicated_byte",
+      "compressed_filler_string",
+      "compressed_escape_sequence"
+    ],
+    "bit_string_types": [
+      {
+        "name": "ftp_descriptor_byte",
+        "size_bits": 8,
+        "description": "Block mode descriptor byte containing bit flags for EOR, EOF, suspected errors, and restart marker."
+      },
+      {
+        "name": "ftp_byte_count",
+        "size_bits": 16,
+        "description": "Block mode byte count: total length of the data block in bytes."
+      },
+      {
+        "name": "ftp_escape_byte",
+        "size_bits": 8,
+        "description": "Compressed mode escape byte: all zeros, indicates an escape sequence."
+      },
+      {
+        "name": "ftp_compressed_count",
+        "size_bits": 7,
+        "description": "7-bit count field in compressed mode entries."
+      }
+    ],
+    "enumerated_types": [
+      {
+        "name": "page_type",
+        "variants": [
+          {
+            "name": "last_page",
+            "type": "integer",
+            "condition": "0"
+          },
+          {
+            "name": "simple_page",
+            "type": "integer",
+            "condition": "1"
+          },
+          {
+            "name": "descriptor_page",
+            "type": "integer",
+            "condition": "2"
+          },
+          {
+            "name": "access_controlled_page",
+            "type": "integer",
+            "condition": "3"
+          }
+        ]
+      },
+      {
+        "name": "descriptor_code_flag",
+        "variants": [
+          {
+            "name": "eor",
+            "type": "integer",
+            "condition": "128"
+          },
+          {
+            "name": "eof",
+            "type": "integer",
+            "condition": "64"
+          },
+          {
+            "name": "suspected_errors",
+            "type": "integer",
+            "condition": "32"
+          },
+          {
+            "name": "restart_marker",
+            "type": "integer",
+            "condition": "16"
+          }
+        ]
+      },
+      {
+        "name": "type_code",
+        "variants": [
+          {
+            "name": "ascii",
+            "type": "character",
+            "condition": "A"
+          },
+          {
+            "name": "ebcdic",
+            "type": "character",
+            "condition": "E"
+          },
+          {
+            "name": "image",
+            "type": "character",
+            "condition": "I"
+          },
+          {
+            "name": "local_byte",
+            "type": "character",
+            "condition": "L"
+          }
+        ]
+      },
+      {
+        "name": "structure_code",
+        "variants": [
+          {
+            "name": "file_structure",
+            "type": "character",
+            "condition": "F"
+          },
+          {
+            "name": "record_structure",
+            "type": "character",
+            "condition": "R"
+          },
+          {
+            "name": "page_structure",
+            "type": "character",
+            "condition": "P"
+          }
+        ]
+      },
+      {
+        "name": "mode_code",
+        "variants": [
+          {
+            "name": "stream",
+            "type": "character",
+            "condition": "S"
+          },
+          {
+            "name": "block",
+            "type": "character",
+            "condition": "B"
+          },
+          {
+            "name": "compressed",
+            "type": "character",
+            "condition": "C"
+          }
+        ]
+      },
+      {
+        "name": "format_code",
+        "variants": [
+          {
+            "name": "non_print",
+            "type": "character",
+            "condition": "N"
+          },
+          {
+            "name": "telnet_format_effectors",
+            "type": "character",
+            "condition": "T"
+          },
+          {
+            "name": "carriage_control_asa",
+            "type": "character",
+            "condition": "C"
+          }
+        ]
+      }
+    ],
+    "structure_types": [
+      {
+        "name": "ftp_command",
+        "header_size_bytes": null,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "command_code",
+            "display_name": "Command Code",
+            "offset_bits": 0,
+            "size_bits": null,
+            "type": "string",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Four or fewer alphabetic characters identifying the FTP command. Upper and lower case treated identically.",
+            "constraints": [
+              "length(command_code) <= 4"
+            ]
+          },
+          {
+            "name": "separator",
+            "display_name": "Separator",
+            "offset_bits": null,
+            "size_bits": 8,
+            "type": "character",
+            "optional": true,
+            "presence_condition": "has_argument",
+            "description": "One or more <SP> characters separating command code from argument when arguments follow.",
+            "constraints": []
+          },
+          {
+            "name": "argument_field",
+            "display_name": "Argument Field",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "string",
+            "optional": true,
+            "presence_condition": "has_argument",
+            "description": "Variable length character string containing command arguments.",
+            "constraints": []
+          },
+          {
+            "name": "end_of_line",
+            "display_name": "End of Line",
+            "offset_bits": null,
+            "size_bits": 16,
+            "type": "string",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Telnet end-of-line code (<CRLF> for NVT-ASCII).",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": null,
+          "offset_bits": null,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "ftp_reply",
+        "header_size_bytes": null,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "reply_code",
+            "display_name": "Reply Code",
+            "offset_bits": 0,
+            "size_bits": 24,
+            "type": "string",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Three-digit code transmitted as three alphanumeric characters.",
+            "constraints": [
+              "length(reply_code) == 3"
+            ]
+          },
+          {
+            "name": "multi_line_indicator",
+            "display_name": "Multi-Line Indicator",
+            "offset_bits": 24,
+            "size_bits": 8,
+            "type": "character",
+            "optional": true,
+            "presence_condition": "is_multi_line",
+            "description": "Hyphen '-' immediately following the reply code on the first line of a multi-line reply.",
+            "constraints": []
+          },
+          {
+            "name": "separator",
+            "display_name": "Separator",
+            "offset_bits": null,
+            "size_bits": 8,
+            "type": "character",
+            "optional": true,
+            "presence_condition": "not is_multi_line",
+            "description": "Space <SP> following the reply code on single-line or last-line replies.",
+            "constraints": []
+          },
+          {
+            "name": "text",
+            "display_name": "Text",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "string",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Reply text intended for human user. May be server-dependent.",
+            "constraints": []
+          },
+          {
+            "name": "end_of_line",
+            "display_name": "End of Line",
+            "offset_bits": null,
+            "size_bits": 16,
+            "type": "string",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Telnet end-of-line code terminating each reply line.",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": null,
+          "offset_bits": null,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "block_mode_header",
+        "header_size_bytes": 3,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "descriptor",
+            "display_name": "Descriptor",
+            "offset_bits": 0,
+            "size_bits": 8,
+            "type": "ftp_descriptor_byte",
+            "optional": null,
+            "presence_condition": null,
+            "description": "8 high-order bits containing descriptor codes (EOR=128, EOF=64, suspected errors=32, restart marker=16).",
+            "constraints": []
+          },
+          {
+            "name": "byte_count",
+            "display_name": "Byte Count",
+            "offset_bits": 8,
+            "size_bits": 16,
+            "type": "ftp_byte_count",
+            "optional": null,
+            "presence_condition": null,
+            "description": "16 low-order bits indicating the total length of the data block in bytes.",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": "data_block",
+          "offset_bits": 24,
+          "size": "byte_count"
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "page_header",
+        "header_size_bytes": null,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "header_length",
+            "display_name": "Header Length",
+            "offset_bits": 0,
+            "size_bits": "logical_byte_size",
+            "type": "integer",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Number of logical bytes in the page header including this byte. Minimum header length is 4.",
+            "constraints": [
+              "header_length >= 4"
+            ]
+          },
+          {
+            "name": "page_index",
+            "display_name": "Page Index",
+            "offset_bits": null,
+            "size_bits": "logical_byte_size",
+            "type": "integer",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Logical page number of this section of the file. Identifies this page of the file.",
+            "constraints": []
+          },
+          {
+            "name": "data_length",
+            "display_name": "Data Length",
+            "offset_bits": null,
+            "size_bits": "logical_byte_size",
+            "type": "integer",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Number of logical bytes in the page data. Minimum data length is 0.",
+            "constraints": [
+              "data_length >= 0"
+            ]
+          },
+          {
+            "name": "page_type",
+            "display_name": "Page Type",
+            "offset_bits": null,
+            "size_bits": "logical_byte_size",
+            "type": "page_type",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Type of page. 0=Last Page, 1=Simple Page, 2=Descriptor Page, 3=Access Controlled Page.",
+            "constraints": []
+          },
+          {
+            "name": "optional_fields",
+            "display_name": "Optional Fields",
+            "offset_bits": null,
+            "size_bits": "(header_length - 4) * logical_byte_size",
+            "type": "array",
+            "optional": true,
+            "presence_condition": "header_length > 4",
+            "description": "Additional header fields for per page control information, e.g., page access control. All fields are one logical byte in length.",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": "page_data",
+          "offset_bits": null,
+          "size": "data_length * logical_byte_size"
+        },
+        "constraints": [
+          "page_type == 0 implies header_length == 4 and data_length == 0",
+          "page_type == 1 implies header_length == 4",
+          "page_type == 3 implies header_length == 5"
+        ],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "stream_record_control_code",
+        "header_size_bytes": 2,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "escape_character",
+            "display_name": "Escape Character",
+            "offset_bits": 0,
+            "size_bits": 8,
+            "type": "integer",
+            "optional": null,
+            "presence_condition": null,
+            "description": "First byte of control code: all ones (0xFF). Indicates a control code follows.",
+            "constraints": [
+              "escape_character == 255"
+            ]
+          },
+          {
+            "name": "control_byte",
+            "display_name": "Control Byte",
+            "offset_bits": 8,
+            "size_bits": 8,
+            "type": "integer",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Second byte: bit 0 on (value 1) indicates EOR; bit 1 on (value 2) indicates EOF; both bits on (value 3) indicates EOR and EOF together. Value 1 (data byte all ones) means the data byte 0xFF was intended as data.",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": null,
+          "offset_bits": null,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "compressed_byte_string",
+        "header_size_bytes": null,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "type_and_count",
+            "display_name": "Type and Count",
+            "offset_bits": 0,
+            "size_bits": 8,
+            "type": "integer",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Left-most bit 0 indicates regular data. Right-most 7 bits contain count n (positive, up to 127).",
+            "constraints": [
+              "(type_and_count & 0x80) == 0",
+              "(type_and_count & 0x7F) > 0",
+              "(type_and_count & 0x7F) <= 127"
+            ]
+          },
+          {
+            "name": "data_bytes",
+            "display_name": "Data Bytes",
+            "offset_bits": 8,
+            "size_bits": "n * 8",
+            "type": "array",
+            "optional": null,
+            "presence_condition": null,
+            "description": "String of n data bytes d(1),...,d(n).",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": null,
+          "offset_bits": null,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "compressed_replicated_byte",
+        "header_size_bytes": null,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "type_and_count",
+            "display_name": "Type and Count",
+            "offset_bits": 0,
+            "size_bits": 8,
+            "type": "integer",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Left-most 2 bits '10' indicate replicated byte. Right-most 6 bits contain count n.",
+            "constraints": [
+              "(type_and_count & 0xC0) == 0x80"
+            ]
+          },
+          {
+            "name": "data_byte",
+            "display_name": "Data Byte",
+            "offset_bits": 8,
+            "size_bits": 8,
+            "type": "integer",
+            "optional": null,
+            "presence_condition": null,
+            "description": "The data byte d to be replicated n times.",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": null,
+          "offset_bits": null,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "compressed_filler_string",
+        "header_size_bytes": null,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "type_and_count",
+            "display_name": "Type and Count",
+            "offset_bits": 0,
+            "size_bits": 8,
+            "type": "integer",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Left-most 2 bits '11' indicate filler string. Right-most 6 bits contain count n. Filler byte is <SP> for ASCII/EBCDIC, zero byte for Image/Local byte.",
+            "constraints": [
+              "(type_and_count & 0xC0) == 0xC0"
+            ]
+          }
+        ],
+        "payload": {
+          "name": null,
+          "offset_bits": null,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "compressed_escape_sequence",
+        "header_size_bytes": null,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "escape_byte",
+            "display_name": "Escape Byte",
+            "offset_bits": 0,
+            "size_bits": 8,
+            "type": "ftp_escape_byte",
+            "optional": null,
+            "presence_condition": null,
+            "description": "First byte: all zeros (0x00), the escape byte.",
+            "constraints": [
+              "escape_byte == 0"
+            ]
+          },
+          {
+            "name": "descriptor_code",
+            "display_name": "Descriptor Code",
+            "offset_bits": 8,
+            "size_bits": 8,
+            "type": "ftp_descriptor_byte",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Second byte: descriptor codes as defined in Block mode. Apply to the succeeding string of bytes.",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": null,
+          "offset_bits": null,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      }
+    ],
+    "array_types": [
+      {
+        "name": "data_block_bytes",
+        "element_type": "byte",
+        "length": "byte_count"
+      },
+      {
+        "name": "page_data_bytes",
+        "element_type": "logical_byte",
+        "length": "data_length"
+      },
+      {
+        "name": "page_optional_fields",
+        "element_type": "logical_byte",
+        "length": "header_length - 4"
+      },
+      {
+        "name": "compressed_data_bytes",
+        "element_type": "byte",
+        "length": "n"
+      },
+      {
+        "name": "restart_marker_bytes",
+        "element_type": "byte",
+        "length": "byte_count"
+      }
+    ],
+    "parsing_context": [
+      {
+        "name": "type",
+        "type": "enumerated (type_code)",
+        "description": "Current representation type (A, E, I, or L with byte size). Determines logical byte size, filler byte in compressed mode, and EOL character."
+      },
+      {
+        "name": "stru",
+        "type": "enumerated (structure_code)",
+        "description": "Current file structure (F, R, or P). Determines interpretation of data on the data connection."
+      },
+      {
+        "name": "mode",
+        "type": "enumerated (mode_code)",
+        "description": "Current transmission mode (S, B, or C). Determines how data is framed on the data connection."
+      },
+      {
+        "name": "logical_byte_size",
+        "type": "integer",
+        "description": "Logical byte size for Local byte type, specified by the TYPE command's second parameter. Affects page header field widths."
+      },
+      {
+        "name": "format_code",
+        "type": "enumerated (format_code)",
+        "description": "Current format control (N, T, or C) for ASCII/EBCDIC types. Default is Non-print."
+      },
+      {
+        "name": "telnet_language",
+        "type": "string",
+        "description": "Negotiated Telnet language on the control connection. Defaults to NVT-ASCII with <CRLF> end-of-line."
+      }
+    ],
+    "helper_functions": [],
+    "transform_functions": []
+  }
+}

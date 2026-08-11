@@ -1,0 +1,150 @@
+{
+  "rfc": "1058",
+  "model": "gemma4:latest",
+  "method": "ascii",
+  "output": {
+    "protocol": "Routing Information Protocol",
+    "rfc": "1058",
+    "pdus": [
+      "datagram"
+    ],
+    "bit_string_types": [],
+    "enumerated_types": [],
+    "structure_types": [
+      {
+        "name": "datagram",
+        "header_size_bytes": null,
+        "byte_order": "normal Internet order (most-significant octet first)",
+        "fields": [
+          {
+            "name": "command",
+            "display_name": "Command",
+            "offset_bits": 0,
+            "size_bits": 8,
+            "type": null,
+            "optional": false,
+            "presence_condition": null,
+            "description": "Command field.",
+            "constraints": []
+          },
+          {
+            "name": "version",
+            "display_name": "Version",
+            "offset_bits": 8,
+            "size_bits": 8,
+            "type": null,
+            "optional": false,
+            "presence_condition": null,
+            "description": "Version number.",
+            "constraints": []
+          },
+          {
+            "name": "must_be_zero_1",
+            "display_name": "Must Be Zero (Field 3)",
+            "offset_bits": 16,
+            "size_bits": 16,
+            "type": null,
+            "optional": false,
+            "presence_condition": null,
+            "description": "must be zero.",
+            "constraints": [
+              "value == 0"
+            ]
+          },
+          {
+            "name": "address_family_identifier",
+            "display_name": "Address Family Identifier",
+            "offset_bits": 32,
+            "size_bits": 16,
+            "type": null,
+            "optional": false,
+            "presence_condition": null,
+            "description": "address family identifier.",
+            "constraints": []
+          },
+          {
+            "name": "must_be_zero_2",
+            "display_name": "Must Be Zero (Field 4)",
+            "offset_bits": 48,
+            "size_bits": 16,
+            "type": null,
+            "optional": false,
+            "presence_condition": null,
+            "description": "must be zero.",
+            "constraints": [
+              "value == 0"
+            ]
+          },
+          {
+            "name": "ip_address",
+            "display_name": "IP Address",
+            "offset_bits": 64,
+            "size_bits": 32,
+            "type": null,
+            "optional": false,
+            "presence_condition": null,
+            "description": "usual 4-octet Internet address.",
+            "constraints": []
+          },
+          {
+            "name": "must_be_zero_3",
+            "display_name": "Must Be Zero (Field 5)",
+            "offset_bits": 96,
+            "size_bits": 32,
+            "type": null,
+            "optional": false,
+            "presence_condition": null,
+            "description": "must be zero.",
+            "constraints": [
+              "value == 0"
+            ]
+          },
+          {
+            "name": "must_be_zero_4",
+            "display_name": "Must Be Zero (Field 6)",
+            "offset_bits": 128,
+            "size_bits": 32,
+            "type": null,
+            "optional": false,
+            "presence_condition": null,
+            "description": "must be zero.",
+            "constraints": [
+              "value == 0"
+            ]
+          },
+          {
+            "name": "metric",
+            "display_name": "Metric",
+            "offset_bits": 160,
+            "size_bits": 32,
+            "type": null,
+            "optional": false,
+            "presence_condition": null,
+            "description": "metric.",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": "remainder",
+          "offset_bits": 192,
+          "size": null
+        },
+        "constraints": [
+          ". The portion of the datagram from address family identifier through metric may appear up to 25 times."
+        ],
+        "parse_from": null,
+        "serialize_to": null
+      }
+    ],
+    "array_types": [
+      {
+        "name": "repeating_field",
+        "element_type": "datagram",
+        "length": "up to 25 times"
+      }
+    ],
+    "parsing_context": [],
+    "helper_functions": [],
+    "transform_functions": []
+  }
+}

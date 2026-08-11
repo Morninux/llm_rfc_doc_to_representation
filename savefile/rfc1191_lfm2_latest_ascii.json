@@ -1,0 +1,101 @@
+{
+  "rfc": "1191",
+  "model": "lfm2:latest",
+  "method": "ascii",
+  "output": {
+    "protocol": "icmp",
+    "rfc": "1191",
+    "pdus": [
+      "icmp_destination_unreachable"
+    ],
+    "bit_string_types": [
+      {
+        "name": "type",
+        "size_bits": 8,
+        "description": "Type field in ICMP header, indicating the type of message."
+      },
+      {
+        "name": "code",
+        "size_bits": 8,
+        "description": "Code field in ICMP header, specifying the reason for unreachability."
+      },
+      {
+        "name": "unused_mtu",
+        "size_bits": 16,
+        "description": "Next-hop MTU value included in low-order bits of unused field."
+      },
+      {
+        "name": "datagram_data_size",
+        "size_bits": null,
+        "description": "Size in octets of the original datagram data carried."
+      }
+    ],
+    "enumerated_types": [
+      {
+        "name": "icmp_message_type",
+        "variants": [
+          {
+            "name": "destination_unreachable",
+            "type": "integer",
+            "condition": "code == 8"
+          }
+        ]
+      }
+    ],
+    "structure_types": [
+      {
+        "name": "icmp_destination_unreachable",
+        "header_size_bytes": 14,
+        "byte_order": "network",
+        "fields": [
+          {
+            "name": "type",
+            "display_name": "Type",
+            "offset_bits": 0,
+            "size_bits": 8,
+            "type": "bit_string_type",
+            "optional": false
+          },
+          {
+            "name": "code",
+            "display_name": "Code",
+            "offset_bits": 8,
+            "size_bits": 8,
+            "type": "bit_string_type",
+            "optional": false
+          },
+          {
+            "name": "unused_mtu",
+            "display_name": "Next-Hop MTU",
+            "offset_bits": 16,
+            "size_bits": 16,
+            "type": "bit_string_type",
+            "optional": true
+          },
+          {
+            "name": "datagram_data_size",
+            "display_name": "Datagram Data Size",
+            "offset_bits": 32,
+            "size_bits": null,
+            "type": "bit_string_type",
+            "optional": false
+          }
+        ],
+        "payload": {
+          "name": "original_datagram_data",
+          "offset_bits": 48,
+          "size": "variable_length_expression"
+        },
+        "constraints": [
+          "datagram_data_size >= 0"
+        ],
+        "parse_from": null,
+        "serialize_to": null
+      }
+    ],
+    "array_types": [],
+    "parsing_context": [],
+    "helper_functions": [],
+    "transform_functions": []
+  }
+}

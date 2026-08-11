@@ -1,0 +1,106 @@
+{
+  "rfc": "1112",
+  "model": "gpt-oss:20b-cloud",
+  "method": "llm_ascii",
+  "output": {
+    "protocol": "igmp",
+    "rfc": "",
+    "pdus": [
+      "igmp_message"
+    ],
+    "bit_string_types": [],
+    "enumerated_types": [
+      {
+        "name": "igmp_message_type",
+        "variants": [
+          {
+            "name": "host_membership_query",
+            "type": "integer",
+            "condition": null
+          },
+          {
+            "name": "host_membership_report",
+            "type": "integer",
+            "condition": null
+          }
+        ]
+      }
+    ],
+    "structure_types": [
+      {
+        "name": "igmp_message",
+        "header_size_bytes": 9,
+        "byte_order": "big-endian",
+        "fields": [
+          {
+            "name": "version",
+            "display_name": "Version",
+            "offset_bits": 0,
+            "size_bits": 4,
+            "type": "integer",
+            "optional": false,
+            "presence_condition": null,
+            "description": "IGMP protocol version",
+            "constraints": []
+          },
+          {
+            "name": "type",
+            "display_name": "Type",
+            "offset_bits": 4,
+            "size_bits": 4,
+            "type": "igmp_message_type",
+            "optional": false,
+            "presence_condition": null,
+            "description": "IGMP message type",
+            "constraints": []
+          },
+          {
+            "name": "unused",
+            "display_name": "Unused",
+            "offset_bits": 8,
+            "size_bits": 16,
+            "type": "integer",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Unused field for alignment",
+            "constraints": []
+          },
+          {
+            "name": "checksum",
+            "display_name": "Checksum",
+            "offset_bits": 24,
+            "size_bits": 16,
+            "type": "integer",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Checksum over the message",
+            "constraints": []
+          },
+          {
+            "name": "group_address",
+            "display_name": "Group Address",
+            "offset_bits": 40,
+            "size_bits": 32,
+            "type": "ip_address",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Multicast group address",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": null,
+          "offset_bits": null,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      }
+    ],
+    "array_types": [],
+    "parsing_context": [],
+    "helper_functions": [],
+    "transform_functions": []
+  }
+}

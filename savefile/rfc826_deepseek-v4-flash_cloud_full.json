@@ -1,0 +1,215 @@
+{
+  "rfc": "826",
+  "model": "deepseek-v4-flash:cloud",
+  "method": "full",
+  "output": {
+    "protocol": "Address Resolution Protocol",
+    "rfc": "RFC 826",
+    "pdus": [
+      "ARP_Packet"
+    ],
+    "bit_string_types": [
+      {
+        "name": "ethernet_address",
+        "size_bits": 48,
+        "description": "48-bit Ethernet hardware address"
+      },
+      {
+        "name": "protocol_address",
+        "size_bits": null,
+        "description": "Protocol address, length determined by ar$pln"
+      }
+    ],
+    "enumerated_types": [
+      {
+        "name": "HardwareType",
+        "variants": [
+          {
+            "name": "Ethernet",
+            "type": "integer",
+            "condition": "value == 1"
+          }
+        ]
+      },
+      {
+        "name": "Opcode",
+        "variants": [
+          {
+            "name": "REQUEST",
+            "type": "integer",
+            "condition": "value == 1"
+          },
+          {
+            "name": "REPLY",
+            "type": "integer",
+            "condition": "value == 2"
+          }
+        ]
+      }
+    ],
+    "structure_types": [
+      {
+        "name": "ARP_Packet",
+        "header_size_bytes": 22,
+        "byte_order": "big-endian",
+        "fields": [
+          {
+            "name": "ethernet_destination",
+            "display_name": "Ethernet address of destination",
+            "offset_bits": 0,
+            "size_bits": 48,
+            "type": "ethernet_address",
+            "optional": false,
+            "presence_condition": null,
+            "description": "48-bit Ethernet address of destination",
+            "constraints": []
+          },
+          {
+            "name": "ethernet_source",
+            "display_name": "Ethernet address of sender",
+            "offset_bits": 48,
+            "size_bits": 48,
+            "type": "ethernet_address",
+            "optional": false,
+            "presence_condition": null,
+            "description": "48-bit Ethernet address of sender",
+            "constraints": []
+          },
+          {
+            "name": "ether_type",
+            "display_name": "Protocol type",
+            "offset_bits": 96,
+            "size_bits": 16,
+            "type": "integer",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Protocol type = ether_type$ADDRESS_RESOLUTION",
+            "constraints": [
+              "ether_type == ether_type$ADDRESS_RESOLUTION"
+            ]
+          },
+          {
+            "name": "hardware_address_space",
+            "display_name": "ar$hrd",
+            "offset_bits": 112,
+            "size_bits": 16,
+            "type": "HardwareType",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Hardware address space (e.g., Ethernet, Packet Radio Net.)",
+            "constraints": []
+          },
+          {
+            "name": "protocol_address_space",
+            "display_name": "ar$pro",
+            "offset_bits": 128,
+            "size_bits": 16,
+            "type": "integer",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Protocol address space. For Ethernet hardware, this is from the set of type fields ether_typ$<protocol>.",
+            "constraints": []
+          },
+          {
+            "name": "hardware_address_length",
+            "display_name": "ar$hln",
+            "offset_bits": 144,
+            "size_bits": 8,
+            "type": "integer",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Byte length of each hardware address",
+            "constraints": []
+          },
+          {
+            "name": "protocol_address_length",
+            "display_name": "ar$pln",
+            "offset_bits": 152,
+            "size_bits": 8,
+            "type": "integer",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Byte length of each protocol address",
+            "constraints": []
+          },
+          {
+            "name": "opcode",
+            "display_name": "ar$op",
+            "offset_bits": 160,
+            "size_bits": 16,
+            "type": "Opcode",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Opcode (ares_op$REQUEST | ares_op$REPLY)",
+            "constraints": [
+              "opcode == 1 or opcode == 2"
+            ]
+          },
+          {
+            "name": "sender_hardware_address",
+            "display_name": "ar$sha",
+            "offset_bits": 176,
+            "size_bits": null,
+            "type": "ethernet_address",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Hardware address of sender, n from ar$hln field",
+            "constraints": []
+          },
+          {
+            "name": "sender_protocol_address",
+            "display_name": "ar$spa",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "protocol_address",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Protocol address of sender, m from ar$pln field",
+            "constraints": []
+          },
+          {
+            "name": "target_hardware_address",
+            "display_name": "ar$tha",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "ethernet_address",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Hardware address of target, n from ar$hln field",
+            "constraints": []
+          },
+          {
+            "name": "target_protocol_address",
+            "display_name": "ar$tpa",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "protocol_address",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Protocol address of target, m from ar$pln field",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": "none",
+          "offset_bits": null,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      }
+    ],
+    "array_types": [],
+    "parsing_context": [],
+    "helper_functions": [],
+    "transform_functions": [
+      {
+        "name": "request_to_reply",
+        "from": "ARP Request",
+        "to": "ARP Reply",
+        "description": "Swap hardware and protocol fields, set opcode to REPLY, and send to target hardware address."
+      }
+    ]
+  }
+}

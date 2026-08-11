@@ -1,0 +1,567 @@
+{
+  "rfc": "1157",
+  "model": "gpt-oss:20b-cloud",
+  "method": "full",
+  "output": {
+    "protocol": "simple network management protocol",
+    "rfc": "rfc 1157",
+    "pdus": [
+      "GetRequest-PDU",
+      "GetNextRequest-PDU",
+      "GetResponse-PDU",
+      "SetRequest-PDU",
+      "Trap-PDU"
+    ],
+    "bit_string_types": [],
+    "enumerated_types": [
+      {
+        "name": "ErrorStatus",
+        "variants": [
+          {
+            "name": "noError",
+            "type": "INTEGER",
+            "condition": null
+          },
+          {
+            "name": "tooBig",
+            "type": "INTEGER",
+            "condition": null
+          },
+          {
+            "name": "noSuchName",
+            "type": "INTEGER",
+            "condition": null
+          },
+          {
+            "name": "badValue",
+            "type": "INTEGER",
+            "condition": null
+          },
+          {
+            "name": "readOnly",
+            "type": "INTEGER",
+            "condition": null
+          },
+          {
+            "name": "genErr",
+            "type": "INTEGER",
+            "condition": null
+          }
+        ]
+      },
+      {
+        "name": "GenericTrap",
+        "variants": [
+          {
+            "name": "coldStart",
+            "type": "INTEGER",
+            "condition": null
+          },
+          {
+            "name": "warmStart",
+            "type": "INTEGER",
+            "condition": null
+          },
+          {
+            "name": "linkDown",
+            "type": "INTEGER",
+            "condition": null
+          },
+          {
+            "name": "linkUp",
+            "type": "INTEGER",
+            "condition": null
+          },
+          {
+            "name": "authenticationFailure",
+            "type": "INTEGER",
+            "condition": null
+          },
+          {
+            "name": "egpNeighborLoss",
+            "type": "INTEGER",
+            "condition": null
+          },
+          {
+            "name": "enterpriseSpecific",
+            "type": "INTEGER",
+            "condition": null
+          }
+        ]
+      }
+    ],
+    "structure_types": [
+      {
+        "name": "Message",
+        "header_size_bytes": null,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "version",
+            "display_name": "Version",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "INTEGER",
+            "optional": null,
+            "presence_condition": null,
+            "description": "SNMP version, 0 for version-1",
+            "constraints": []
+          },
+          {
+            "name": "community",
+            "display_name": "Community",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "OCTET STRING",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Community string identifying the SNMP community",
+            "constraints": []
+          },
+          {
+            "name": "data",
+            "display_name": "Data",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "ANY",
+            "optional": null,
+            "presence_condition": null,
+            "description": "PDU or other authenticated data",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": null,
+          "offset_bits": null,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "PDU",
+        "header_size_bytes": null,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "request_id",
+            "display_name": "Request ID",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "INTEGER",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Identifies request sequence",
+            "constraints": []
+          },
+          {
+            "name": "error_status",
+            "display_name": "Error Status",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "ErrorStatus",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Status of operation",
+            "constraints": []
+          },
+          {
+            "name": "error_index",
+            "display_name": "Error Index",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "INTEGER",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Index of variable causing error",
+            "constraints": []
+          },
+          {
+            "name": "variable_bindings",
+            "display_name": "Variable Bindings",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "VarBindList",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Sequence of variable bindings",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": null,
+          "offset_bits": null,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "GetRequest-PDU",
+        "header_size_bytes": null,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "request_id",
+            "display_name": "Request ID",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "INTEGER",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Identifies request sequence",
+            "constraints": []
+          },
+          {
+            "name": "error_status",
+            "display_name": "Error Status",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "ErrorStatus",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Status of operation (always 0)",
+            "constraints": []
+          },
+          {
+            "name": "error_index",
+            "display_name": "Error Index",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "INTEGER",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Index of variable causing error (always 0)",
+            "constraints": []
+          },
+          {
+            "name": "variable_bindings",
+            "display_name": "Variable Bindings",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "VarBindList",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Sequence of variable bindings",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": null,
+          "offset_bits": null,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "GetNextRequest-PDU",
+        "header_size_bytes": null,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "request_id",
+            "display_name": "Request ID",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "INTEGER",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Identifies request sequence",
+            "constraints": []
+          },
+          {
+            "name": "error_status",
+            "display_name": "Error Status",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "ErrorStatus",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Status of operation (always 0)",
+            "constraints": []
+          },
+          {
+            "name": "error_index",
+            "display_name": "Error Index",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "INTEGER",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Index of variable causing error (always 0)",
+            "constraints": []
+          },
+          {
+            "name": "variable_bindings",
+            "display_name": "Variable Bindings",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "VarBindList",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Sequence of variable bindings",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": null,
+          "offset_bits": null,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "GetResponse-PDU",
+        "header_size_bytes": null,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "request_id",
+            "display_name": "Request ID",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "INTEGER",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Matches request ID of originating request",
+            "constraints": []
+          },
+          {
+            "name": "error_status",
+            "display_name": "Error Status",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "ErrorStatus",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Result of processing request",
+            "constraints": []
+          },
+          {
+            "name": "error_index",
+            "display_name": "Error Index",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "INTEGER",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Variable that caused error",
+            "constraints": []
+          },
+          {
+            "name": "variable_bindings",
+            "display_name": "Variable Bindings",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "VarBindList",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Returned variable bindings",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": null,
+          "offset_bits": null,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "SetRequest-PDU",
+        "header_size_bytes": null,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "request_id",
+            "display_name": "Request ID",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "INTEGER",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Identifies request sequence",
+            "constraints": []
+          },
+          {
+            "name": "error_status",
+            "display_name": "Error Status",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "ErrorStatus",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Status of operation (always 0)",
+            "constraints": []
+          },
+          {
+            "name": "error_index",
+            "display_name": "Error Index",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "INTEGER",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Index of variable causing error (always 0)",
+            "constraints": []
+          },
+          {
+            "name": "variable_bindings",
+            "display_name": "Variable Bindings",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "VarBindList",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Variable bindings to set",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": null,
+          "offset_bits": null,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "Trap-PDU",
+        "header_size_bytes": null,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "enterprise",
+            "display_name": "Enterprise",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "OBJECT IDENTIFIER",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Identifies enterprise generating trap",
+            "constraints": []
+          },
+          {
+            "name": "agent_addr",
+            "display_name": "Agent Address",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "NetworkAddress",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Address of sending agent",
+            "constraints": []
+          },
+          {
+            "name": "generic_trap",
+            "display_name": "Generic Trap",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "GenericTrap",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Type of generic trap",
+            "constraints": []
+          },
+          {
+            "name": "specific_trap",
+            "display_name": "Specific Trap",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "INTEGER",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Specific trap code (present even if generic)",
+            "constraints": []
+          },
+          {
+            "name": "time_stamp",
+            "display_name": "Time Stamp",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "TimeTicks",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Elapsed time since last init",
+            "constraints": []
+          },
+          {
+            "name": "variable_bindings",
+            "display_name": "Variable Bindings",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "VarBindList",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Additional information",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": null,
+          "offset_bits": null,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "VarBind",
+        "header_size_bytes": null,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "name",
+            "display_name": "Name",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "ObjectName",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Variable instance name (OBJECT IDENTIFIER)",
+            "constraints": []
+          },
+          {
+            "name": "value",
+            "display_name": "Value",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "ObjectSyntax",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Value of the variable, encoded as ObjectSyntax",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": null,
+          "offset_bits": null,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      }
+    ],
+    "array_types": [
+      {
+        "name": "VarBindList",
+        "element_type": "VarBind",
+        "length": null
+      }
+    ],
+    "parsing_context": [],
+    "helper_functions": [],
+    "transform_functions": []
+  }
+}

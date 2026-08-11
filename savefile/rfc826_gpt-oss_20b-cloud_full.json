@@ -1,0 +1,172 @@
+{
+  "rfc": "826",
+  "model": "gpt-oss:20b-cloud",
+  "method": "full",
+  "output": {
+    "protocol": "Address Resolution Protocol",
+    "rfc": "826",
+    "pdus": [
+      "ethernet_frame_with_arp",
+      "address_resolution_packet"
+    ],
+    "bit_string_types": [
+      {
+        "name": "48_bit_ethernet_address",
+        "size_bits": 48,
+        "description": "48-bit Ethernet address"
+      },
+      {
+        "name": "protocol_address",
+        "size_bits": null,
+        "description": "Protocol address of variable length"
+      }
+    ],
+    "enumerated_types": [
+      {
+        "name": "arp_hardware_type",
+        "variants": [
+          {
+            "name": "ethernet",
+            "type": "uint16",
+            "condition": null
+          }
+        ]
+      },
+      {
+        "name": "arp_operation",
+        "variants": [
+          {
+            "name": "request",
+            "type": "uint16",
+            "condition": null
+          },
+          {
+            "name": "reply",
+            "type": "uint16",
+            "condition": null
+          }
+        ]
+      }
+    ],
+    "structure_types": [
+      {
+        "name": "address_resolution_packet",
+        "header_size_bytes": null,
+        "byte_order": "big_endian",
+        "fields": [
+          {
+            "name": "ar_hrd",
+            "display_name": "Hardware Address Space",
+            "offset_bits": 0,
+            "size_bits": 16,
+            "type": "uint16",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Hardware address space (e.g., Ethernet, Packet Radio Net.)",
+            "constraints": []
+          },
+          {
+            "name": "ar_pro",
+            "display_name": "Protocol Address Space",
+            "offset_bits": 16,
+            "size_bits": 16,
+            "type": "uint16",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Protocol address space. For Ethernet hardware, this is from the set of type fields ether_type$<protocol>.",
+            "constraints": []
+          },
+          {
+            "name": "ar_hln",
+            "display_name": "Hardware Address Length",
+            "offset_bits": 32,
+            "size_bits": 8,
+            "type": "uint8",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Byte length of each hardware address",
+            "constraints": []
+          },
+          {
+            "name": "ar_pln",
+            "display_name": "Protocol Address Length",
+            "offset_bits": 40,
+            "size_bits": 8,
+            "type": "uint8",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Byte length of each protocol address",
+            "constraints": []
+          },
+          {
+            "name": "ar_op",
+            "display_name": "Opcode",
+            "offset_bits": 48,
+            "size_bits": 16,
+            "type": "uint16",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Opcode (ares_op$REQUEST | ares_op$REPLY)",
+            "constraints": []
+          },
+          {
+            "name": "ar_sha",
+            "display_name": "Sender Hardware Address",
+            "offset_bits": 64,
+            "size_bits": "ar$hln * 8",
+            "type": null,
+            "optional": false,
+            "presence_condition": null,
+            "description": "Hardware address of sender of this packet",
+            "constraints": []
+          },
+          {
+            "name": "ar_spa",
+            "display_name": "Sender Protocol Address",
+            "offset_bits": "64 + ar$hln * 8",
+            "size_bits": "ar$pln * 8",
+            "type": null,
+            "optional": false,
+            "presence_condition": null,
+            "description": "Protocol address of sender of this packet",
+            "constraints": []
+          },
+          {
+            "name": "ar_tha",
+            "display_name": "Target Hardware Address",
+            "offset_bits": "64 + ar$hln * 8 + ar$pln * 8",
+            "size_bits": "ar$hln * 8",
+            "type": null,
+            "optional": false,
+            "presence_condition": null,
+            "description": "Hardware address of target of this packet (if known).",
+            "constraints": []
+          },
+          {
+            "name": "ar_tpa",
+            "display_name": "Target Protocol Address",
+            "offset_bits": "64 + ar$hln * 8 + ar$pln * 8 + ar$hln * 8",
+            "size_bits": "ar$pln * 8",
+            "type": null,
+            "optional": false,
+            "presence_condition": null,
+            "description": "Protocol address of target",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": null,
+          "offset_bits": null,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      }
+    ],
+    "array_types": [],
+    "parsing_context": [],
+    "helper_functions": [],
+    "transform_functions": []
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "rfc": "768",
+  "model": "lfm2:latest",
+  "method": "full",
+  "output": {
+    "protocol": "udp",
+    "rfc": "RFC 768 - User Datagram Protocol",
+    "pdus": [
+      "source_port",
+      "destination_port",
+      "length",
+      "checksum"
+    ],
+    "bit_string_types": [
+      {
+        "name": "source_port",
+        "size_bits": 16,
+        "description": "Port of the sending process, optional if zero is inserted"
+      },
+      {
+        "name": "destination_port",
+        "size_bits": 16,
+        "description": "Port of the destination address"
+      },
+      {
+        "name": "length",
+        "size_bits": 32,
+        "description": "Length in octets including header and data, minimum eight"
+      },
+      {
+        "name": "checksum",
+        "size_bits": 16,
+        "description": "16-bit one's complement of the one's complement sum of pseudo header information"
+      }
+    ],
+    "enumerated_types": [],
+    "structure_types": [
+      {
+        "name": "udp_header",
+        "header_size_bytes": 8,
+        "byte_order": "network",
+        "fields": [
+          {
+            "name": "source_port",
+            "display_name": "Source Port",
+            "offset_bits": 0,
+            "size_bits": 16,
+            "type": "bit_string",
+            "optional": true
+          },
+          {
+            "name": "destination_port",
+            "display_name": "Destination Port",
+            "offset_bits": 16,
+            "size_bits": 16,
+            "type": "bit_string",
+            "optional": false
+          },
+          {
+            "name": "length",
+            "display_name": "Length",
+            "offset_bits": 32,
+            "size_bits": 32,
+            "type": "bit_string",
+            "required": true
+          },
+          {
+            "name": "checksum",
+            "display_name": "Checksum",
+            "offset_bits": 48,
+            "size_bits": 16,
+            "type": "bit_string",
+            "optional": true
+          }
+        ],
+        "constraints": [
+          "length >= 8"
+        ],
+        "parse_from": "ip_header + udp_header + data",
+        "serialize_to": "ip_header + udp_header + data"
+      }
+    ],
+    "array_types": [],
+    "parsing_context": [
+      {
+        "name": "ip_header",
+        "type": "structure_type",
+        "fields": [
+          {
+            "name": "source_address",
+            "display_name": "Source Address",
+            "offset_bits": 8,
+            "size_bits": 32,
+            "type": "bit_string"
+          },
+          {
+            "name": "destination_address",
+            "display_name": "Destination Address",
+            "offset_bits": 24,
+            "size_bits": 32,
+            "type": "bit_string"
+          }
+        ]
+      }
+    ],
+    "helper_functions": [],
+    "transform_functions": []
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "rfc": "959",
+  "model": "granite3.3:latest",
+  "method": "ascii",
+  "output": {
+    "protocol": "File Transfer Protocol (FTP)",
+    "rfc": "959",
+    "pdus": [
+      "Block Header"
+    ],
+    "bit_string_types": [],
+    "enumerated_types": [],
+    "structure_types": [
+      {
+        "name": "block_header",
+        "header_size_bytes": 2,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "descriptor",
+            "display_name": "Descriptor Code",
+            "offset_bits": 0,
+            "size_bits": 8,
+            "type": "bit_string",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Indicator of conditions with bit flags.",
+            "constraints": [
+              "must have exactly 8 bits"
+            ]
+          },
+          {
+            "name": "byte_count_high",
+            "display_name": "Byte Count High",
+            "offset_bits": 8,
+            "size_bits": 8,
+            "type": "bit_string",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Upper 8 bits of the byte count field.",
+            "constraints": [
+              "must have exactly 8 bits"
+            ]
+          },
+          {
+            "name": "byte_count_low",
+            "display_name": "Byte Count Low",
+            "offset_bits": 16,
+            "size_bits": 16,
+            "type": "bit_string",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Lower 16 bits of the byte count field.",
+            "constraints": [
+              "must have exactly 16 bits"
+            ]
+          }
+        ],
+        "payload": {
+          "name": "block_data",
+          "offset_bits": null,
+          "size": "expression: 256 - (byte_count_high << 8 | byte_count_low)"
+        },
+        "constraints": [
+          "descriptor must be one of 128, 64, 32, 16"
+        ],
+        "parse_from": null,
+        "serialize_to": null
+      }
+    ],
+    "array_types": [],
+    "parsing_context": [],
+    "helper_functions": [],
+    "transform_functions": []
+  }
+}

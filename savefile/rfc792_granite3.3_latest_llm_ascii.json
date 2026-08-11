@@ -1,0 +1,169 @@
+{
+  "rfc": "792",
+  "model": "granite3.3:latest",
+  "method": "llm_ascii",
+  "output": {
+    "protocol": "Information Request/Reply",
+    "rfc": "placeholder (as no actual RFC number or title provided)",
+    "pdus": [
+      "Information Request Message",
+      "Information Reply Message"
+    ],
+    "bit_string_types": [],
+    "enumerated_types": [],
+    "structure_types": [
+      {
+        "name": "information_request_message",
+        "header_size_bytes": null,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "type",
+            "display_name": "Type",
+            "offset_bits": null,
+            "size_bits": 8,
+            "type": "bit_string_type",
+            "optional": false,
+            "presence_condition": null,
+            "description": "15 for information request message;",
+            "constraints": [
+              "type == 15"
+            ]
+          },
+          {
+            "name": "code",
+            "display_name": "Code",
+            "offset_bits": null,
+            "size_bits": 8,
+            "type": "bit_string_type",
+            "optional": false,
+            "presence_condition": null,
+            "description": "0",
+            "constraints": [
+              "code == 0"
+            ]
+          },
+          {
+            "name": "checksum",
+            "display_name": "Checksum",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": null,
+            "optional": false,
+            "presence_condition": null,
+            "description": "Checksum field (to be computed)",
+            "constraints": []
+          },
+          {
+            "name": "identifier",
+            "display_name": "Identifier",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": null,
+            "optional": false,
+            "presence_condition": null,
+            "description": "Not explicitly bit-width defined",
+            "constraints": []
+          },
+          {
+            "name": "sequence_number",
+            "display_name": "Sequence Number",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": null,
+            "optional": false,
+            "presence_condition": null,
+            "description": "Not explicitly bit-width defined",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": "source_address",
+          "offset_bits": null,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "information_reply_message",
+        "header_size_bytes": null,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "type",
+            "display_name": "Type",
+            "offset_bits": null,
+            "size_bits": 8,
+            "type": "bit_string_type",
+            "optional": false,
+            "presence_condition": null,
+            "description": "16 for information reply message;",
+            "constraints": [
+              "type == 16"
+            ]
+          },
+          {
+            "name": "code",
+            "display_name": "Code",
+            "offset_bits": null,
+            "size_bits": 8,
+            "type": "bit_string_type",
+            "optional": false,
+            "presence_condition": null,
+            "description": "0",
+            "constraints": [
+              "code == 0"
+            ]
+          },
+          {
+            "name": "checksum",
+            "display_name": "Checksum",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": null,
+            "optional": false,
+            "presence_condition": null,
+            "description": "Checksum field (to be computed)",
+            "constraints": []
+          },
+          {
+            "name": "identifier",
+            "display_name": "Identifier",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": null,
+            "optional": false,
+            "presence_condition": null,
+            "description": "Not explicitly bit-width defined",
+            "constraints": []
+          },
+          {
+            "name": "sequence_number",
+            "display_name": "Sequence Number",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": null,
+            "optional": false,
+            "presence_condition": null,
+            "description": "Not explicitly bit-width defined",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": "destination_address",
+          "offset_bits": null,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      }
+    ],
+    "array_types": [],
+    "parsing_context": [],
+    "helper_functions": [],
+    "transform_functions": []
+  }
+}

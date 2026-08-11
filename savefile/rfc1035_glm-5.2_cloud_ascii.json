@@ -1,0 +1,596 @@
+{
+  "rfc": "1035",
+  "model": "glm-5.2:cloud",
+  "method": "ascii",
+  "output": {
+    "protocol": "DNS",
+    "rfc": "RFC 1035",
+    "pdus": [
+      "message",
+      "header",
+      "question",
+      "resource_record",
+      "soa_rdata",
+      "wks_rdata"
+    ],
+    "bit_string_types": [
+      {
+        "name": "qr_bit",
+        "size_bits": 1,
+        "description": "Specifies whether this message is a query (0), or a response (1)"
+      },
+      {
+        "name": "opcode_bits",
+        "size_bits": 4,
+        "description": "Kind of query in this message"
+      },
+      {
+        "name": "aa_bit",
+        "size_bits": 1,
+        "description": "Authoritative Answer bit"
+      },
+      {
+        "name": "tc_bit",
+        "size_bits": 1,
+        "description": "Truncation bit"
+      },
+      {
+        "name": "rd_bit",
+        "size_bits": 1,
+        "description": "Recursion Desired bit"
+      },
+      {
+        "name": "ra_bit",
+        "size_bits": 1,
+        "description": "Recursion Available bit"
+      },
+      {
+        "name": "z_bits",
+        "size_bits": 3,
+        "description": "Reserved bits, must be zero"
+      },
+      {
+        "name": "rcode_bits",
+        "size_bits": 4,
+        "description": "Response code"
+      }
+    ],
+    "enumerated_types": [],
+    "structure_types": [
+      {
+        "name": "message",
+        "header_size_bytes": null,
+        "byte_order": "big-endian",
+        "fields": [
+          {
+            "name": "header",
+            "display_name": "Header",
+            "offset_bits": 0,
+            "size_bits": 96,
+            "type": "header",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Header section, always present",
+            "constraints": []
+          },
+          {
+            "name": "question",
+            "display_name": "Question",
+            "offset_bits": 96,
+            "size_bits": null,
+            "type": "question",
+            "optional": false,
+            "presence_condition": null,
+            "description": "The question for the name server",
+            "constraints": []
+          },
+          {
+            "name": "answer",
+            "display_name": "Answer",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "resource_record",
+            "optional": true,
+            "presence_condition": "ANCOUNT > 0",
+            "description": "RRs answering the question",
+            "constraints": []
+          },
+          {
+            "name": "authority",
+            "display_name": "Authority",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "resource_record",
+            "optional": true,
+            "presence_condition": "NSCOUNT > 0",
+            "description": "RRs pointing toward an authority",
+            "constraints": []
+          },
+          {
+            "name": "additional",
+            "display_name": "Additional",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "resource_record",
+            "optional": true,
+            "presence_condition": "ARCOUNT > 0",
+            "description": "RRs holding additional information",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": null,
+          "offset_bits": null,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "header",
+        "header_size_bytes": 12,
+        "byte_order": "big-endian",
+        "fields": [
+          {
+            "name": "id",
+            "display_name": "ID",
+            "offset_bits": 0,
+            "size_bits": 16,
+            "type": "uint16",
+            "optional": false,
+            "presence_condition": null,
+            "description": "A 16 bit identifier assigned by the program that generates any kind of query",
+            "constraints": []
+          },
+          {
+            "name": "qr",
+            "display_name": "QR",
+            "offset_bits": 16,
+            "size_bits": 1,
+            "type": "qr_bit",
+            "optional": false,
+            "presence_condition": null,
+            "description": "A one bit field that specifies whether this message is a query (0), or a response (1)",
+            "constraints": []
+          },
+          {
+            "name": "opcode",
+            "display_name": "Opcode",
+            "offset_bits": 17,
+            "size_bits": 4,
+            "type": "opcode_bits",
+            "optional": false,
+            "presence_condition": null,
+            "description": "A four bit field that specifies kind of query in this message",
+            "constraints": []
+          },
+          {
+            "name": "aa",
+            "display_name": "AA",
+            "offset_bits": 21,
+            "size_bits": 1,
+            "type": "aa_bit",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Authoritative Answer bit",
+            "constraints": []
+          },
+          {
+            "name": "tc",
+            "display_name": "TC",
+            "offset_bits": 22,
+            "size_bits": 1,
+            "type": "tc_bit",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Truncation bit",
+            "constraints": []
+          },
+          {
+            "name": "rd",
+            "display_name": "RD",
+            "offset_bits": 23,
+            "size_bits": 1,
+            "type": "rd_bit",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Recursion Desired bit",
+            "constraints": []
+          },
+          {
+            "name": "ra",
+            "display_name": "RA",
+            "offset_bits": 24,
+            "size_bits": 1,
+            "type": "ra_bit",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Recursion Available bit",
+            "constraints": []
+          },
+          {
+            "name": "z",
+            "display_name": "Z",
+            "offset_bits": 25,
+            "size_bits": 3,
+            "type": "z_bits",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Reserved bits, must be zero",
+            "constraints": [
+              "z == 0"
+            ]
+          },
+          {
+            "name": "rcode",
+            "display_name": "RCODE",
+            "offset_bits": 28,
+            "size_bits": 4,
+            "type": "rcode_bits",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Response code",
+            "constraints": []
+          },
+          {
+            "name": "qdcount",
+            "display_name": "QDCOUNT",
+            "offset_bits": 32,
+            "size_bits": 16,
+            "type": "uint16",
+            "optional": false,
+            "presence_condition": null,
+            "description": "An unsigned 16 bit integer specifying the number of entries in the question section",
+            "constraints": []
+          },
+          {
+            "name": "ancount",
+            "display_name": "ANCOUNT",
+            "offset_bits": 48,
+            "size_bits": 16,
+            "type": "uint16",
+            "optional": false,
+            "presence_condition": null,
+            "description": "An unsigned 16 bit integer specifying the number of resource records in the answer section",
+            "constraints": []
+          },
+          {
+            "name": "nscount",
+            "display_name": "NSCOUNT",
+            "offset_bits": 64,
+            "size_bits": 16,
+            "type": "uint16",
+            "optional": false,
+            "presence_condition": null,
+            "description": "An unsigned 16 bit integer specifying the number of resource records in the authority records section",
+            "constraints": []
+          },
+          {
+            "name": "arcount",
+            "display_name": "ARCOUNT",
+            "offset_bits": 80,
+            "size_bits": 16,
+            "type": "uint16",
+            "optional": false,
+            "presence_condition": null,
+            "description": "An unsigned 16 bit integer specifying the number of resource records in the additional records section",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": null,
+          "offset_bits": null,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "question",
+        "header_size_bytes": null,
+        "byte_order": "big-endian",
+        "fields": [
+          {
+            "name": "qname",
+            "display_name": "QNAME",
+            "offset_bits": 0,
+            "size_bits": null,
+            "type": "domain_name",
+            "optional": false,
+            "presence_condition": null,
+            "description": "A domain name represented as a sequence of labels, where each label consists of a length octet followed by that number of octets. The domain name terminates with the zero length octet for the null label of the root. Note that this field may be an odd number of octets; no padding is used.",
+            "constraints": []
+          },
+          {
+            "name": "qtype",
+            "display_name": "QTYPE",
+            "offset_bits": null,
+            "size_bits": 16,
+            "type": "uint16",
+            "optional": false,
+            "presence_condition": null,
+            "description": "A two octet code which specifies the type of the query. The values for this field include all codes valid for a TYPE field, together with some more general codes which can match more than one type of RR.",
+            "constraints": []
+          },
+          {
+            "name": "qclass",
+            "display_name": "QCLASS",
+            "offset_bits": null,
+            "size_bits": 16,
+            "type": "uint16",
+            "optional": false,
+            "presence_condition": null,
+            "description": "A two octet code that specifies the class of the query. For example, the QCLASS field is IN for the Internet.",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": null,
+          "offset_bits": null,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "resource_record",
+        "header_size_bytes": null,
+        "byte_order": "big-endian",
+        "fields": [
+          {
+            "name": "name",
+            "display_name": "NAME",
+            "offset_bits": 0,
+            "size_bits": null,
+            "type": "domain_name",
+            "optional": false,
+            "presence_condition": null,
+            "description": "A domain name to which this resource record pertains.",
+            "constraints": []
+          },
+          {
+            "name": "type",
+            "display_name": "TYPE",
+            "offset_bits": null,
+            "size_bits": 16,
+            "type": "uint16",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Two octets containing one of the RR type codes. This field specifies the meaning of the data in the RDATA field.",
+            "constraints": []
+          },
+          {
+            "name": "class",
+            "display_name": "CLASS",
+            "offset_bits": null,
+            "size_bits": 16,
+            "type": "uint16",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Two octets which specify the class of the data in the RDATA field.",
+            "constraints": []
+          },
+          {
+            "name": "ttl",
+            "display_name": "TTL",
+            "offset_bits": null,
+            "size_bits": 32,
+            "type": "uint32",
+            "optional": false,
+            "presence_condition": null,
+            "description": "A 32 bit unsigned integer that specifies the time interval that the resource record may be cached before the source of the information should again be consulted.",
+            "constraints": []
+          },
+          {
+            "name": "rdlength",
+            "display_name": "RDLENGTH",
+            "offset_bits": null,
+            "size_bits": 16,
+            "type": "uint16",
+            "optional": false,
+            "presence_condition": null,
+            "description": "An unsigned 16 bit integer that specifies the length in octets of the RDATA field.",
+            "constraints": []
+          },
+          {
+            "name": "rdata",
+            "display_name": "RDATA",
+            "offset_bits": null,
+            "size_bits": "rdlength * 8",
+            "type": "bytes",
+            "optional": false,
+            "presence_condition": null,
+            "description": "A variable length string of octets that describes the resource.",
+            "constraints": [
+              "size_bits == rdlength * 8"
+            ]
+          }
+        ],
+        "payload": {
+          "name": "rdata",
+          "offset_bits": null,
+          "size": "rdlength"
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "soa_rdata",
+        "header_size_bytes": null,
+        "byte_order": "big-endian",
+        "fields": [
+          {
+            "name": "mname",
+            "display_name": "MNAME",
+            "offset_bits": 0,
+            "size_bits": null,
+            "type": "domain_name",
+            "optional": false,
+            "presence_condition": null,
+            "description": "The domain-name of the name server that was the original or primary source of data for this zone.",
+            "constraints": []
+          },
+          {
+            "name": "rname",
+            "display_name": "RNAME",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "domain_name",
+            "optional": false,
+            "presence_condition": null,
+            "description": "A domain-name which specifies the mailbox of the person responsible for this zone.",
+            "constraints": []
+          },
+          {
+            "name": "serial",
+            "display_name": "SERIAL",
+            "offset_bits": null,
+            "size_bits": 32,
+            "type": "uint32",
+            "optional": false,
+            "presence_condition": null,
+            "description": "The unsigned 32 bit version number of the original copy of the zone. Zone transfers preserve this value. This value wraps and should be compared using sequence space arithmetic.",
+            "constraints": []
+          },
+          {
+            "name": "refresh",
+            "display_name": "REFRESH",
+            "offset_bits": null,
+            "size_bits": 32,
+            "type": "uint32",
+            "optional": false,
+            "presence_condition": null,
+            "description": "A 32 bit time interval before the zone should be refreshed.",
+            "constraints": []
+          },
+          {
+            "name": "retry",
+            "display_name": "RETRY",
+            "offset_bits": null,
+            "size_bits": 32,
+            "type": "uint32",
+            "optional": false,
+            "presence_condition": null,
+            "description": "A 32 bit time interval that should elapse before a failed refresh should be retried.",
+            "constraints": []
+          },
+          {
+            "name": "expire",
+            "display_name": "EXPIRE",
+            "offset_bits": null,
+            "size_bits": 32,
+            "type": "uint32",
+            "optional": false,
+            "presence_condition": null,
+            "description": "A 32 bit time value that specifies the upper limit on the time interval that can elapse before the zone is no longer authoritative.",
+            "constraints": []
+          },
+          {
+            "name": "minimum",
+            "display_name": "MINIMUM",
+            "offset_bits": null,
+            "size_bits": 32,
+            "type": "uint32",
+            "optional": false,
+            "presence_condition": null,
+            "description": "The unsigned 32 bit minimum TTL field that should be exported with any RR from this zone.",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": null,
+          "offset_bits": null,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": "rdata of resource_record where type == SOA",
+        "serialize_to": "rdata of resource_record where type == SOA"
+      },
+      {
+        "name": "wks_rdata",
+        "header_size_bytes": null,
+        "byte_order": "big-endian",
+        "fields": [
+          {
+            "name": "address",
+            "display_name": "ADDRESS",
+            "offset_bits": 0,
+            "size_bits": 32,
+            "type": "uint32",
+            "optional": false,
+            "presence_condition": null,
+            "description": "An 32 bit Internet address",
+            "constraints": []
+          },
+          {
+            "name": "protocol",
+            "display_name": "PROTOCOL",
+            "offset_bits": 32,
+            "size_bits": 8,
+            "type": "uint8",
+            "optional": false,
+            "presence_condition": null,
+            "description": "An 8 bit IP protocol number",
+            "constraints": []
+          },
+          {
+            "name": "bit_map",
+            "display_name": "<BIT MAP>",
+            "offset_bits": 40,
+            "size_bits": null,
+            "type": "bytes",
+            "optional": false,
+            "presence_condition": null,
+            "description": "A variable length bit map. The bit map must be a multiple of 8 bits long.",
+            "constraints": [
+              "bit_map_length % 8 == 0"
+            ]
+          }
+        ],
+        "payload": {
+          "name": "bit_map",
+          "offset_bits": 40,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": "rdata of resource_record where type == WKS",
+        "serialize_to": "rdata of resource_record where type == WKS"
+      }
+    ],
+    "array_types": [
+      {
+        "name": "question_section",
+        "element_type": "question",
+        "length": "qdcount"
+      },
+      {
+        "name": "answer_section",
+        "element_type": "resource_record",
+        "length": "ancount"
+      },
+      {
+        "name": "authority_section",
+        "element_type": "resource_record",
+        "length": "nscount"
+      },
+      {
+        "name": "additional_section",
+        "element_type": "resource_record",
+        "length": "arcount"
+      }
+    ],
+    "parsing_context": [
+      {
+        "name": "domain_name_compression",
+        "type": "byte_offset_map",
+        "description": "Domain names can use pointers to refer to previously defined labels in the message. A pointer is a 16-bit value with the first two bits set to 11, followed by a 14-bit offset from the beginning of the message. Parsing domain names requires access to the full message to resolve pointers."
+      }
+    ],
+    "helper_functions": [],
+    "transform_functions": []
+  }
+}

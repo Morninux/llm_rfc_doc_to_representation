@@ -1,0 +1,143 @@
+{
+  "rfc": "1058",
+  "model": "gpt-oss:20b-cloud",
+  "method": "full",
+  "output": {
+    "protocol": "Routing Information Protocol",
+    "rfc": "RFC 1058",
+    "pdus": [
+      "RipMessage"
+    ],
+    "bit_string_types": [],
+    "enumerated_types": [
+      {
+        "name": "Command",
+        "variants": [
+          {
+            "name": "request",
+            "type": "uint8",
+            "condition": null
+          },
+          {
+            "name": "response",
+            "type": "uint8",
+            "condition": null
+          },
+          {
+            "name": "traceon",
+            "type": "uint8",
+            "condition": null
+          },
+          {
+            "name": "traceoff",
+            "type": "uint8",
+            "condition": null
+          },
+          {
+            "name": "reserved",
+            "type": "uint8",
+            "condition": null
+          }
+        ]
+      },
+      {
+        "name": "AddressFamilyIdentifier",
+        "variants": [
+          {
+            "name": "ip",
+            "type": "uint16",
+            "condition": null
+          }
+        ]
+      }
+    ],
+    "structure_types": [
+      {
+        "name": "RipMessage",
+        "header_size_bytes": 8,
+        "byte_order": "bigendian",
+        "fields": [
+          {
+            "name": "command",
+            "display_name": "Command",
+            "offset_bits": 0,
+            "size_bits": 8,
+            "type": "Command",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Command field specifying the purpose of the message.",
+            "constraints": []
+          },
+          {
+            "name": "version",
+            "display_name": "Version",
+            "offset_bits": 8,
+            "size_bits": 8,
+            "type": "uint8",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Protocol version, currently 1.",
+            "constraints": []
+          },
+          {
+            "name": "must_be_zero1",
+            "display_name": "Must Be Zero 1",
+            "offset_bits": 16,
+            "size_bits": 16,
+            "type": "uint16",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Field that must be zero for version 1.",
+            "constraints": [
+              "must_be_zero1 == 0"
+            ]
+          },
+          {
+            "name": "address_family_identifier",
+            "display_name": "Address Family Identifier",
+            "offset_bits": 32,
+            "size_bits": 16,
+            "type": "AddressFamilyIdentifier",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Identifier of address family; 2 for IP.",
+            "constraints": []
+          },
+          {
+            "name": "must_be_zero2",
+            "display_name": "Must Be Zero 2",
+            "offset_bits": 48,
+            "size_bits": 16,
+            "type": "uint16",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Field that must be zero for version 1.",
+            "constraints": [
+              "must_be_zero2 == 0"
+            ]
+          }
+        ],
+        "payload": {
+          "name": "entries",
+          "offset_bits": 64,
+          "size": null
+        },
+        "constraints": [
+          "length <= 512"
+        ],
+        "parse_from": null,
+        "serialize_to": null
+      }
+    ],
+    "array_types": [
+      {
+        "name": "RipEntry",
+        "element_type": "RipEntry",
+        "length": null
+      }
+    ],
+    "parsing_context": [],
+    "helper_functions": [],
+    "transform_functions": []
+  }
+}

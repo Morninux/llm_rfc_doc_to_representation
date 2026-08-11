@@ -1,0 +1,129 @@
+{
+  "rfc": "1191",
+  "model": "deepseek-v4-flash:cloud",
+  "method": "ascii",
+  "output": {
+    "protocol": "Path MTU Discovery (ICMP)",
+    "rfc": "RFC 1191",
+    "pdus": [
+      "icmp_destination_unreachable_fragmentation_needed"
+    ],
+    "bit_string_types": [
+      {
+        "name": "icmp_type",
+        "size_bits": 8,
+        "description": "ICMP message type; value 3 indicates Destination Unreachable."
+      },
+      {
+        "name": "icmp_code",
+        "size_bits": 8,
+        "description": "ICMP code; value 4 indicates fragmentation needed and DF set."
+      },
+      {
+        "name": "icmp_checksum",
+        "size_bits": 16,
+        "description": "ICMP header checksum."
+      },
+      {
+        "name": "icmp_unused",
+        "size_bits": 16,
+        "description": "Unused field; high-order 16 bits remain unused and MUST be set to zero."
+      },
+      {
+        "name": "next_hop_mtu",
+        "size_bits": 16,
+        "description": "Size in octets of the largest datagram that could be forwarded without being fragmented at this router; includes IP header and IP data."
+      },
+      {
+        "name": "internet_header_and_original_datagram_data",
+        "size_bits": null,
+        "description": "Internet Header plus 64 bits of Original Datagram Data."
+      }
+    ],
+    "enumerated_types": [],
+    "structure_types": [
+      {
+        "name": "icmp_destination_unreachable_fragmentation_needed",
+        "header_size_bytes": 8,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "type",
+            "display_name": "Type",
+            "offset_bits": 0,
+            "size_bits": 8,
+            "type": "icmp_type",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Type = 3 (Destination Unreachable).",
+            "constraints": [
+              "type == 3"
+            ]
+          },
+          {
+            "name": "code",
+            "display_name": "Code",
+            "offset_bits": 8,
+            "size_bits": 8,
+            "type": "icmp_code",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Code = 4 (fragmentation needed and DF set).",
+            "constraints": [
+              "code == 4"
+            ]
+          },
+          {
+            "name": "checksum",
+            "display_name": "Checksum",
+            "offset_bits": 16,
+            "size_bits": 16,
+            "type": "icmp_checksum",
+            "optional": false,
+            "presence_condition": null,
+            "description": "ICMP header checksum.",
+            "constraints": []
+          },
+          {
+            "name": "unused",
+            "display_name": "unused",
+            "offset_bits": 32,
+            "size_bits": 16,
+            "type": "icmp_unused",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Unused field; high-order 16 bits remain unused and MUST be set to zero.",
+            "constraints": [
+              "unused == 0"
+            ]
+          },
+          {
+            "name": "next_hop_mtu",
+            "display_name": "Next-Hop MTU",
+            "offset_bits": 48,
+            "size_bits": 16,
+            "type": "next_hop_mtu",
+            "optional": false,
+            "presence_condition": null,
+            "description": "The size in octets of the largest datagram that could be forwarded without being fragmented at this router; includes IP header and IP data.",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": "internet_header_and_original_datagram_data",
+          "offset_bits": 64,
+          "size": null
+        },
+        "constraints": [
+          "type == 3 and code == 4"
+        ],
+        "parse_from": null,
+        "serialize_to": null
+      }
+    ],
+    "array_types": [],
+    "parsing_context": [],
+    "helper_functions": [],
+    "transform_functions": []
+  }
+}

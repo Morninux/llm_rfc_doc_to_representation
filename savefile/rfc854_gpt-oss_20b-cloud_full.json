@@ -1,0 +1,166 @@
+{
+  "rfc": "854",
+  "model": "gpt-oss:20b-cloud",
+  "method": "full",
+  "output": {
+    "protocol": "Telnet",
+    "rfc": "854",
+    "pdus": [
+      "telnet_data"
+    ],
+    "bit_string_types": [
+      {
+        "name": "uint8",
+        "size_bits": 8,
+        "description": "Eight-bit unsigned integer"
+      }
+    ],
+    "enumerated_types": [
+      {
+        "name": "telnet_command_code",
+        "variants": [
+          {
+            "name": "SE",
+            "type": "uint8",
+            "condition": null
+          },
+          {
+            "name": "NOP",
+            "type": "uint8",
+            "condition": null
+          },
+          {
+            "name": "Data Mark",
+            "type": "uint8",
+            "condition": null
+          },
+          {
+            "name": "Break",
+            "type": "uint8",
+            "condition": null
+          },
+          {
+            "name": "Interrupt Process",
+            "type": "uint8",
+            "condition": null
+          },
+          {
+            "name": "Abort Output",
+            "type": "uint8",
+            "condition": null
+          },
+          {
+            "name": "Are You There",
+            "type": "uint8",
+            "condition": null
+          },
+          {
+            "name": "Erase Character",
+            "type": "uint8",
+            "condition": null
+          },
+          {
+            "name": "Erase Line",
+            "type": "uint8",
+            "condition": null
+          },
+          {
+            "name": "Go ahead",
+            "type": "uint8",
+            "condition": null
+          },
+          {
+            "name": "SB",
+            "type": "uint8",
+            "condition": null
+          },
+          {
+            "name": "WILL",
+            "type": "uint8",
+            "condition": null
+          },
+          {
+            "name": "WON'T",
+            "type": "uint8",
+            "condition": null
+          },
+          {
+            "name": "DO",
+            "type": "uint8",
+            "condition": null
+          },
+          {
+            "name": "DON'T",
+            "type": "uint8",
+            "condition": null
+          },
+          {
+            "name": "IAC",
+            "type": "uint8",
+            "condition": null
+          }
+        ]
+      }
+    ],
+    "structure_types": [
+      {
+        "name": "telnet_command",
+        "header_size_bytes": null,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "iac",
+            "display_name": "Interpret As Command",
+            "offset_bits": 0,
+            "size_bits": 8,
+            "type": "uint8",
+            "optional": false,
+            "presence_condition": null,
+            "description": "IAC escape byte",
+            "constraints": []
+          },
+          {
+            "name": "command",
+            "display_name": "Command Code",
+            "offset_bits": 8,
+            "size_bits": 8,
+            "type": "telnet_command_code",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Command identifier",
+            "constraints": []
+          },
+          {
+            "name": "option",
+            "display_name": "Option Code",
+            "offset_bits": 16,
+            "size_bits": 8,
+            "type": "uint8",
+            "optional": true,
+            "presence_condition": "command == 251 || command == 252 || command == 253 || command == 254 || command == 250",
+            "description": "Option identifier when present in negotiation or subnegotiation commands",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": "subnegotiation_payload",
+          "offset_bits": 24,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      }
+    ],
+    "array_types": [
+      {
+        "name": "subnegotiation_parameters",
+        "element_type": "uint8",
+        "length": null
+      }
+    ],
+    "parsing_context": [],
+    "helper_functions": [],
+    "transform_functions": []
+  }
+}

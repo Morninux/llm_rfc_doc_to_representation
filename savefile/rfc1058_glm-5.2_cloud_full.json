@@ -1,0 +1,226 @@
+{
+  "rfc": "1058",
+  "model": "glm-5.2:cloud",
+  "method": "full",
+  "output": {
+    "protocol": "Routing Information Protocol",
+    "rfc": "1058",
+    "pdus": [
+      "rip_message",
+      "route_entry"
+    ],
+    "bit_string_types": [
+      {
+        "name": "must_be_zero_2",
+        "size_bits": 16,
+        "description": "Must be zero"
+      },
+      {
+        "name": "ip_address",
+        "size_bits": 32,
+        "description": "IP address, 4-octet Internet address in network order"
+      },
+      {
+        "name": "must_be_zero_4",
+        "size_bits": 32,
+        "description": "Must be zero"
+      },
+      {
+        "name": "metric",
+        "size_bits": 32,
+        "description": "Metric for the destination, value between 1 and 15, or 16 for infinity"
+      }
+    ],
+    "enumerated_types": [
+      {
+        "name": "command",
+        "variants": [
+          {
+            "name": "request",
+            "type": "integer",
+            "condition": "1"
+          },
+          {
+            "name": "response",
+            "type": "integer",
+            "condition": "2"
+          },
+          {
+            "name": "traceon",
+            "type": "integer",
+            "condition": "3"
+          },
+          {
+            "name": "traceoff",
+            "type": "integer",
+            "condition": "4"
+          },
+          {
+            "name": "reserved",
+            "type": "integer",
+            "condition": "5"
+          }
+        ]
+      }
+    ],
+    "structure_types": [
+      {
+        "name": "rip_message",
+        "header_size_bytes": 4,
+        "byte_order": "network order",
+        "fields": [
+          {
+            "name": "command",
+            "display_name": "Command",
+            "offset_bits": 0,
+            "size_bits": 8,
+            "type": "command",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Command specifying the purpose of the datagram",
+            "constraints": []
+          },
+          {
+            "name": "version",
+            "display_name": "Version",
+            "offset_bits": 8,
+            "size_bits": 8,
+            "type": null,
+            "optional": false,
+            "presence_condition": null,
+            "description": "Version number of the protocol",
+            "constraints": [
+              "version == 1"
+            ]
+          },
+          {
+            "name": "must_be_zero",
+            "display_name": "Must be zero",
+            "offset_bits": 16,
+            "size_bits": 16,
+            "type": "must_be_zero_2",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Must be zero",
+            "constraints": []
+          },
+          {
+            "name": "route_entries",
+            "display_name": "Route Entries",
+            "offset_bits": 32,
+            "size_bits": "route_entries_length * 160",
+            "type": "route_entries_array",
+            "optional": false,
+            "presence_condition": null,
+            "description": "List of route entries",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": null,
+          "offset_bits": null,
+          "size": null
+        },
+        "constraints": [
+          "datagram_size <= 512"
+        ],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "route_entry",
+        "header_size_bytes": 20,
+        "byte_order": "network order",
+        "fields": [
+          {
+            "name": "address_family_identifier",
+            "display_name": "Address Family Identifier",
+            "offset_bits": 0,
+            "size_bits": 16,
+            "type": null,
+            "optional": false,
+            "presence_condition": null,
+            "description": "Address family identifier, 2 for IP",
+            "constraints": []
+          },
+          {
+            "name": "must_be_zero",
+            "display_name": "Must be zero",
+            "offset_bits": 16,
+            "size_bits": 16,
+            "type": "must_be_zero_2",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Must be zero",
+            "constraints": []
+          },
+          {
+            "name": "ip_address",
+            "display_name": "IP Address",
+            "offset_bits": 32,
+            "size_bits": 32,
+            "type": "ip_address",
+            "optional": false,
+            "presence_condition": null,
+            "description": "IP address",
+            "constraints": []
+          },
+          {
+            "name": "must_be_zero_1",
+            "display_name": "Must be zero",
+            "offset_bits": 64,
+            "size_bits": 32,
+            "type": "must_be_zero_4",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Must be zero",
+            "constraints": []
+          },
+          {
+            "name": "must_be_zero_2",
+            "display_name": "Must be zero",
+            "offset_bits": 96,
+            "size_bits": 32,
+            "type": "must_be_zero_4",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Must be zero",
+            "constraints": []
+          },
+          {
+            "name": "metric",
+            "display_name": "Metric",
+            "offset_bits": 128,
+            "size_bits": 32,
+            "type": "metric",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Metric for the destination",
+            "constraints": [
+              "metric >= 1",
+              "metric <= 16"
+            ]
+          }
+        ],
+        "payload": {
+          "name": null,
+          "offset_bits": null,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      }
+    ],
+    "array_types": [
+      {
+        "name": "route_entries_array",
+        "element_type": "route_entry",
+        "length": "up to 25"
+      }
+    ],
+    "parsing_context": [],
+    "helper_functions": [],
+    "transform_functions": []
+  }
+}

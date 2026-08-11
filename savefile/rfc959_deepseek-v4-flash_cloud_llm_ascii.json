@@ -1,0 +1,225 @@
+{
+  "rfc": "959",
+  "model": "deepseek-v4-flash:cloud",
+  "method": "llm_ascii",
+  "output": {
+    "protocol": "File Transfer Protocol",
+    "rfc": "RFC 959",
+    "pdus": [
+      "block_header",
+      "compressed_byte_string",
+      "compressed_replicated_byte",
+      "compressed_filler_string"
+    ],
+    "bit_string_types": [
+      {
+        "name": "descriptor",
+        "size_bits": 8,
+        "description": "Descriptor byte containing bit flags for block header."
+      },
+      {
+        "name": "byte_count",
+        "size_bits": 16,
+        "description": "Number of bytes in the data block following the block header."
+      },
+      {
+        "name": "type_bit",
+        "size_bits": 1,
+        "description": "Leading bit in compressed byte string header; 0 indicates byte string."
+      },
+      {
+        "name": "count_7",
+        "size_bits": 7,
+        "description": "Count of data bytes in a compressed byte string."
+      },
+      {
+        "name": "type_prefix",
+        "size_bits": 2,
+        "description": "Leading bits in compressed replicated byte or filler string; 10 for replicated, 11 for filler."
+      },
+      {
+        "name": "count_6",
+        "size_bits": 6,
+        "description": "Count of replications or filler bytes in compressed mode."
+      },
+      {
+        "name": "data_byte",
+        "size_bits": 8,
+        "description": "A single data byte."
+      }
+    ],
+    "enumerated_types": [],
+    "structure_types": [
+      {
+        "name": "block_header",
+        "header_size_bytes": 3,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "descriptor",
+            "display_name": "Descriptor",
+            "offset_bits": 0,
+            "size_bits": 8,
+            "type": "descriptor",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Descriptor byte with bit flags for EOR, EOF, suspected errors, and restart marker.",
+            "constraints": []
+          },
+          {
+            "name": "byte_count",
+            "display_name": "Byte Count",
+            "offset_bits": 8,
+            "size_bits": 16,
+            "type": "byte_count",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Number of bytes in the data block following the header.",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": "data_block",
+          "offset_bits": 24,
+          "size": "byte_count * 8"
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "compressed_byte_string",
+        "header_size_bytes": 1,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "type_bit",
+            "display_name": "Type Bit",
+            "offset_bits": 0,
+            "size_bits": 1,
+            "type": "type_bit",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Left-most bit set to 0 indicating regular data byte string.",
+            "constraints": []
+          },
+          {
+            "name": "count",
+            "display_name": "Count",
+            "offset_bits": 1,
+            "size_bits": 7,
+            "type": "count_7",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Number of data bytes n (positive, up to 127).",
+            "constraints": [
+              "count > 0"
+            ]
+          }
+        ],
+        "payload": {
+          "name": "data_bytes",
+          "offset_bits": 8,
+          "size": "count * 8"
+        },
+        "constraints": [
+          "count > 0"
+        ],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "compressed_replicated_byte",
+        "header_size_bytes": 1,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "type_prefix",
+            "display_name": "Type Prefix",
+            "offset_bits": 0,
+            "size_bits": 2,
+            "type": "type_prefix",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Leading bits '10' indicating replicated byte.",
+            "constraints": []
+          },
+          {
+            "name": "count",
+            "display_name": "Count",
+            "offset_bits": 2,
+            "size_bits": 6,
+            "type": "count_6",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Number of replications n.",
+            "constraints": []
+          },
+          {
+            "name": "data_byte",
+            "display_name": "Data Byte",
+            "offset_bits": 8,
+            "size_bits": 8,
+            "type": "data_byte",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Replicated data byte d.",
+            "constraints": []
+          }
+        ],
+        "payload": null,
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "compressed_filler_string",
+        "header_size_bytes": 1,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "type_prefix",
+            "display_name": "Type Prefix",
+            "offset_bits": 0,
+            "size_bits": 2,
+            "type": "type_prefix",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Leading bits '11' indicating filler string.",
+            "constraints": []
+          },
+          {
+            "name": "count",
+            "display_name": "Count",
+            "offset_bits": 2,
+            "size_bits": 6,
+            "type": "count_6",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Number of filler bytes n.",
+            "constraints": []
+          }
+        ],
+        "payload": null,
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      }
+    ],
+    "array_types": [],
+    "parsing_context": [
+      {
+        "name": "representation_type",
+        "type": "string",
+        "description": "Current representation type (ASCII, EBCDIC, Image, Local) used to determine filler byte value in compressed mode."
+      }
+    ],
+    "helper_functions": [
+      {
+        "name": "filler_byte",
+        "description": "Returns the filler byte based on representation type: SP for ASCII/EBCDIC, zero for Image/Local."
+      }
+    ],
+    "transform_functions": []
+  }
+}

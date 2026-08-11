@@ -1,0 +1,222 @@
+{
+  "rfc": "1058",
+  "model": "deepseek-v4-flash:cloud",
+  "method": "full",
+  "output": {
+    "protocol": "Routing Information Protocol",
+    "rfc": "RFC 1058",
+    "pdus": [
+      "RIP datagram"
+    ],
+    "bit_string_types": [],
+    "enumerated_types": [
+      {
+        "name": "Command",
+        "variants": [
+          {
+            "name": "request",
+            "type": "uint8",
+            "condition": "command == 1"
+          },
+          {
+            "name": "response",
+            "type": "uint8",
+            "condition": "command == 2"
+          },
+          {
+            "name": "traceon",
+            "type": "uint8",
+            "condition": "command == 3"
+          },
+          {
+            "name": "traceoff",
+            "type": "uint8",
+            "condition": "command == 4"
+          },
+          {
+            "name": "reserved",
+            "type": "uint8",
+            "condition": "command == 5"
+          }
+        ]
+      },
+      {
+        "name": "AddressFamilyIdentifier",
+        "variants": [
+          {
+            "name": "IP",
+            "type": "uint16",
+            "condition": "address_family_id == 2"
+          }
+        ]
+      }
+    ],
+    "structure_types": [
+      {
+        "name": "RIP packet",
+        "header_size_bytes": 4,
+        "byte_order": "network-order",
+        "fields": [
+          {
+            "name": "command",
+            "display_name": "command",
+            "offset_bits": 0,
+            "size_bits": 8,
+            "type": "Command",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Purpose of the datagram: 1=request, 2=response, 3=traceon, 4=traceoff, 5=reserved.",
+            "constraints": [
+              "command >= 1 and command <= 5"
+            ]
+          },
+          {
+            "name": "version",
+            "display_name": "version",
+            "offset_bits": 8,
+            "size_bits": 8,
+            "type": "uint8",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Protocol version. This document describes version 1.",
+            "constraints": [
+              "version == 1"
+            ]
+          },
+          {
+            "name": "must_be_zero",
+            "display_name": "must be zero",
+            "offset_bits": 16,
+            "size_bits": 16,
+            "type": "uint16",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Must be zero for version 1; ignored for version >1.",
+            "constraints": [
+              "must_be_zero == 0"
+            ]
+          }
+        ],
+        "payload": {
+          "name": "entries",
+          "offset_bits": 32,
+          "size": null
+        },
+        "constraints": [
+          "entries.length <= 25",
+          "total_packet_size <= 512"
+        ],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "RIP entry",
+        "header_size_bytes": null,
+        "byte_order": "network-order",
+        "fields": [
+          {
+            "name": "address_family_id",
+            "display_name": "address family identifier",
+            "offset_bits": 0,
+            "size_bits": 16,
+            "type": "AddressFamilyIdentifier",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Identifies the address type. For IP, this is 2.",
+            "constraints": [
+              "address_family_id == 2"
+            ]
+          },
+          {
+            "name": "must_be_zero",
+            "display_name": "must be zero",
+            "offset_bits": 16,
+            "size_bits": 16,
+            "type": "uint16",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Must be zero for version 1; ignored for version >1.",
+            "constraints": [
+              "must_be_zero == 0"
+            ]
+          },
+          {
+            "name": "ip_address",
+            "display_name": "IP address",
+            "offset_bits": 32,
+            "size_bits": 32,
+            "type": "uint32",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Internet address in network order. Can be a host address, subnet number, network number, or 0 for default route.",
+            "constraints": []
+          },
+          {
+            "name": "must_be_zero_1",
+            "display_name": "must be zero",
+            "offset_bits": 64,
+            "size_bits": 32,
+            "type": "uint32",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Must be zero for version 1; ignored for version >1.",
+            "constraints": [
+              "must_be_zero_1 == 0"
+            ]
+          },
+          {
+            "name": "must_be_zero_2",
+            "display_name": "must be zero",
+            "offset_bits": 96,
+            "size_bits": 32,
+            "type": "uint32",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Must be zero for version 1; ignored for version >1.",
+            "constraints": [
+              "must_be_zero_2 == 0"
+            ]
+          },
+          {
+            "name": "metric",
+            "display_name": "metric",
+            "offset_bits": 128,
+            "size_bits": 32,
+            "type": "uint32",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Distance to the destination. Values 1-15 indicate a valid metric; 16 indicates infinity (unreachable).",
+            "constraints": [
+              "metric == 16 or (metric >= 1 and metric <= 15)"
+            ]
+          }
+        ],
+        "payload": null,
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      }
+    ],
+    "array_types": [
+      {
+        "name": "RIP entries",
+        "element_type": "RIP entry",
+        "length": null
+      }
+    ],
+    "parsing_context": [
+      {
+        "name": "version",
+        "type": "integer",
+        "description": "The version field determines how the must-be-zero fields are processed. For version 1, they are validated; for version >1, they are ignored."
+      }
+    ],
+    "helper_functions": [
+      {
+        "name": "calculate_metric",
+        "description": "Calculates the new metric by adding the cost of the network to the received metric, capping at 16 (infinity): metric = MIN(metric + cost, 16)."
+      }
+    ],
+    "transform_functions": []
+  }
+}

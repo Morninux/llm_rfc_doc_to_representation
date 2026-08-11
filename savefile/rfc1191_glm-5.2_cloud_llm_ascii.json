@@ -1,0 +1,122 @@
+{
+  "rfc": "1191",
+  "model": "glm-5.2:cloud",
+  "method": "llm_ascii",
+  "output": {
+    "protocol": "ICMP",
+    "rfc": "RFC 1191",
+    "pdus": [
+      "ICMP Destination Unreachable - Fragmentation Needed"
+    ],
+    "bit_string_types": [
+      {
+        "name": "type",
+        "size_bits": 8,
+        "description": "ICMP message type."
+      },
+      {
+        "name": "code",
+        "size_bits": 8,
+        "description": "ICMP message code."
+      },
+      {
+        "name": "checksum",
+        "size_bits": 16,
+        "description": "ICMP checksum."
+      },
+      {
+        "name": "unused",
+        "size_bits": 16,
+        "description": "Unused field, must be set to zero."
+      },
+      {
+        "name": "next_hop_mtu",
+        "size_bits": 16,
+        "description": "The size in octets of the largest datagram that could be forwarded, along the path of the original datagram, without being fragmented at this router. The size includes the IP header and IP data, and does not include any lower-level headers."
+      }
+    ],
+    "enumerated_types": [],
+    "structure_types": [
+      {
+        "name": "ICMP Destination Unreachable - Fragmentation Needed",
+        "header_size_bytes": 8,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "type",
+            "display_name": "Type",
+            "offset_bits": 0,
+            "size_bits": 8,
+            "type": "bit_string_type",
+            "optional": false,
+            "presence_condition": null,
+            "description": "ICMP message type, set to 3.",
+            "constraints": [
+              "value == 3"
+            ]
+          },
+          {
+            "name": "code",
+            "display_name": "Code",
+            "offset_bits": 8,
+            "size_bits": 8,
+            "type": "bit_string_type",
+            "optional": false,
+            "presence_condition": null,
+            "description": "ICMP message code, set to 4 indicating fragmentation needed and DF set.",
+            "constraints": [
+              "value == 4"
+            ]
+          },
+          {
+            "name": "checksum",
+            "display_name": "Checksum",
+            "offset_bits": 16,
+            "size_bits": 16,
+            "type": "bit_string_type",
+            "optional": false,
+            "presence_condition": null,
+            "description": "ICMP checksum.",
+            "constraints": []
+          },
+          {
+            "name": "unused",
+            "display_name": "Unused",
+            "offset_bits": 32,
+            "size_bits": 16,
+            "type": "bit_string_type",
+            "optional": false,
+            "presence_condition": null,
+            "description": "High-order 16 bits remain unused, and MUST be set to zero.",
+            "constraints": [
+              "value == 0"
+            ]
+          },
+          {
+            "name": "next_hop_mtu",
+            "display_name": "Next-Hop MTU",
+            "offset_bits": 48,
+            "size_bits": 16,
+            "type": "bit_string_type",
+            "optional": false,
+            "presence_condition": null,
+            "description": "The MTU of the next-hop network, carried in the low-order 16 bits of the ICMP header.",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": "original_datagram_data",
+          "offset_bits": 64,
+          "size": "Internet Header + 64 bits"
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      }
+    ],
+    "array_types": [],
+    "parsing_context": [],
+    "helper_functions": [],
+    "transform_functions": []
+  }
+}

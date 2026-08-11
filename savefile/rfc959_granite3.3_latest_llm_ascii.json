@@ -1,0 +1,173 @@
+{
+  "rfc": "959",
+  "model": "granite3.3:latest",
+  "method": "llm_ascii",
+  "output": {
+    "protocol": "File Transfer Protocol (FTP)",
+    "rfc": "959",
+    "pdus": [
+      "Command",
+      "Response",
+      "Data"
+    ],
+    "bit_string_types": [],
+    "enumerated_types": [
+      {
+        "name": "ftp_code",
+        "variants": [
+          {
+            "name": "success",
+            "type": "integer",
+            "condition": "2xx"
+          },
+          {
+            "name": "file_not_found",
+            "type": "integer",
+            "condition": "404"
+          },
+          {
+            "name": "permission_denied",
+            "type": "integer",
+            "condition": "4xx, not 404"
+          },
+          {
+            "name": "action_not_taken",
+            "type": "integer",
+            "condition": "5xx"
+          },
+          {
+            "name": "permanent_error",
+            "type": "integer",
+            "condition": "5xx, except 550"
+          },
+          {
+            "name": "command_unknown",
+            "type": "integer",
+            "condition": "500"
+          }
+        ]
+      }
+    ],
+    "structure_types": [
+      {
+        "name": "Command",
+        "header_size_bytes": null,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "command_type",
+            "display_name": "Command Type",
+            "offset_bits": null,
+            "size_bits": 4,
+            "type": "enumerated",
+            "optional": false,
+            "presence_condition": null,
+            "description": "FTP command code (1xx)",
+            "constraints": [
+              "1 <= x < 256"
+            ]
+          },
+          {
+            "name": "argument",
+            "display_name": "Argument",
+            "offset_bits": 4,
+            "size_bits": null,
+            "type": "bit_string",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Command argument as a string.",
+            "constraints": []
+          },
+          {
+            "name": "data_connection_option",
+            "display_name": "Data Connection Option",
+            "offset_bits": 2,
+            "size_bits": 2,
+            "type": "enumerated",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Data connection mode (passive/active).",
+            "constraints": [
+              "0: default; 1: passive; 2: active"
+            ]
+          }
+        ],
+        "payload": {
+          "name": null,
+          "offset_bits": null,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": "string",
+        "serialize_to": "string"
+      },
+      {
+        "name": "Response",
+        "header_size_bytes": null,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "status_code",
+            "display_name": "Status Code",
+            "offset_bits": 0,
+            "size_bits": 4,
+            "type": "enumerated",
+            "optional": false,
+            "presence_condition": null,
+            "description": "FTP response code (2xx/4xx/5xx).",
+            "constraints": []
+          },
+          {
+            "name": "argument",
+            "display_name": "Argument",
+            "offset_bits": 4,
+            "size_bits": null,
+            "type": "bit_string",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Response argument as a string.",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": null,
+          "offset_bits": null,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": "string",
+        "serialize_to": "string"
+      },
+      {
+        "name": "Data",
+        "header_size_bytes": null,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "data",
+            "display_name": "Data",
+            "offset_bits": 0,
+            "size_bits": null,
+            "type": "bit_string",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Transferred file content.",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": "data",
+          "offset_bits": 0,
+          "size": "expression: - header_size_bytes"
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      }
+    ],
+    "array_types": [],
+    "parsing_context": [],
+    "helper_functions": [],
+    "transform_functions": []
+  }
+}

@@ -1,0 +1,150 @@
+{
+  "rfc": "959",
+  "model": "minicpm-v4.6:latest",
+  "method": "ascii",
+  "output": {
+    "protocol": "File Transfer Protocol",
+    "rfc": "RFC 959",
+    "pdus": [
+      {
+        "name": "Block Header",
+        "type": "Structure Type",
+        "header_size_bytes": null,
+        "byte_order": "little",
+        "fields": [
+          {
+            "name": "Descriptor",
+            "display_name": "Descriptor",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "bit_string_type",
+            "optional": true,
+            "presence_condition": "descriptor_byte",
+            "description": "Descriptor byte with flags"
+          },
+          {
+            "name": "Byte Count",
+            "display_name": "Byte Count",
+            "offset_bits": 16,
+            "size_bits": null,
+            "type": "integer",
+            "optional": false,
+            "presence_condition": "present"
+          }
+        ],
+        "payload": {
+          "name": "Descriptor Codes",
+          "offset_bits": 0,
+          "size": "length - 16"
+        },
+        "constraints": [
+          "code_value == decimal_value"
+        ],
+        "parse_from": null,
+        "serialize_to": null
+      }
+    ],
+    "bit_string_types": [
+      {
+        "name": "Descriptor",
+        "size_bits": 8,
+        "description": "Bit flag for descriptor byte"
+      },
+      {
+        "name": "Byte Count",
+        "size_bits": null,
+        "description": "Integer size based on RFC specification"
+      }
+    ],
+    "enumerated_types": [
+      {
+        "name": "Block Descriptor Codes",
+        "variants": [
+          {
+            "name": "code_128",
+            "type": "end_of_data_block",
+            "condition": "is_end_of_data"
+          },
+          {
+            "name": "code_64",
+            "type": "end_of_data_block",
+            "condition": "is_end_of_data"
+          },
+          {
+            "name": "code_32",
+            "type": "error_suspected",
+            "condition": "has_errors"
+          },
+          {
+            "name": "code_16",
+            "type": "restart_marker",
+            "condition": "is_restart_marker"
+          }
+        ]
+      }
+    ],
+    "structure_types": [
+      {
+        "name": "Block Header",
+        "header_size_bytes": null,
+        "byte_order": "little",
+        "fields": [
+          {
+            "name": "Descriptor",
+            "display_name": "Descriptor",
+            "offset_bits": 0,
+            "size_bits": 8,
+            "type": "bit_string_type",
+            "optional": true,
+            "presence_condition": "present",
+            "description": "Bit flag for descriptor"
+          },
+          {
+            "name": "Byte Count",
+            "display_name": "Byte Count",
+            "offset_bits": 16,
+            "size_bits": null,
+            "type": "integer",
+            "optional": false,
+            "presence_condition": "present"
+          }
+        ],
+        "payload": {
+          "name": "Descriptor Codes",
+          "offset_bits": 0,
+          "size": "length - 8"
+        },
+        "constraints": [
+          "code_value == decimal"
+        ],
+        "parse_from": null,
+        "serialize_to": null
+      }
+    ],
+    "array_types": [],
+    "parsing_context": [
+      {
+        "name": "packet_header",
+        "type": "protocol_context",
+        "description": "Context for parsing block header"
+      }
+    ],
+    "helper_functions": [
+      {
+        "name": "is_end_of_data",
+        "description": "Check if current block is end of data block"
+      },
+      {
+        "name": "has_errors",
+        "description": "Check for errors in data block"
+      }
+    ],
+    "transform_functions": [
+      {
+        "name": "to_parser_context",
+        "from": "block_header",
+        "to": "parsing_context"
+      }
+    ]
+  }
+}

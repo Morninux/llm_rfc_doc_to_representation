@@ -1,0 +1,177 @@
+{
+  "rfc": "768",
+  "model": "glm-5.2:cloud",
+  "method": "full",
+  "output": {
+    "protocol": "User Datagram Protocol",
+    "rfc": "RFC 768",
+    "pdus": [
+      "udp_datagram",
+      "udp_pseudo_header"
+    ],
+    "bit_string_types": [],
+    "enumerated_types": [],
+    "structure_types": [
+      {
+        "name": "udp_header",
+        "header_size_bytes": 8,
+        "byte_order": "big-endian",
+        "fields": [
+          {
+            "name": "source_port",
+            "display_name": "Source Port",
+            "offset_bits": 0,
+            "size_bits": 16,
+            "type": "integer",
+            "optional": true,
+            "presence_condition": null,
+            "description": "Port of the sending process; if not used, value of zero is inserted. Assumed to be the port to which a reply should be addressed in absence of other information.",
+            "constraints": []
+          },
+          {
+            "name": "destination_port",
+            "display_name": "Destination Port",
+            "offset_bits": 16,
+            "size_bits": 16,
+            "type": "integer",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Has a meaning within the context of a particular internet destination address.",
+            "constraints": []
+          },
+          {
+            "name": "length",
+            "display_name": "Length",
+            "offset_bits": 32,
+            "size_bits": 16,
+            "type": "integer",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Length in octets of this user datagram including the header and the data. Minimum value is eight.",
+            "constraints": [
+              "length >= 8"
+            ]
+          },
+          {
+            "name": "checksum",
+            "display_name": "Checksum",
+            "offset_bits": 48,
+            "size_bits": 16,
+            "type": "integer",
+            "optional": null,
+            "presence_condition": null,
+            "description": "16-bit one's complement of the one's complement sum of a pseudo header of information from the IP header, the UDP header, and the data, padded with zero octets at the end if necessary to make a multiple of two octets. If computed checksum is zero, transmitted as all ones. An all zero transmitted checksum means no checksum was generated.",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": "data",
+          "offset_bits": 64,
+          "size": "length - 8"
+        },
+        "constraints": [
+          "length >= 8"
+        ],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "udp_pseudo_header",
+        "header_size_bytes": 12,
+        "byte_order": "big-endian",
+        "fields": [
+          {
+            "name": "source_address",
+            "display_name": "Source Address",
+            "offset_bits": 0,
+            "size_bits": 32,
+            "type": "integer",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Source address from the IP header, conceptually prefixed to the UDP header for checksum computation.",
+            "constraints": []
+          },
+          {
+            "name": "destination_address",
+            "display_name": "Destination Address",
+            "offset_bits": 32,
+            "size_bits": 32,
+            "type": "integer",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Destination address from the IP header, used in checksum computation.",
+            "constraints": []
+          },
+          {
+            "name": "zero",
+            "display_name": "Zero",
+            "offset_bits": 64,
+            "size_bits": 8,
+            "type": "integer",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Zero field in pseudo header.",
+            "constraints": [
+              "zero == 0"
+            ]
+          },
+          {
+            "name": "protocol",
+            "display_name": "Protocol",
+            "offset_bits": 72,
+            "size_bits": 8,
+            "type": "integer",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Protocol field from the IP header. UDP is protocol 17 (21 octal).",
+            "constraints": []
+          },
+          {
+            "name": "udp_length",
+            "display_name": "UDP Length",
+            "offset_bits": 80,
+            "size_bits": 16,
+            "type": "integer",
+            "optional": null,
+            "presence_condition": null,
+            "description": "The UDP length, used in checksum computation. Same as the length field in the UDP header.",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": null,
+          "offset_bits": null,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": "ip_header",
+        "serialize_to": null
+      }
+    ],
+    "array_types": [],
+    "parsing_context": [
+      {
+        "name": "ip_source_address",
+        "type": "integer",
+        "description": "Source internet address from the IP header, required to compute and verify the UDP checksum via the pseudo header."
+      },
+      {
+        "name": "ip_destination_address",
+        "type": "integer",
+        "description": "Destination internet address from the IP header, required to compute and verify the UDP checksum via the pseudo header."
+      },
+      {
+        "name": "ip_protocol",
+        "type": "integer",
+        "description": "Protocol field from the internet header, required for the UDP pseudo header checksum computation."
+      }
+    ],
+    "helper_functions": [
+      {
+        "name": "compute_checksum",
+        "description": "Compute the 16-bit one's complement of the one's complement sum over the pseudo header, UDP header, and data, padded with zero octets at the end if necessary to make a multiple of two octets. If the computed checksum is zero, it is transmitted as all ones. An all zero transmitted checksum means the transmitter generated no checksum."
+      }
+    ],
+    "transform_functions": []
+  }
+}

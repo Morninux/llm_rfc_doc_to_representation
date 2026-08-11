@@ -1,0 +1,100 @@
+{
+  "rfc": "1191",
+  "model": "gpt-oss:20b-cloud",
+  "method": "full",
+  "output": {
+    "protocol": "path mtu discovery",
+    "rfc": "RFC 1191",
+    "pdus": [
+      "icmp_datagram_too_big"
+    ],
+    "bit_string_types": [
+      {
+        "name": "next_hop_mtu",
+        "size_bits": 16,
+        "description": "Next-Hop MTU field in ICMP Datagram Too Big message"
+      }
+    ],
+    "enumerated_types": [],
+    "structure_types": [
+      {
+        "name": "icmp_datagram_too_big",
+        "header_size_bytes": 8,
+        "byte_order": "network",
+        "fields": [
+          {
+            "name": "type",
+            "display_name": "Type",
+            "offset_bits": 0,
+            "size_bits": 8,
+            "type": null,
+            "optional": null,
+            "presence_condition": null,
+            "description": "ICMP message type, value 3 for Destination Unreachable",
+            "constraints": []
+          },
+          {
+            "name": "code",
+            "display_name": "Code",
+            "offset_bits": 8,
+            "size_bits": 8,
+            "type": null,
+            "optional": null,
+            "presence_condition": null,
+            "description": "ICMP code, value 4 for fragmentation needed and DF set",
+            "constraints": []
+          },
+          {
+            "name": "checksum",
+            "display_name": "Checksum",
+            "offset_bits": 16,
+            "size_bits": 16,
+            "type": null,
+            "optional": null,
+            "presence_condition": null,
+            "description": "ICMP checksum over the entire message",
+            "constraints": []
+          },
+          {
+            "name": "unused",
+            "display_name": "Unused",
+            "offset_bits": 32,
+            "size_bits": 16,
+            "type": null,
+            "optional": false,
+            "presence_condition": null,
+            "description": "High order 16 bits of the 32-bit field, must be zero",
+            "constraints": [
+              "value == 0"
+            ]
+          },
+          {
+            "name": "next_hop_mtu",
+            "display_name": "Next-Hop MTU",
+            "offset_bits": 48,
+            "size_bits": 16,
+            "type": "next_hop_mtu",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Size in octets of the largest datagram the router can forward without fragmentation",
+            "constraints": [
+              "value >= 68"
+            ]
+          }
+        ],
+        "payload": {
+          "name": "original_datagram",
+          "offset_bits": 64,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      }
+    ],
+    "array_types": [],
+    "parsing_context": [],
+    "helper_functions": [],
+    "transform_functions": []
+  }
+}

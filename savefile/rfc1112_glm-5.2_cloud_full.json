@@ -1,0 +1,145 @@
+{
+  "rfc": "1112",
+  "model": "glm-5.2:cloud",
+  "method": "full",
+  "output": {
+    "protocol": "IGMP",
+    "rfc": "1112",
+    "pdus": [
+      "IGMP Message"
+    ],
+    "bit_string_types": [
+      {
+        "name": "version",
+        "size_bits": 4,
+        "description": "IGMP version. This memo specifies version 1."
+      },
+      {
+        "name": "type",
+        "size_bits": 4,
+        "description": "IGMP message type."
+      },
+      {
+        "name": "unused",
+        "size_bits": 8,
+        "description": "Unused field, zeroed when sent, ignored when received."
+      },
+      {
+        "name": "checksum",
+        "size_bits": 16,
+        "description": "16-bit one's complement of the one's complement sum of the 8-octet IGMP message."
+      },
+      {
+        "name": "group_address",
+        "size_bits": 32,
+        "description": "IP host group address. Zeroed in Query, holds group address in Report."
+      }
+    ],
+    "enumerated_types": [
+      {
+        "name": "igmp_type",
+        "variants": [
+          {
+            "name": "Host Membership Query",
+            "type": "integer",
+            "condition": "1"
+          },
+          {
+            "name": "Host Membership Report",
+            "type": "integer",
+            "condition": "2"
+          }
+        ]
+      }
+    ],
+    "structure_types": [
+      {
+        "name": "IGMP Message",
+        "header_size_bytes": 8,
+        "byte_order": "big_endian",
+        "fields": [
+          {
+            "name": "version",
+            "display_name": "Version",
+            "offset_bits": 0,
+            "size_bits": 4,
+            "type": "bit_string",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Version of IGMP.",
+            "constraints": [
+              "version == 1"
+            ]
+          },
+          {
+            "name": "type",
+            "display_name": "Type",
+            "offset_bits": 4,
+            "size_bits": 4,
+            "type": "igmp_type",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Type of IGMP message (Query or Report).",
+            "constraints": []
+          },
+          {
+            "name": "unused",
+            "display_name": "Unused",
+            "offset_bits": 8,
+            "size_bits": 8,
+            "type": "bit_string",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Unused field, zeroed when sent, ignored when received.",
+            "constraints": [
+              "unused == 0"
+            ]
+          },
+          {
+            "name": "checksum",
+            "display_name": "Checksum",
+            "offset_bits": 16,
+            "size_bits": 16,
+            "type": "bit_string",
+            "optional": false,
+            "presence_condition": null,
+            "description": "16-bit one's complement of the one's complement sum of the 8-octet IGMP message.",
+            "constraints": []
+          },
+          {
+            "name": "group_address",
+            "display_name": "Group Address",
+            "offset_bits": 32,
+            "size_bits": 32,
+            "type": "bit_string",
+            "optional": false,
+            "presence_condition": null,
+            "description": "In a Host Membership Query, zeroed when sent. In a Host Membership Report, holds the IP host group address of the group being reported.",
+            "constraints": [
+              "type == 1 implies group_address == 0"
+            ]
+          }
+        ],
+        "payload": {
+          "name": "payload",
+          "offset_bits": 64,
+          "size": 0
+        },
+        "constraints": [
+          "message_length >= 8"
+        ],
+        "parse_from": null,
+        "serialize_to": null
+      }
+    ],
+    "array_types": [],
+    "parsing_context": [],
+    "helper_functions": [
+      {
+        "name": "compute_checksum",
+        "description": "The checksum is the 16-bit one's complement of the one's complement sum of the 8-octet IGMP message. For computing the checksum, the checksum field is zeroed."
+      }
+    ],
+    "transform_functions": []
+  }
+}

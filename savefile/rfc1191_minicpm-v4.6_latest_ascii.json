@@ -1,0 +1,54 @@
+{
+  "rfc": "1191",
+  "model": "minicpm-v4.6:latest",
+  "method": "ascii",
+  "output": {
+    "protocol": "ICMPv1",
+    "rfc": "1191",
+    "pdus": [
+      "The RFC document describes the packet format for ICMPv1"
+    ],
+    "bit_string_types": [],
+    "enumerated_types": [],
+    "structure_types": [
+      {
+        "name": "ICMP Header",
+        "header_size_bytes": null,
+        "byte_order": "little",
+        "fields": [
+          {
+            "name": "Type",
+            "display_name": "Type"
+          },
+          {
+            "name": "Code",
+            "display_name": "Code"
+          }
+        ],
+        "offset_bits": null,
+        "size_bits": null,
+        "type": "uint32",
+        "optional": true,
+        "presence_condition": null,
+        "description": ""
+      },
+      {
+        "name": "Next-Hop MTU",
+        "display_name": "Next-Hop MTU"
+      },
+      "constraints",
+      "parse_from",
+      "serialize_to"
+    ],
+    "array_types": [],
+    "parsing_context": [
+      {
+        "name": "previous packets",
+        "type": "string",
+        "description": "previous packet information"
+      }
+    ],
+    "helper_functions": [],
+    "transform_functions": []
+  }
+}

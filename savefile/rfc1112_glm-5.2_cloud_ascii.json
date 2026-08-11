@@ -1,0 +1,127 @@
+{
+  "rfc": "1112",
+  "model": "glm-5.2:cloud",
+  "method": "ascii",
+  "output": {
+    "protocol": "IGMP",
+    "rfc": "RFC 1112",
+    "pdus": [
+      "IGMP Message"
+    ],
+    "bit_string_types": [
+      {
+        "name": "group_address",
+        "size_bits": 32,
+        "description": "IP multicast group address"
+      },
+      {
+        "name": "checksum",
+        "size_bits": 16,
+        "description": "IGMP checksum"
+      }
+    ],
+    "enumerated_types": [
+      {
+        "name": "igmp_type",
+        "variants": [
+          {
+            "name": "host_membership_query",
+            "type": "bit_string",
+            "condition": "type == 1"
+          },
+          {
+            "name": "host_membership_report",
+            "type": "bit_string",
+            "condition": "type == 2"
+          }
+        ]
+      }
+    ],
+    "structure_types": [
+      {
+        "name": "igmp_message",
+        "header_size_bytes": 8,
+        "byte_order": "network",
+        "fields": [
+          {
+            "name": "version",
+            "display_name": "Version",
+            "offset_bits": 0,
+            "size_bits": 4,
+            "type": "bit_string",
+            "optional": false,
+            "presence_condition": null,
+            "description": "IGMP version. This memo specifies version 1. Version 0 is specified in RFC-988 and is now obsolete.",
+            "constraints": [
+              "version == 1"
+            ]
+          },
+          {
+            "name": "type",
+            "display_name": "Type",
+            "offset_bits": 4,
+            "size_bits": 4,
+            "type": "enumerated",
+            "optional": false,
+            "presence_condition": null,
+            "description": "IGMP message type. 1 = Host Membership Query, 2 = Host Membership Report.",
+            "constraints": [
+              "type == 1 || type == 2"
+            ]
+          },
+          {
+            "name": "unused",
+            "display_name": "Unused",
+            "offset_bits": 8,
+            "size_bits": 8,
+            "type": "bit_string",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Unused field.",
+            "constraints": []
+          },
+          {
+            "name": "checksum",
+            "display_name": "Checksum",
+            "offset_bits": 16,
+            "size_bits": 16,
+            "type": "bit_string",
+            "optional": false,
+            "presence_condition": null,
+            "description": "IGMP checksum.",
+            "constraints": []
+          },
+          {
+            "name": "group_address",
+            "display_name": "Group Address",
+            "offset_bits": 32,
+            "size_bits": 32,
+            "type": "bit_string",
+            "optional": false,
+            "presence_condition": null,
+            "description": "IP multicast group address.",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": null,
+          "offset_bits": 64,
+          "size": 0
+        },
+        "constraints": [],
+        "parse_from": "IP datagram with IP protocol number 2",
+        "serialize_to": null
+      }
+    ],
+    "array_types": [],
+    "parsing_context": [
+      {
+        "name": "ip_protocol_number",
+        "type": "integer",
+        "description": "IGMP messages are encapsulated in IP datagrams with an IP protocol number of 2."
+      }
+    ],
+    "helper_functions": [],
+    "transform_functions": []
+  }
+}

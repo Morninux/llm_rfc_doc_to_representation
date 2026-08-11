@@ -1,0 +1,81 @@
+{
+  "rfc": "768",
+  "model": "nemotron-3-super:cloud",
+  "method": "ascii",
+  "output": {
+    "protocol": "UDP",
+    "rfc": "RFC 768",
+    "pdus": [
+      "UDP Datagram"
+    ],
+    "bit_string_types": [],
+    "enumerated_types": [],
+    "structure_types": [
+      {
+        "name": "UDP_Header",
+        "header_size_bytes": 8,
+        "byte_order": "big_endian",
+        "fields": [
+          {
+            "name": "source_port",
+            "display_name": "Source Port",
+            "offset_bits": 0,
+            "size_bits": 16,
+            "type": "uint16",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Port of sending process",
+            "constraints": []
+          },
+          {
+            "name": "destination_port",
+            "display_name": "Destination Port",
+            "offset_bits": 16,
+            "size_bits": 16,
+            "type": "uint16",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Port of receiving process",
+            "constraints": []
+          },
+          {
+            "name": "length",
+            "display_name": "Length",
+            "offset_bits": 32,
+            "size_bits": 16,
+            "type": "uint16",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Length in octets of UDP datagram (header+data)",
+            "constraints": [
+              "length >= 8"
+            ]
+          },
+          {
+            "name": "checksum",
+            "display_name": "Checksum",
+            "offset_bits": 48,
+            "size_bits": 16,
+            "type": "uint16",
+            "optional": false,
+            "presence_condition": null,
+            "description": "16-bit one's complement checksum",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": "data",
+          "offset_bits": 64,
+          "size": "length - 8"
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      }
+    ],
+    "array_types": [],
+    "parsing_context": [],
+    "helper_functions": [],
+    "transform_functions": []
+  }
+}

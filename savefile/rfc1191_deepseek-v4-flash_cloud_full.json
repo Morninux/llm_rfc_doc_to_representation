@@ -1,0 +1,124 @@
+{
+  "rfc": "1191",
+  "model": "deepseek-v4-flash:cloud",
+  "method": "full",
+  "output": {
+    "protocol": "Path MTU Discovery",
+    "rfc": "RFC 1191",
+    "pdus": [
+      "icmp_datagram_too_big"
+    ],
+    "bit_string_types": [
+      {
+        "name": "icmp_type",
+        "size_bits": 8,
+        "description": "ICMP Type field"
+      },
+      {
+        "name": "icmp_code",
+        "size_bits": 8,
+        "description": "ICMP Code field"
+      },
+      {
+        "name": "icmp_checksum",
+        "size_bits": 16,
+        "description": "ICMP Checksum"
+      },
+      {
+        "name": "unused",
+        "size_bits": 16,
+        "description": "Unused field, must be zero"
+      },
+      {
+        "name": "next_hop_mtu",
+        "size_bits": 16,
+        "description": "Next-Hop MTU field"
+      }
+    ],
+    "enumerated_types": [],
+    "structure_types": [
+      {
+        "name": "icmp_datagram_too_big",
+        "header_size_bytes": 8,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "type",
+            "display_name": "Type",
+            "offset_bits": 0,
+            "size_bits": 8,
+            "type": "icmp_type",
+            "optional": false,
+            "presence_condition": null,
+            "description": "ICMP Type field",
+            "constraints": [
+              "type == 3"
+            ]
+          },
+          {
+            "name": "code",
+            "display_name": "Code",
+            "offset_bits": 8,
+            "size_bits": 8,
+            "type": "icmp_code",
+            "optional": false,
+            "presence_condition": null,
+            "description": "ICMP Code field",
+            "constraints": [
+              "code == 4"
+            ]
+          },
+          {
+            "name": "checksum",
+            "display_name": "Checksum",
+            "offset_bits": 16,
+            "size_bits": 16,
+            "type": "icmp_checksum",
+            "optional": false,
+            "presence_condition": null,
+            "description": "ICMP Checksum",
+            "constraints": []
+          },
+          {
+            "name": "unused",
+            "display_name": "Unused",
+            "offset_bits": 32,
+            "size_bits": 16,
+            "type": "unused",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Unused field, must be zero",
+            "constraints": [
+              "unused == 0"
+            ]
+          },
+          {
+            "name": "next_hop_mtu",
+            "display_name": "Next-Hop MTU",
+            "offset_bits": 48,
+            "size_bits": 16,
+            "type": "next_hop_mtu",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Next-Hop MTU field",
+            "constraints": [
+              "next_hop_mtu >= 68"
+            ]
+          }
+        ],
+        "payload": {
+          "name": "internet_header_and_original_data",
+          "offset_bits": 64,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      }
+    ],
+    "array_types": [],
+    "parsing_context": [],
+    "helper_functions": [],
+    "transform_functions": []
+  }
+}

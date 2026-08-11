@@ -1,0 +1,127 @@
+{
+  "rfc": "1112",
+  "model": "nemotron-3-super:cloud",
+  "method": "full",
+  "output": {
+    "protocol": "IGMP",
+    "rfc": "1112",
+    "pdus": [
+      "igmp_message"
+    ],
+    "bit_string_types": [
+      {
+        "name": "uint4",
+        "size_bits": 4,
+        "description": "4-bit unsigned integer"
+      },
+      {
+        "name": "uint8",
+        "size_bits": 8,
+        "description": "8-bit unsigned integer"
+      },
+      {
+        "name": "uint16",
+        "size_bits": 16,
+        "description": "16-bit unsigned integer"
+      },
+      {
+        "name": "uint32",
+        "size_bits": 32,
+        "description": "32-bit unsigned integer"
+      }
+    ],
+    "enumerated_types": [
+      {
+        "name": "igmp_type",
+        "variants": [
+          {
+            "name": "host_membership_query",
+            "type": "uint4",
+            "condition": null
+          },
+          {
+            "name": "host_membership_report",
+            "type": "uint4",
+            "condition": null
+          }
+        ]
+      }
+    ],
+    "structure_types": [
+      {
+        "name": "igmp_message",
+        "header_size_bytes": 8,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "version",
+            "display_name": "Version",
+            "offset_bits": 0,
+            "size_bits": 4,
+            "type": "uint4",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Version of IGMP. This memo specifies version 1.",
+            "constraints": []
+          },
+          {
+            "name": "type",
+            "display_name": "Type",
+            "offset_bits": 4,
+            "size_bits": 4,
+            "type": "igmp_type",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Type of IGMP message: 1 = Host Membership Query, 2 = Host Membership Report",
+            "constraints": []
+          },
+          {
+            "name": "unused",
+            "display_name": "Unused",
+            "offset_bits": 8,
+            "size_bits": 8,
+            "type": "uint8",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Unused field, zeroed when sent, ignored when received.",
+            "constraints": []
+          },
+          {
+            "name": "checksum",
+            "display_name": "Checksum",
+            "offset_bits": 16,
+            "size_bits": 16,
+            "type": "uint16",
+            "optional": false,
+            "presence_condition": null,
+            "description": "The checksum is the 16-bit one's complement of the one's complement sum of the 8-octet IGMP message. For computing the checksum, the checksum field is zeroed.",
+            "constraints": []
+          },
+          {
+            "name": "group_address",
+            "display_name": "Group Address",
+            "offset_bits": 32,
+            "size_bits": 32,
+            "type": "uint32",
+            "optional": false,
+            "presence_condition": null,
+            "description": "In a Host Membership Query message, the group address field is zeroed when sent, ignored when received. In a Host Membership Report message, the group address field holds the IP host group address of the group being reported.",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": null,
+          "offset_bits": null,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      }
+    ],
+    "array_types": [],
+    "parsing_context": [],
+    "helper_functions": [],
+    "transform_functions": []
+  }
+}

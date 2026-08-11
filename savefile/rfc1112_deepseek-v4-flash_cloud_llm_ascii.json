@@ -1,0 +1,134 @@
+{
+  "rfc": "1112",
+  "model": "deepseek-v4-flash:cloud",
+  "method": "llm_ascii",
+  "output": {
+    "protocol": "IGMP",
+    "rfc": "RFC 1112",
+    "pdus": [
+      "igmp_message"
+    ],
+    "bit_string_types": [
+      {
+        "name": "igmp_version",
+        "size_bits": 4,
+        "description": "Version of IGMP; this memo specifies version 1."
+      },
+      {
+        "name": "igmp_unused",
+        "size_bits": 8,
+        "description": "Reserved unused field."
+      },
+      {
+        "name": "igmp_checksum",
+        "size_bits": 16,
+        "description": "Checksum of the IGMP message."
+      },
+      {
+        "name": "igmp_group_address",
+        "size_bits": 32,
+        "description": "Group address; zero for Host Membership Query."
+      }
+    ],
+    "enumerated_types": [
+      {
+        "name": "igmp_message_type",
+        "variants": [
+          {
+            "name": "host_membership_query",
+            "type": "integer",
+            "condition": "value == 1"
+          },
+          {
+            "name": "host_membership_report",
+            "type": "integer",
+            "condition": "value == 2"
+          }
+        ]
+      }
+    ],
+    "structure_types": [
+      {
+        "name": "igmp_message",
+        "header_size_bytes": 8,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "version",
+            "display_name": "Version",
+            "offset_bits": 0,
+            "size_bits": 4,
+            "type": "igmp_version",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Version of IGMP; this memo specifies version 1.",
+            "constraints": [
+              "version == 1"
+            ]
+          },
+          {
+            "name": "type",
+            "display_name": "Type",
+            "offset_bits": 4,
+            "size_bits": 4,
+            "type": "igmp_message_type",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Type of IGMP message: 1 = Host Membership Query, 2 = Host Membership Report.",
+            "constraints": [
+              "type == 1 or type == 2"
+            ]
+          },
+          {
+            "name": "unused",
+            "display_name": "Unused",
+            "offset_bits": 8,
+            "size_bits": 8,
+            "type": "igmp_unused",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Reserved unused field.",
+            "constraints": []
+          },
+          {
+            "name": "checksum",
+            "display_name": "Checksum",
+            "offset_bits": 16,
+            "size_bits": 16,
+            "type": "igmp_checksum",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Checksum of the IGMP message.",
+            "constraints": []
+          },
+          {
+            "name": "group_address",
+            "display_name": "Group Address",
+            "offset_bits": 32,
+            "size_bits": 32,
+            "type": "igmp_group_address",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Group address; zero for Host Membership Query.",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": null,
+          "offset_bits": null,
+          "size": null
+        },
+        "constraints": [
+          "version == 1",
+          "type == 1 or type == 2"
+        ],
+        "parse_from": null,
+        "serialize_to": null
+      }
+    ],
+    "array_types": [],
+    "parsing_context": [],
+    "helper_functions": [],
+    "transform_functions": []
+  }
+}

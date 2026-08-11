@@ -1,0 +1,20 @@
+{
+  "rfc": "1058",
+  "model": "minicpm-v4.6:latest",
+  "method": "ascii",
+  "output": {
+    "protocol": "Routing Information Protocol",
+    "rfc": "RFC 1058",
+    "pdus": [
+      "The packet format is shown in Figure 1.",
+      "Every datagram contains a command, a version number, and possible arguments. This document describes version 1 of the protocol. Details of processing the version number are described in section 3.4. The command field is used to specify the purpose of this"
+    ],
+    "bit_string_types": [],
+    "enumerated_types": [],
+    "structure_types": [],
+    "array_types": [],
+    "parsing_context": [],
+    "helper_functions": [],
+    "transform_functions": []
+  }
+}

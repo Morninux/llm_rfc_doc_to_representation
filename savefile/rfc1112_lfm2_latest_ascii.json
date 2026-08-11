@@ -1,0 +1,109 @@
+{
+  "rfc": "1112",
+  "model": "lfm2:latest",
+  "method": "ascii",
+  "output": {
+    "protocol": "ip",
+    "rfc": "RFC 1112",
+    "pdus": [
+      "igmp_message"
+    ],
+    "bit_string_types": [
+      {
+        "name": "version",
+        "size_bits": 8,
+        "description": "IGMP version number"
+      },
+      {
+        "name": "type",
+        "size_bits": 8,
+        "description": "Message type (1 or 2)"
+      },
+      {
+        "name": "group_address",
+        "size_bits": 32,
+        "description": "Multicast group address"
+      }
+    ],
+    "enumerated_types": [
+      {
+        "name": "version",
+        "variants": [
+          {
+            "name": "1",
+            "type": "integer",
+            "condition": null
+          },
+          {
+            "name": "0",
+            "type": "integer",
+            "condition": "obsolete"
+          }
+        ]
+      },
+      {
+        "name": "type",
+        "variants": [
+          {
+            "name": "1",
+            "type": "integer",
+            "condition": null
+          },
+          {
+            "name": "2",
+            "type": "integer",
+            "condition": null
+          }
+        ]
+      }
+    ],
+    "structure_types": [
+      {
+        "name": "igmp_message",
+        "header_size_bytes": 14,
+        "byte_order": "network",
+        "fields": [
+          {
+            "name": "version",
+            "display_name": "Version",
+            "offset_bits": 0,
+            "size_bits": 8,
+            "type": "integer",
+            "optional": false
+          },
+          {
+            "name": "type",
+            "display_name": "Type",
+            "offset_bits": 8,
+            "size_bits": 8,
+            "type": "integer",
+            "optional": false
+          },
+          {
+            "name": "group_address",
+            "display_name": "Group Address",
+            "offset_bits": 16,
+            "size_bits": 32,
+            "type": "address",
+            "optional": true
+          }
+        ],
+        "payload": {
+          "name": "data",
+          "offset_bits": 14,
+          "size": "variable",
+          "description": "Payload data"
+        },
+        "constraints": [
+          "version >= 1"
+        ],
+        "parse_from": null,
+        "serialize_to": null
+      }
+    ],
+    "array_types": [],
+    "parsing_context": [],
+    "helper_functions": [],
+    "transform_functions": []
+  }
+}

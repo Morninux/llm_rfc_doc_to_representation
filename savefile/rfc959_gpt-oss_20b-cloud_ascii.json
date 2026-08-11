@@ -1,0 +1,153 @@
+{
+  "rfc": "959",
+  "model": "gpt-oss:20b-cloud",
+  "method": "ascii",
+  "output": {
+    "protocol": "File Transfer Protocol",
+    "rfc": "RFC 959",
+    "pdus": [
+      "Block Header",
+      "Compressed Regular Data",
+      "Compressed Replicated Byte"
+    ],
+    "bit_string_types": [
+      {
+        "name": "descriptor_byte",
+        "size_bits": 8,
+        "description": "Descriptor flags byte"
+      }
+    ],
+    "enumerated_types": [
+      {
+        "name": "descriptor_flag",
+        "variants": [
+          {
+            "name": "end_of_data_block_is_eor",
+            "type": "integer",
+            "condition": null
+          },
+          {
+            "name": "end_of_data_block_is_eof",
+            "type": "integer",
+            "condition": null
+          },
+          {
+            "name": "suspected_errors_in_data_block",
+            "type": "integer",
+            "condition": null
+          },
+          {
+            "name": "data_block_is_restart_marker",
+            "type": "integer",
+            "condition": null
+          }
+        ]
+      }
+    ],
+    "structure_types": [
+      {
+        "name": "block_header",
+        "header_size_bytes": 3,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "descriptor",
+            "display_name": "Descriptor",
+            "offset_bits": 0,
+            "size_bits": 8,
+            "type": "descriptor_flag",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Flags indicating the descriptor status of the block",
+            "constraints": []
+          },
+          {
+            "name": "byte_count",
+            "display_name": "Byte Count",
+            "offset_bits": 8,
+            "size_bits": 16,
+            "type": "integer",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Number of data bytes following this header",
+            "constraints": []
+          }
+        ],
+        "payload": null,
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "compressed_regular_data",
+        "header_size_bytes": 1,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "control_byte",
+            "display_name": "Control Byte",
+            "offset_bits": 0,
+            "size_bits": 8,
+            "type": "integer",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Byte with top bit 0 and lower 7 bits giving length n",
+            "constraints": [
+              "control_byte & 0x80 == 0",
+              "control_byte & 0x7F > 0",
+              "control_byte & 0x7F <= 127"
+            ]
+          }
+        ],
+        "payload": {
+          "name": "data_bytes",
+          "offset_bits": 8,
+          "size": "control_byte & 0x7F"
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "compressed_replicated_byte",
+        "header_size_bytes": 1,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "control_byte",
+            "display_name": "Control Byte",
+            "offset_bits": 0,
+            "size_bits": 8,
+            "type": "integer",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Byte with bits '10' as top two bits and 6-bit count n",
+            "constraints": [
+              "control_byte & 0xC0 == 0x80",
+              "control_byte & 0x3F <= 127"
+            ]
+          },
+          {
+            "name": "replicated_byte",
+            "display_name": "Replicated Byte",
+            "offset_bits": 8,
+            "size_bits": 8,
+            "type": "byte",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Byte to be replicated n times",
+            "constraints": []
+          }
+        ],
+        "payload": null,
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      }
+    ],
+    "array_types": [],
+    "parsing_context": [],
+    "helper_functions": [],
+    "transform_functions": []
+  }
+}

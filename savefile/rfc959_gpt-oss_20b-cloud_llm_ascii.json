@@ -1,0 +1,193 @@
+{
+  "rfc": "959",
+  "model": "gpt-oss:20b-cloud",
+  "method": "llm_ascii",
+  "output": {
+    "protocol": "File Transfer Protocol",
+    "rfc": "RFC 959",
+    "pdus": [
+      "block_header",
+      "byte_string",
+      "replicated_byte",
+      "filler_string"
+    ],
+    "bit_string_types": [
+      {
+        "name": "descriptor_byte",
+        "size_bits": 8,
+        "description": "Descriptor byte indicating block flags"
+      },
+      {
+        "name": "control_byte",
+        "size_bits": 8,
+        "description": "Leading byte that encodes type and count for compressed data elements"
+      }
+    ],
+    "enumerated_types": [
+      {
+        "name": "compressed_element_type",
+        "variants": [
+          {
+            "name": "byte_string",
+            "type": "byte_string",
+            "condition": "((control_byte >> 6) == 0)"
+          },
+          {
+            "name": "replicated_byte",
+            "type": "replicated_byte",
+            "condition": "((control_byte >> 6) == 2)"
+          },
+          {
+            "name": "filler_string",
+            "type": "filler_string",
+            "condition": "((control_byte >> 6) == 3)"
+          }
+        ]
+      }
+    ],
+    "structure_types": [
+      {
+        "name": "block_header",
+        "header_size_bytes": 3,
+        "byte_order": "big_endian",
+        "fields": [
+          {
+            "name": "descriptor_byte",
+            "display_name": "Descriptor Byte",
+            "offset_bits": 0,
+            "size_bits": 8,
+            "type": "descriptor_byte",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Descriptor byte indicating block flags",
+            "constraints": [
+              "descriptor_byte & 0xA0 == 0"
+            ]
+          },
+          {
+            "name": "byte_count",
+            "display_name": "Byte Count",
+            "offset_bits": 8,
+            "size_bits": 16,
+            "type": "uint16",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Number of data bytes following the block header",
+            "constraints": [
+              "byte_count >= 0"
+            ]
+          }
+        ],
+        "payload": {
+          "name": "block_data",
+          "offset_bits": 24,
+          "size": "byte_count * 8"
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "byte_string",
+        "header_size_bytes": 1,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "control_byte",
+            "display_name": "Control Byte",
+            "offset_bits": 0,
+            "size_bits": 8,
+            "type": "control_byte",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Leading byte indicating data string type and length",
+            "constraints": [
+              "control_byte >> 7 == 0",
+              "1 <= (control_byte & 0x7F) <= 127"
+            ]
+          }
+        ],
+        "payload": {
+          "name": "data",
+          "offset_bits": 8,
+          "size": "(control_byte & 0x7F) * 8"
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "replicated_byte",
+        "header_size_bytes": 2,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "control_byte",
+            "display_name": "Control Byte",
+            "offset_bits": 0,
+            "size_bits": 8,
+            "type": "control_byte",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Leading byte indicating replication type and count",
+            "constraints": [
+              "(control_byte >> 6) == 2",
+              "1 <= (control_byte & 0x3F) <= 63"
+            ]
+          },
+          {
+            "name": "data_byte",
+            "display_name": "Data Byte",
+            "offset_bits": 8,
+            "size_bits": 8,
+            "type": "uint8",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Byte value to be replicated",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": null,
+          "offset_bits": null,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "filler_string",
+        "header_size_bytes": 1,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "control_byte",
+            "display_name": "Control Byte",
+            "offset_bits": 0,
+            "size_bits": 8,
+            "type": "control_byte",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Leading byte indicating filler string type and count",
+            "constraints": [
+              "(control_byte >> 6) == 3"
+            ]
+          }
+        ],
+        "payload": {
+          "name": null,
+          "offset_bits": null,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      }
+    ],
+    "array_types": [],
+    "parsing_context": [],
+    "helper_functions": [],
+    "transform_functions": []
+  }
+}

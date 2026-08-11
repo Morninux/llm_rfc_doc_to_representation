@@ -1,0 +1,1360 @@
+{
+  "rfc": "1035",
+  "model": "deepseek-v4-flash:cloud",
+  "method": "full",
+  "output": {
+    "protocol": "Domain Name System",
+    "rfc": "RFC 1035",
+    "pdus": [
+      "DNS Message",
+      "Resource Record"
+    ],
+    "bit_string_types": [
+      {
+        "name": "id",
+        "size_bits": 16,
+        "description": "16-bit identifier assigned by the program that generates a query."
+      },
+      {
+        "name": "uint16",
+        "size_bits": 16,
+        "description": "Unsigned 16-bit integer."
+      },
+      {
+        "name": "uint32",
+        "size_bits": 32,
+        "description": "Unsigned 32-bit integer."
+      },
+      {
+        "name": "ttl",
+        "size_bits": 32,
+        "description": "32-bit unsigned integer specifying the time interval in seconds that a resource record may be cached."
+      },
+      {
+        "name": "rdlength",
+        "size_bits": 16,
+        "description": "Unsigned 16-bit integer specifying the length in octets of the RDATA field."
+      },
+      {
+        "name": "address",
+        "size_bits": 32,
+        "description": "32-bit Internet address."
+      },
+      {
+        "name": "protocol",
+        "size_bits": 8,
+        "description": "8-bit IP protocol number."
+      },
+      {
+        "name": "preference",
+        "size_bits": 16,
+        "description": "16-bit integer specifying preference for MX records; lower values are preferred."
+      },
+      {
+        "name": "serial",
+        "size_bits": 32,
+        "description": "Unsigned 32-bit version number of the zone."
+      },
+      {
+        "name": "refresh",
+        "size_bits": 32,
+        "description": "32-bit time interval before the zone should be refreshed."
+      },
+      {
+        "name": "retry",
+        "size_bits": 32,
+        "description": "32-bit time interval that should elapse before a failed refresh is retried."
+      },
+      {
+        "name": "expire",
+        "size_bits": 32,
+        "description": "32-bit time value specifying the upper limit on the time interval before the zone is no longer authoritative."
+      },
+      {
+        "name": "minimum",
+        "size_bits": 32,
+        "description": "Unsigned 32-bit minimum TTL field exported with any RR from the zone."
+      },
+      {
+        "name": "domain_name",
+        "size_bits": null,
+        "description": "A domain name represented as a sequence of labels or a compression pointer."
+      },
+      {
+        "name": "character_string",
+        "size_bits": null,
+        "description": "A single length octet followed by that number of characters; treated as binary information."
+      },
+      {
+        "name": "bit_map",
+        "size_bits": null,
+        "description": "Variable-length bit map, multiple of 8 bits long."
+      },
+      {
+        "name": "null_data",
+        "size_bits": null,
+        "description": "Arbitrary data up to 65535 octets."
+      }
+    ],
+    "enumerated_types": [
+      {
+        "name": "TYPE",
+        "variants": [
+          {
+            "name": "A",
+            "type": "integer",
+            "condition": "value == 1"
+          },
+          {
+            "name": "NS",
+            "type": "integer",
+            "condition": "value == 2"
+          },
+          {
+            "name": "MD",
+            "type": "integer",
+            "condition": "value == 3"
+          },
+          {
+            "name": "MF",
+            "type": "integer",
+            "condition": "value == 4"
+          },
+          {
+            "name": "CNAME",
+            "type": "integer",
+            "condition": "value == 5"
+          },
+          {
+            "name": "SOA",
+            "type": "integer",
+            "condition": "value == 6"
+          },
+          {
+            "name": "MB",
+            "type": "integer",
+            "condition": "value == 7"
+          },
+          {
+            "name": "MG",
+            "type": "integer",
+            "condition": "value == 8"
+          },
+          {
+            "name": "MR",
+            "type": "integer",
+            "condition": "value == 9"
+          },
+          {
+            "name": "NULL",
+            "type": "integer",
+            "condition": "value == 10"
+          },
+          {
+            "name": "WKS",
+            "type": "integer",
+            "condition": "value == 11"
+          },
+          {
+            "name": "PTR",
+            "type": "integer",
+            "condition": "value == 12"
+          },
+          {
+            "name": "HINFO",
+            "type": "integer",
+            "condition": "value == 13"
+          },
+          {
+            "name": "MINFO",
+            "type": "integer",
+            "condition": "value == 14"
+          },
+          {
+            "name": "MX",
+            "type": "integer",
+            "condition": "value == 15"
+          },
+          {
+            "name": "TXT",
+            "type": "integer",
+            "condition": "value == 16"
+          }
+        ]
+      },
+      {
+        "name": "QTYPE",
+        "variants": [
+          {
+            "name": "A",
+            "type": "integer",
+            "condition": "value == 1"
+          },
+          {
+            "name": "NS",
+            "type": "integer",
+            "condition": "value == 2"
+          },
+          {
+            "name": "MD",
+            "type": "integer",
+            "condition": "value == 3"
+          },
+          {
+            "name": "MF",
+            "type": "integer",
+            "condition": "value == 4"
+          },
+          {
+            "name": "CNAME",
+            "type": "integer",
+            "condition": "value == 5"
+          },
+          {
+            "name": "SOA",
+            "type": "integer",
+            "condition": "value == 6"
+          },
+          {
+            "name": "MB",
+            "type": "integer",
+            "condition": "value == 7"
+          },
+          {
+            "name": "MG",
+            "type": "integer",
+            "condition": "value == 8"
+          },
+          {
+            "name": "MR",
+            "type": "integer",
+            "condition": "value == 9"
+          },
+          {
+            "name": "NULL",
+            "type": "integer",
+            "condition": "value == 10"
+          },
+          {
+            "name": "WKS",
+            "type": "integer",
+            "condition": "value == 11"
+          },
+          {
+            "name": "PTR",
+            "type": "integer",
+            "condition": "value == 12"
+          },
+          {
+            "name": "HINFO",
+            "type": "integer",
+            "condition": "value == 13"
+          },
+          {
+            "name": "MINFO",
+            "type": "integer",
+            "condition": "value == 14"
+          },
+          {
+            "name": "MX",
+            "type": "integer",
+            "condition": "value == 15"
+          },
+          {
+            "name": "TXT",
+            "type": "integer",
+            "condition": "value == 16"
+          },
+          {
+            "name": "AXFR",
+            "type": "integer",
+            "condition": "value == 252"
+          },
+          {
+            "name": "MAILB",
+            "type": "integer",
+            "condition": "value == 253"
+          },
+          {
+            "name": "MAILA",
+            "type": "integer",
+            "condition": "value == 254"
+          },
+          {
+            "name": "*",
+            "type": "integer",
+            "condition": "value == 255"
+          }
+        ]
+      },
+      {
+        "name": "CLASS",
+        "variants": [
+          {
+            "name": "IN",
+            "type": "integer",
+            "condition": "value == 1"
+          },
+          {
+            "name": "CS",
+            "type": "integer",
+            "condition": "value == 2"
+          },
+          {
+            "name": "CH",
+            "type": "integer",
+            "condition": "value == 3"
+          },
+          {
+            "name": "HS",
+            "type": "integer",
+            "condition": "value == 4"
+          }
+        ]
+      },
+      {
+        "name": "QCLASS",
+        "variants": [
+          {
+            "name": "IN",
+            "type": "integer",
+            "condition": "value == 1"
+          },
+          {
+            "name": "CS",
+            "type": "integer",
+            "condition": "value == 2"
+          },
+          {
+            "name": "CH",
+            "type": "integer",
+            "condition": "value == 3"
+          },
+          {
+            "name": "HS",
+            "type": "integer",
+            "condition": "value == 4"
+          },
+          {
+            "name": "*",
+            "type": "integer",
+            "condition": "value == 255"
+          }
+        ]
+      },
+      {
+        "name": "OPCODE",
+        "variants": [
+          {
+            "name": "QUERY",
+            "type": "integer",
+            "condition": "value == 0"
+          },
+          {
+            "name": "IQUERY",
+            "type": "integer",
+            "condition": "value == 1"
+          },
+          {
+            "name": "STATUS",
+            "type": "integer",
+            "condition": "value == 2"
+          },
+          {
+            "name": "RESERVED_3_15",
+            "type": "integer",
+            "condition": "value >= 3 && value <= 15"
+          }
+        ]
+      },
+      {
+        "name": "RCODE",
+        "variants": [
+          {
+            "name": "NO_ERROR",
+            "type": "integer",
+            "condition": "value == 0"
+          },
+          {
+            "name": "FORMAT_ERROR",
+            "type": "integer",
+            "condition": "value == 1"
+          },
+          {
+            "name": "SERVER_FAILURE",
+            "type": "integer",
+            "condition": "value == 2"
+          },
+          {
+            "name": "NAME_ERROR",
+            "type": "integer",
+            "condition": "value == 3"
+          },
+          {
+            "name": "NOT_IMPLEMENTED",
+            "type": "integer",
+            "condition": "value == 4"
+          },
+          {
+            "name": "REFUSED",
+            "type": "integer",
+            "condition": "value == 5"
+          },
+          {
+            "name": "RESERVED_6_15",
+            "type": "integer",
+            "condition": "value >= 6 && value <= 15"
+          }
+        ]
+      },
+      {
+        "name": "RDATA",
+        "variants": [
+          {
+            "name": "A",
+            "type": "A_RDATA",
+            "condition": "type == 1"
+          },
+          {
+            "name": "NS",
+            "type": "NS_RDATA",
+            "condition": "type == 2"
+          },
+          {
+            "name": "MD",
+            "type": "MD_RDATA",
+            "condition": "type == 3"
+          },
+          {
+            "name": "MF",
+            "type": "MF_RDATA",
+            "condition": "type == 4"
+          },
+          {
+            "name": "CNAME",
+            "type": "CNAME_RDATA",
+            "condition": "type == 5"
+          },
+          {
+            "name": "SOA",
+            "type": "SOA_RDATA",
+            "condition": "type == 6"
+          },
+          {
+            "name": "MB",
+            "type": "MB_RDATA",
+            "condition": "type == 7"
+          },
+          {
+            "name": "MG",
+            "type": "MG_RDATA",
+            "condition": "type == 8"
+          },
+          {
+            "name": "MR",
+            "type": "MR_RDATA",
+            "condition": "type == 9"
+          },
+          {
+            "name": "NULL",
+            "type": "NULL_RDATA",
+            "condition": "type == 10"
+          },
+          {
+            "name": "WKS",
+            "type": "WKS_RDATA",
+            "condition": "type == 11"
+          },
+          {
+            "name": "PTR",
+            "type": "PTR_RDATA",
+            "condition": "type == 12"
+          },
+          {
+            "name": "HINFO",
+            "type": "HINFO_RDATA",
+            "condition": "type == 13"
+          },
+          {
+            "name": "MINFO",
+            "type": "MINFO_RDATA",
+            "condition": "type == 14"
+          },
+          {
+            "name": "MX",
+            "type": "MX_RDATA",
+            "condition": "type == 15"
+          },
+          {
+            "name": "TXT",
+            "type": "TXT_RDATA",
+            "condition": "type == 16"
+          }
+        ]
+      }
+    ],
+    "structure_types": [
+      {
+        "name": "Header",
+        "header_size_bytes": 12,
+        "byte_order": "big-endian",
+        "fields": [
+          {
+            "name": "id",
+            "display_name": "ID",
+            "offset_bits": 0,
+            "size_bits": 16,
+            "type": "id",
+            "optional": false,
+            "presence_condition": null,
+            "description": "16-bit identifier assigned by the program that generates a query.",
+            "constraints": []
+          },
+          {
+            "name": "qr",
+            "display_name": "QR",
+            "offset_bits": 16,
+            "size_bits": 1,
+            "type": "bit",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Query/Response: 0 for query, 1 for response.",
+            "constraints": []
+          },
+          {
+            "name": "opcode",
+            "display_name": "Opcode",
+            "offset_bits": 17,
+            "size_bits": 4,
+            "type": "opcode",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Kind of query in this message.",
+            "constraints": []
+          },
+          {
+            "name": "aa",
+            "display_name": "AA",
+            "offset_bits": 21,
+            "size_bits": 1,
+            "type": "bit",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Authoritative Answer - valid in responses.",
+            "constraints": []
+          },
+          {
+            "name": "tc",
+            "display_name": "TC",
+            "offset_bits": 22,
+            "size_bits": 1,
+            "type": "bit",
+            "optional": false,
+            "presence_condition": null,
+            "description": "TrunCation - message truncated due to length.",
+            "constraints": []
+          },
+          {
+            "name": "rd",
+            "display_name": "RD",
+            "offset_bits": 23,
+            "size_bits": 1,
+            "type": "bit",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Recursion Desired - may be set in a query and copied into response.",
+            "constraints": []
+          },
+          {
+            "name": "ra",
+            "display_name": "RA",
+            "offset_bits": 24,
+            "size_bits": 1,
+            "type": "bit",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Recursion Available - set or cleared in a response.",
+            "constraints": []
+          },
+          {
+            "name": "z",
+            "display_name": "Z",
+            "offset_bits": 25,
+            "size_bits": 3,
+            "type": "bit",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Reserved for future use. Must be zero in all queries and responses.",
+            "constraints": [
+              "z == 0"
+            ]
+          },
+          {
+            "name": "rcode",
+            "display_name": "RCODE",
+            "offset_bits": 28,
+            "size_bits": 4,
+            "type": "rcode",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Response code - set as part of responses.",
+            "constraints": []
+          },
+          {
+            "name": "qdcount",
+            "display_name": "QDCOUNT",
+            "offset_bits": 32,
+            "size_bits": 16,
+            "type": "uint16",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Number of entries in the question section.",
+            "constraints": []
+          },
+          {
+            "name": "ancount",
+            "display_name": "ANCOUNT",
+            "offset_bits": 48,
+            "size_bits": 16,
+            "type": "uint16",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Number of resource records in the answer section.",
+            "constraints": []
+          },
+          {
+            "name": "nscount",
+            "display_name": "NSCOUNT",
+            "offset_bits": 64,
+            "size_bits": 16,
+            "type": "uint16",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Number of name server resource records in the authority section.",
+            "constraints": []
+          },
+          {
+            "name": "arcount",
+            "display_name": "ARCOUNT",
+            "offset_bits": 80,
+            "size_bits": 16,
+            "type": "uint16",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Number of resource records in the additional section.",
+            "constraints": []
+          }
+        ],
+        "payload": null,
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "QuestionEntry",
+        "header_size_bytes": null,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "qname",
+            "display_name": "QNAME",
+            "offset_bits": 0,
+            "size_bits": null,
+            "type": "domain_name",
+            "optional": false,
+            "presence_condition": null,
+            "description": "A domain name represented as a sequence of labels.",
+            "constraints": []
+          },
+          {
+            "name": "qtype",
+            "display_name": "QTYPE",
+            "offset_bits": null,
+            "size_bits": 16,
+            "type": "qtype",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Two octet code specifying the type of the query.",
+            "constraints": []
+          },
+          {
+            "name": "qclass",
+            "display_name": "QCLASS",
+            "offset_bits": null,
+            "size_bits": 16,
+            "type": "qclass",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Two octet code specifying the class of the query.",
+            "constraints": []
+          }
+        ],
+        "payload": null,
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "ResourceRecord",
+        "header_size_bytes": null,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "name",
+            "display_name": "NAME",
+            "offset_bits": 0,
+            "size_bits": null,
+            "type": "domain_name",
+            "optional": false,
+            "presence_condition": null,
+            "description": "A domain name to which this resource record pertains.",
+            "constraints": []
+          },
+          {
+            "name": "type",
+            "display_name": "TYPE",
+            "offset_bits": null,
+            "size_bits": 16,
+            "type": "type",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Two octets containing one of the RR type codes.",
+            "constraints": []
+          },
+          {
+            "name": "class",
+            "display_name": "CLASS",
+            "offset_bits": null,
+            "size_bits": 16,
+            "type": "class",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Two octets specifying the class of the data in the RDATA field.",
+            "constraints": []
+          },
+          {
+            "name": "ttl",
+            "display_name": "TTL",
+            "offset_bits": null,
+            "size_bits": 32,
+            "type": "ttl",
+            "optional": false,
+            "presence_condition": null,
+            "description": "32-bit unsigned integer specifying the time interval in seconds that the resource record may be cached.",
+            "constraints": []
+          },
+          {
+            "name": "rdlength",
+            "display_name": "RDLENGTH",
+            "offset_bits": null,
+            "size_bits": 16,
+            "type": "rdlength",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Unsigned 16-bit integer specifying the length in octets of the RDATA field.",
+            "constraints": []
+          },
+          {
+            "name": "rdata",
+            "display_name": "RDATA",
+            "offset_bits": null,
+            "size_bits": "rdlength * 8",
+            "type": "rdata",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Variable length string of octets that describes the resource. Format varies according to TYPE and CLASS.",
+            "constraints": []
+          }
+        ],
+        "payload": null,
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "A_RDATA",
+        "header_size_bytes": 4,
+        "byte_order": "big-endian",
+        "fields": [
+          {
+            "name": "address",
+            "display_name": "ADDRESS",
+            "offset_bits": 0,
+            "size_bits": 32,
+            "type": "address",
+            "optional": false,
+            "presence_condition": null,
+            "description": "32-bit Internet address.",
+            "constraints": []
+          }
+        ],
+        "payload": null,
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "CNAME_RDATA",
+        "header_size_bytes": null,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "cname",
+            "display_name": "CNAME",
+            "offset_bits": 0,
+            "size_bits": null,
+            "type": "domain_name",
+            "optional": false,
+            "presence_condition": null,
+            "description": "A domain name which specifies the canonical or primary name for the owner.",
+            "constraints": []
+          }
+        ],
+        "payload": null,
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "HINFO_RDATA",
+        "header_size_bytes": null,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "cpu",
+            "display_name": "CPU",
+            "offset_bits": 0,
+            "size_bits": null,
+            "type": "character_string",
+            "optional": false,
+            "presence_condition": null,
+            "description": "A character-string which specifies the CPU type.",
+            "constraints": []
+          },
+          {
+            "name": "os",
+            "display_name": "OS",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "character_string",
+            "optional": false,
+            "presence_condition": null,
+            "description": "A character-string which specifies the operating system type.",
+            "constraints": []
+          }
+        ],
+        "payload": null,
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "MB_RDATA",
+        "header_size_bytes": null,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "madname",
+            "display_name": "MADNAME",
+            "offset_bits": 0,
+            "size_bits": null,
+            "type": "domain_name",
+            "optional": false,
+            "presence_condition": null,
+            "description": "A domain name which specifies a host which has the specified mailbox.",
+            "constraints": []
+          }
+        ],
+        "payload": null,
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "MD_RDATA",
+        "header_size_bytes": null,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "madname",
+            "display_name": "MADNAME",
+            "offset_bits": 0,
+            "size_bits": null,
+            "type": "domain_name",
+            "optional": false,
+            "presence_condition": null,
+            "description": "A domain name which specifies a host which has a mail agent for the domain.",
+            "constraints": []
+          }
+        ],
+        "payload": null,
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "MF_RDATA",
+        "header_size_bytes": null,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "madname",
+            "display_name": "MADNAME",
+            "offset_bits": 0,
+            "size_bits": null,
+            "type": "domain_name",
+            "optional": false,
+            "presence_condition": null,
+            "description": "A domain name which specifies a host which has a mail agent for the domain that will accept mail for forwarding.",
+            "constraints": []
+          }
+        ],
+        "payload": null,
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "MG_RDATA",
+        "header_size_bytes": null,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "mgmname",
+            "display_name": "MGMNAME",
+            "offset_bits": 0,
+            "size_bits": null,
+            "type": "domain_name",
+            "optional": false,
+            "presence_condition": null,
+            "description": "A domain name which specifies a mailbox which is a member of the mail group.",
+            "constraints": []
+          }
+        ],
+        "payload": null,
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "MINFO_RDATA",
+        "header_size_bytes": null,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "rmailbx",
+            "display_name": "RMAILBX",
+            "offset_bits": 0,
+            "size_bits": null,
+            "type": "domain_name",
+            "optional": false,
+            "presence_condition": null,
+            "description": "A domain name which specifies a mailbox responsible for the mailing list or mailbox.",
+            "constraints": []
+          },
+          {
+            "name": "emailbx",
+            "display_name": "EMAILBX",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "domain_name",
+            "optional": false,
+            "presence_condition": null,
+            "description": "A domain name which specifies a mailbox to receive error messages related to the mailing list or mailbox.",
+            "constraints": []
+          }
+        ],
+        "payload": null,
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "MR_RDATA",
+        "header_size_bytes": null,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "newname",
+            "display_name": "NEWNAME",
+            "offset_bits": 0,
+            "size_bits": null,
+            "type": "domain_name",
+            "optional": false,
+            "presence_condition": null,
+            "description": "A domain name which specifies a mailbox which is the proper rename of the specified mailbox.",
+            "constraints": []
+          }
+        ],
+        "payload": null,
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "MX_RDATA",
+        "header_size_bytes": null,
+        "byte_order": "big-endian",
+        "fields": [
+          {
+            "name": "preference",
+            "display_name": "PREFERENCE",
+            "offset_bits": 0,
+            "size_bits": 16,
+            "type": "preference",
+            "optional": false,
+            "presence_condition": null,
+            "description": "16-bit integer specifying the preference given to this RR among others at the same owner. Lower values are preferred.",
+            "constraints": []
+          },
+          {
+            "name": "exchange",
+            "display_name": "EXCHANGE",
+            "offset_bits": 16,
+            "size_bits": null,
+            "type": "domain_name",
+            "optional": false,
+            "presence_condition": null,
+            "description": "A domain name which specifies a host willing to act as a mail exchange for the owner name.",
+            "constraints": []
+          }
+        ],
+        "payload": null,
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "NULL_RDATA",
+        "header_size_bytes": null,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "data",
+            "display_name": "DATA",
+            "offset_bits": 0,
+            "size_bits": null,
+            "type": "null_data",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Anything at all, so long as it is 65535 octets or less.",
+            "constraints": [
+              "size <= 65535 * 8"
+            ]
+          }
+        ],
+        "payload": null,
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "NS_RDATA",
+        "header_size_bytes": null,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "nsdname",
+            "display_name": "NSDNAME",
+            "offset_bits": 0,
+            "size_bits": null,
+            "type": "domain_name",
+            "optional": false,
+            "presence_condition": null,
+            "description": "A domain name which specifies a host which should be authoritative for the specified class and domain.",
+            "constraints": []
+          }
+        ],
+        "payload": null,
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "PTR_RDATA",
+        "header_size_bytes": null,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "ptrdname",
+            "display_name": "PTRDNAME",
+            "offset_bits": 0,
+            "size_bits": null,
+            "type": "domain_name",
+            "optional": false,
+            "presence_condition": null,
+            "description": "A domain name which points to some location in the domain name space.",
+            "constraints": []
+          }
+        ],
+        "payload": null,
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "SOA_RDATA",
+        "header_size_bytes": null,
+        "byte_order": "big-endian",
+        "fields": [
+          {
+            "name": "mname",
+            "display_name": "MNAME",
+            "offset_bits": 0,
+            "size_bits": null,
+            "type": "domain_name",
+            "optional": false,
+            "presence_condition": null,
+            "description": "The domain name of the name server that was the original or primary source of data for this zone.",
+            "constraints": []
+          },
+          {
+            "name": "rname",
+            "display_name": "RNAME",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "domain_name",
+            "optional": false,
+            "presence_condition": null,
+            "description": "A domain name which specifies the mailbox of the person responsible for this zone.",
+            "constraints": []
+          },
+          {
+            "name": "serial",
+            "display_name": "SERIAL",
+            "offset_bits": null,
+            "size_bits": 32,
+            "type": "serial",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Unsigned 32-bit version number of the original copy of the zone.",
+            "constraints": []
+          },
+          {
+            "name": "refresh",
+            "display_name": "REFRESH",
+            "offset_bits": null,
+            "size_bits": 32,
+            "type": "refresh",
+            "optional": false,
+            "presence_condition": null,
+            "description": "32-bit time interval before the zone should be refreshed.",
+            "constraints": []
+          },
+          {
+            "name": "retry",
+            "display_name": "RETRY",
+            "offset_bits": null,
+            "size_bits": 32,
+            "type": "retry",
+            "optional": false,
+            "presence_condition": null,
+            "description": "32-bit time interval that should elapse before a failed refresh should be retried.",
+            "constraints": []
+          },
+          {
+            "name": "expire",
+            "display_name": "EXPIRE",
+            "offset_bits": null,
+            "size_bits": 32,
+            "type": "expire",
+            "optional": false,
+            "presence_condition": null,
+            "description": "32-bit time value that specifies the upper limit on the time interval that can elapse before the zone is no longer authoritative.",
+            "constraints": []
+          },
+          {
+            "name": "minimum",
+            "display_name": "MINIMUM",
+            "offset_bits": null,
+            "size_bits": 32,
+            "type": "minimum",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Unsigned 32-bit minimum TTL field that should be exported with any RR from this zone.",
+            "constraints": []
+          }
+        ],
+        "payload": null,
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "TXT_RDATA",
+        "header_size_bytes": null,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "txt_data",
+            "display_name": "TXT-DATA",
+            "offset_bits": 0,
+            "size_bits": null,
+            "type": "TXTData",
+            "optional": false,
+            "presence_condition": null,
+            "description": "One or more character-strings.",
+            "constraints": []
+          }
+        ],
+        "payload": null,
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "WKS_RDATA",
+        "header_size_bytes": null,
+        "byte_order": "big-endian",
+        "fields": [
+          {
+            "name": "address",
+            "display_name": "ADDRESS",
+            "offset_bits": 0,
+            "size_bits": 32,
+            "type": "address",
+            "optional": false,
+            "presence_condition": null,
+            "description": "32-bit Internet address.",
+            "constraints": []
+          },
+          {
+            "name": "protocol",
+            "display_name": "PROTOCOL",
+            "offset_bits": 32,
+            "size_bits": 8,
+            "type": "protocol",
+            "optional": false,
+            "presence_condition": null,
+            "description": "8-bit IP protocol number.",
+            "constraints": []
+          },
+          {
+            "name": "bit_map",
+            "display_name": "BIT MAP",
+            "offset_bits": 40,
+            "size_bits": null,
+            "type": "bit_map",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Variable length bit map, multiple of 8 bits long.",
+            "constraints": [
+              "size % 8 == 0"
+            ]
+          }
+        ],
+        "payload": null,
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "DNSMessage",
+        "header_size_bytes": null,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "header",
+            "display_name": "Header",
+            "offset_bits": 0,
+            "size_bits": 96,
+            "type": "Header",
+            "optional": false,
+            "presence_condition": null,
+            "description": "The header section is always present.",
+            "constraints": []
+          },
+          {
+            "name": "question",
+            "display_name": "Question",
+            "offset_bits": 96,
+            "size_bits": null,
+            "type": "QuestionArray",
+            "optional": false,
+            "presence_condition": null,
+            "description": "The question section contains QDCOUNT entries.",
+            "constraints": []
+          },
+          {
+            "name": "answer",
+            "display_name": "Answer",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "AnswerArray",
+            "optional": false,
+            "presence_condition": null,
+            "description": "RRs answering the question.",
+            "constraints": []
+          },
+          {
+            "name": "authority",
+            "display_name": "Authority",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "AuthorityArray",
+            "optional": false,
+            "presence_condition": null,
+            "description": "RRs pointing toward an authority.",
+            "constraints": []
+          },
+          {
+            "name": "additional",
+            "display_name": "Additional",
+            "offset_bits": null,
+            "size_bits": null,
+            "type": "AdditionalArray",
+            "optional": false,
+            "presence_condition": null,
+            "description": "RRs holding additional information.",
+            "constraints": []
+          }
+        ],
+        "payload": null,
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      }
+    ],
+    "array_types": [
+      {
+        "name": "QuestionArray",
+        "element_type": "QuestionEntry",
+        "length": "qdcount"
+      },
+      {
+        "name": "AnswerArray",
+        "element_type": "ResourceRecord",
+        "length": "ancount"
+      },
+      {
+        "name": "AuthorityArray",
+        "element_type": "ResourceRecord",
+        "length": "nscount"
+      },
+      {
+        "name": "AdditionalArray",
+        "element_type": "ResourceRecord",
+        "length": "arcount"
+      },
+      {
+        "name": "TXTData",
+        "element_type": "character_string",
+        "length": null
+      }
+    ],
+    "parsing_context": [
+      {
+        "name": "message_start",
+        "type": "integer",
+        "description": "Offset from the start of the message (first octet of ID field) used for compression pointers."
+      }
+    ],
+    "helper_functions": [
+      {
+        "name": "parse_domain_name",
+        "description": "Parses a domain name from a message, handling sequences of labels and compression pointers. Pointers are resolved relative to the message start."
+      }
+    ],
+    "transform_functions": []
+  }
+}

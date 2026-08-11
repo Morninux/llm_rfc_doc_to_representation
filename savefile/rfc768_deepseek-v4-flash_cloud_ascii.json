@@ -1,0 +1,199 @@
+{
+  "rfc": "768",
+  "model": "deepseek-v4-flash:cloud",
+  "method": "ascii",
+  "output": {
+    "protocol": "UDP",
+    "rfc": "RFC 768",
+    "pdus": [
+      "UDP_Datagram"
+    ],
+    "bit_string_types": [
+      {
+        "name": "source_port",
+        "size_bits": 16,
+        "description": "Source Port; optional field, indicates port of sending process; zero if not used"
+      },
+      {
+        "name": "destination_port",
+        "size_bits": 16,
+        "description": "Destination Port"
+      },
+      {
+        "name": "length",
+        "size_bits": 16,
+        "description": "Length in octets of UDP header and data; minimum value is eight"
+      },
+      {
+        "name": "checksum",
+        "size_bits": 16,
+        "description": "16-bit one's complement checksum of pseudo header, UDP header, and data; all zero means no checksum generated"
+      },
+      {
+        "name": "ipv4_address",
+        "size_bits": 32,
+        "description": "IP source or destination address in pseudo header"
+      },
+      {
+        "name": "zero",
+        "size_bits": 8,
+        "description": "Zero field in pseudo header"
+      },
+      {
+        "name": "protocol",
+        "size_bits": 8,
+        "description": "Protocol field from IP header in pseudo header"
+      },
+      {
+        "name": "udp_length",
+        "size_bits": 16,
+        "description": "UDP length in pseudo header, same as UDP header Length"
+      }
+    ],
+    "enumerated_types": [],
+    "structure_types": [
+      {
+        "name": "UDP_Datagram",
+        "header_size_bytes": 8,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "source_port",
+            "display_name": "Source Port",
+            "offset_bits": 0,
+            "size_bits": 16,
+            "type": "source_port",
+            "optional": true,
+            "presence_condition": null,
+            "description": "Optional field; indicates port of sending process; zero if not used",
+            "constraints": []
+          },
+          {
+            "name": "destination_port",
+            "display_name": "Destination Port",
+            "offset_bits": 16,
+            "size_bits": 16,
+            "type": "destination_port",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Destination port",
+            "constraints": []
+          },
+          {
+            "name": "length",
+            "display_name": "Length",
+            "offset_bits": 32,
+            "size_bits": 16,
+            "type": "length",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Length in octets of UDP header and data; minimum value is eight",
+            "constraints": [
+              "length >= 8"
+            ]
+          },
+          {
+            "name": "checksum",
+            "display_name": "Checksum",
+            "offset_bits": 48,
+            "size_bits": 16,
+            "type": "checksum",
+            "optional": false,
+            "presence_condition": null,
+            "description": "16-bit one's complement checksum; all zero means no checksum generated",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": "data",
+          "offset_bits": 64,
+          "size": "(length - 8) * 8"
+        },
+        "constraints": [
+          "length >= 8"
+        ],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "UDP_Pseudo_Header",
+        "header_size_bytes": 12,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "source_address",
+            "display_name": "Source Address",
+            "offset_bits": 0,
+            "size_bits": 32,
+            "type": "ipv4_address",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Source address from IP header",
+            "constraints": []
+          },
+          {
+            "name": "destination_address",
+            "display_name": "Destination Address",
+            "offset_bits": 32,
+            "size_bits": 32,
+            "type": "ipv4_address",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Destination address from IP header",
+            "constraints": []
+          },
+          {
+            "name": "zero",
+            "display_name": "Zero",
+            "offset_bits": 64,
+            "size_bits": 8,
+            "type": "zero",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Zero field",
+            "constraints": []
+          },
+          {
+            "name": "protocol",
+            "display_name": "Protocol",
+            "offset_bits": 72,
+            "size_bits": 8,
+            "type": "protocol",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Protocol field from IP header",
+            "constraints": []
+          },
+          {
+            "name": "udp_length",
+            "display_name": "UDP Length",
+            "offset_bits": 80,
+            "size_bits": 16,
+            "type": "udp_length",
+            "optional": false,
+            "presence_condition": null,
+            "description": "UDP length from UDP header",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": "",
+          "offset_bits": null,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      }
+    ],
+    "array_types": [],
+    "parsing_context": [],
+    "helper_functions": [
+      {
+        "name": "udp_checksum",
+        "description": "Compute 16-bit one's complement of the one's complement sum of the pseudo header, UDP header, and data, padded with zero octets to a multiple of two octets. If computed checksum is zero, transmit as all ones; an all zero transmitted checksum means no checksum generated."
+      }
+    ],
+    "transform_functions": []
+  }
+}

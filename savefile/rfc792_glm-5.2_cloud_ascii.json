@@ -1,0 +1,613 @@
+{
+  "rfc": "792",
+  "model": "glm-5.2:cloud",
+  "method": "ascii",
+  "output": {
+    "protocol": "icmp",
+    "rfc": "RFC 792",
+    "pdus": [
+      "destination_unreachable_message",
+      "time_exceeded_message",
+      "parameter_problem_message",
+      "source_quench_message",
+      "redirect_message",
+      "echo_or_echo_reply_message",
+      "timestamp_or_timestamp_reply_message",
+      "information_request_or_information_reply_message"
+    ],
+    "bit_string_types": [
+      {
+        "name": "uint8",
+        "size_bits": 8,
+        "description": "8-bit unsigned integer"
+      },
+      {
+        "name": "uint16",
+        "size_bits": 16,
+        "description": "16-bit unsigned integer"
+      },
+      {
+        "name": "uint24",
+        "size_bits": 24,
+        "description": "24-bit unsigned integer"
+      },
+      {
+        "name": "uint32",
+        "size_bits": 32,
+        "description": "32-bit unsigned integer"
+      }
+    ],
+    "enumerated_types": [],
+    "structure_types": [
+      {
+        "name": "destination_unreachable_message",
+        "header_size_bytes": 8,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "type",
+            "display_name": "Type",
+            "offset_bits": 0,
+            "size_bits": 8,
+            "type": "uint8",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Type of ICMP message",
+            "constraints": [
+              "type == 3"
+            ]
+          },
+          {
+            "name": "code",
+            "display_name": "Code",
+            "offset_bits": 8,
+            "size_bits": 8,
+            "type": "uint8",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Further qualification of the ICMP message",
+            "constraints": []
+          },
+          {
+            "name": "checksum",
+            "display_name": "Checksum",
+            "offset_bits": 16,
+            "size_bits": 16,
+            "type": "uint16",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Checksum that covers the ICMP message",
+            "constraints": []
+          },
+          {
+            "name": "unused",
+            "display_name": "unused",
+            "offset_bits": 32,
+            "size_bits": 32,
+            "type": "uint32",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Unused field",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": "internet_header_plus_64_bits_of_original_data_datagram",
+          "offset_bits": 64,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "time_exceeded_message",
+        "header_size_bytes": 8,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "type",
+            "display_name": "Type",
+            "offset_bits": 0,
+            "size_bits": 8,
+            "type": "uint8",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Type of ICMP message",
+            "constraints": [
+              "type == 11"
+            ]
+          },
+          {
+            "name": "code",
+            "display_name": "Code",
+            "offset_bits": 8,
+            "size_bits": 8,
+            "type": "uint8",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Further qualification of the ICMP message",
+            "constraints": []
+          },
+          {
+            "name": "checksum",
+            "display_name": "Checksum",
+            "offset_bits": 16,
+            "size_bits": 16,
+            "type": "uint16",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Checksum that covers the ICMP message",
+            "constraints": []
+          },
+          {
+            "name": "unused",
+            "display_name": "unused",
+            "offset_bits": 32,
+            "size_bits": 32,
+            "type": "uint32",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Unused field",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": "internet_header_plus_64_bits_of_original_data_datagram",
+          "offset_bits": 64,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "parameter_problem_message",
+        "header_size_bytes": 8,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "type",
+            "display_name": "Type",
+            "offset_bits": 0,
+            "size_bits": 8,
+            "type": "uint8",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Type of ICMP message",
+            "constraints": [
+              "type == 12"
+            ]
+          },
+          {
+            "name": "code",
+            "display_name": "Code",
+            "offset_bits": 8,
+            "size_bits": 8,
+            "type": "uint8",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Further qualification of the ICMP message",
+            "constraints": []
+          },
+          {
+            "name": "checksum",
+            "display_name": "Checksum",
+            "offset_bits": 16,
+            "size_bits": 16,
+            "type": "uint16",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Checksum that covers the ICMP message",
+            "constraints": []
+          },
+          {
+            "name": "pointer",
+            "display_name": "Pointer",
+            "offset_bits": 32,
+            "size_bits": 8,
+            "type": "uint8",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Pointer to the octet where an error was detected",
+            "constraints": []
+          },
+          {
+            "name": "unused",
+            "display_name": "unused",
+            "offset_bits": 40,
+            "size_bits": 24,
+            "type": "uint24",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Unused field",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": "internet_header_plus_64_bits_of_original_data_datagram",
+          "offset_bits": 64,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "source_quench_message",
+        "header_size_bytes": 8,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "type",
+            "display_name": "Type",
+            "offset_bits": 0,
+            "size_bits": 8,
+            "type": "uint8",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Type of ICMP message",
+            "constraints": [
+              "type == 4"
+            ]
+          },
+          {
+            "name": "code",
+            "display_name": "Code",
+            "offset_bits": 8,
+            "size_bits": 8,
+            "type": "uint8",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Further qualification of the ICMP message",
+            "constraints": []
+          },
+          {
+            "name": "checksum",
+            "display_name": "Checksum",
+            "offset_bits": 16,
+            "size_bits": 16,
+            "type": "uint16",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Checksum that covers the ICMP message",
+            "constraints": []
+          },
+          {
+            "name": "unused",
+            "display_name": "unused",
+            "offset_bits": 32,
+            "size_bits": 32,
+            "type": "uint32",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Unused field",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": "internet_header_plus_64_bits_of_original_data_datagram",
+          "offset_bits": 64,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "redirect_message",
+        "header_size_bytes": 8,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "type",
+            "display_name": "Type",
+            "offset_bits": 0,
+            "size_bits": 8,
+            "type": "uint8",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Type of ICMP message",
+            "constraints": [
+              "type == 5"
+            ]
+          },
+          {
+            "name": "code",
+            "display_name": "Code",
+            "offset_bits": 8,
+            "size_bits": 8,
+            "type": "uint8",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Further qualification of the ICMP message",
+            "constraints": []
+          },
+          {
+            "name": "checksum",
+            "display_name": "Checksum",
+            "offset_bits": 16,
+            "size_bits": 16,
+            "type": "uint16",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Checksum that covers the ICMP message",
+            "constraints": []
+          },
+          {
+            "name": "gateway_internet_address",
+            "display_name": "Gateway Internet Address",
+            "offset_bits": 32,
+            "size_bits": 32,
+            "type": "uint32",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Address of the gateway to which traffic should be sent",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": "internet_header_plus_64_bits_of_original_data_datagram",
+          "offset_bits": 64,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "echo_or_echo_reply_message",
+        "header_size_bytes": 8,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "type",
+            "display_name": "Type",
+            "offset_bits": 0,
+            "size_bits": 8,
+            "type": "uint8",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Type of ICMP message",
+            "constraints": [
+              "type == 8 or type == 0"
+            ]
+          },
+          {
+            "name": "code",
+            "display_name": "Code",
+            "offset_bits": 8,
+            "size_bits": 8,
+            "type": "uint8",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Further qualification of the ICMP message",
+            "constraints": []
+          },
+          {
+            "name": "checksum",
+            "display_name": "Checksum",
+            "offset_bits": 16,
+            "size_bits": 16,
+            "type": "uint16",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Checksum that covers the ICMP message",
+            "constraints": []
+          },
+          {
+            "name": "identifier",
+            "display_name": "Identifier",
+            "offset_bits": 32,
+            "size_bits": 16,
+            "type": "uint16",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Identifier to aid in matching echoes and replies",
+            "constraints": []
+          },
+          {
+            "name": "sequence_number",
+            "display_name": "Sequence Number",
+            "offset_bits": 48,
+            "size_bits": 16,
+            "type": "uint16",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Sequence number to aid in matching echoes and replies",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": "data",
+          "offset_bits": 64,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "timestamp_or_timestamp_reply_message",
+        "header_size_bytes": 20,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "type",
+            "display_name": "Type",
+            "offset_bits": 0,
+            "size_bits": 8,
+            "type": "uint8",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Type of ICMP message",
+            "constraints": [
+              "type == 13 or type == 14"
+            ]
+          },
+          {
+            "name": "code",
+            "display_name": "Code",
+            "offset_bits": 8,
+            "size_bits": 8,
+            "type": "uint8",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Further qualification of the ICMP message",
+            "constraints": []
+          },
+          {
+            "name": "checksum",
+            "display_name": "Checksum",
+            "offset_bits": 16,
+            "size_bits": 16,
+            "type": "uint16",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Checksum that covers the ICMP message",
+            "constraints": []
+          },
+          {
+            "name": "identifier",
+            "display_name": "Identifier",
+            "offset_bits": 32,
+            "size_bits": 16,
+            "type": "uint16",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Identifier to aid in matching timestamps and replies",
+            "constraints": []
+          },
+          {
+            "name": "sequence_number",
+            "display_name": "Sequence Number",
+            "offset_bits": 48,
+            "size_bits": 16,
+            "type": "uint16",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Sequence number to aid in matching timestamps and replies",
+            "constraints": []
+          },
+          {
+            "name": "originate_timestamp",
+            "display_name": "Originate Timestamp",
+            "offset_bits": 64,
+            "size_bits": 32,
+            "type": "uint32",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Timestamp recorded by the sender of the message",
+            "constraints": []
+          },
+          {
+            "name": "receive_timestamp",
+            "display_name": "Receive Timestamp",
+            "offset_bits": 96,
+            "size_bits": 32,
+            "type": "uint32",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Timestamp recorded by the receiver of the message",
+            "constraints": []
+          },
+          {
+            "name": "transmit_timestamp",
+            "display_name": "Transmit Timestamp",
+            "offset_bits": 128,
+            "size_bits": 32,
+            "type": "uint32",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Timestamp recorded by the transmitter of the reply",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": "payload",
+          "offset_bits": 160,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "information_request_or_information_reply_message",
+        "header_size_bytes": 8,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "type",
+            "display_name": "Type",
+            "offset_bits": 0,
+            "size_bits": 8,
+            "type": "uint8",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Type of ICMP message",
+            "constraints": [
+              "type == 15 or type == 16"
+            ]
+          },
+          {
+            "name": "code",
+            "display_name": "Code",
+            "offset_bits": 8,
+            "size_bits": 8,
+            "type": "uint8",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Further qualification of the ICMP message",
+            "constraints": []
+          },
+          {
+            "name": "checksum",
+            "display_name": "Checksum",
+            "offset_bits": 16,
+            "size_bits": 16,
+            "type": "uint16",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Checksum that covers the ICMP message",
+            "constraints": []
+          },
+          {
+            "name": "identifier",
+            "display_name": "Identifier",
+            "offset_bits": 32,
+            "size_bits": 16,
+            "type": "uint16",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Identifier to aid in matching requests and replies",
+            "constraints": []
+          },
+          {
+            "name": "sequence_number",
+            "display_name": "Sequence Number",
+            "offset_bits": 48,
+            "size_bits": 16,
+            "type": "uint16",
+            "optional": null,
+            "presence_condition": null,
+            "description": "Sequence number to aid in matching requests and replies",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": "payload",
+          "offset_bits": 64,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      }
+    ],
+    "array_types": [],
+    "parsing_context": [],
+    "helper_functions": [],
+    "transform_functions": []
+  }
+}

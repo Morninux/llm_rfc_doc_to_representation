@@ -1,0 +1,149 @@
+{
+  "rfc": "1058",
+  "model": "gpt-oss:20b-cloud",
+  "method": "ascii",
+  "output": {
+    "protocol": "routing information protocol",
+    "rfc": "RFC 1058",
+    "pdus": [
+      "datagram"
+    ],
+    "bit_string_types": [],
+    "enumerated_types": [],
+    "structure_types": [
+      {
+        "name": "datagram",
+        "header_size_bytes": null,
+        "byte_order": "network",
+        "fields": [
+          {
+            "name": "command",
+            "display_name": "Command",
+            "offset_bits": 0,
+            "size_bits": 8,
+            "type": "uint8",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Command field",
+            "constraints": []
+          },
+          {
+            "name": "version",
+            "display_name": "Version",
+            "offset_bits": 8,
+            "size_bits": 8,
+            "type": "uint8",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Version number",
+            "constraints": []
+          },
+          {
+            "name": "reserved_before_routes",
+            "display_name": "Reserved Before Routes",
+            "offset_bits": 16,
+            "size_bits": 16,
+            "type": null,
+            "optional": false,
+            "presence_condition": null,
+            "description": "Must be zero",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": "route_entries",
+          "offset_bits": 32,
+          "size": "variable"
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "route_entry",
+        "header_size_bytes": null,
+        "byte_order": "network",
+        "fields": [
+          {
+            "name": "address_family_identifier",
+            "display_name": "Address Family Identifier",
+            "offset_bits": 0,
+            "size_bits": 16,
+            "type": "uint16",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Address family identifier",
+            "constraints": []
+          },
+          {
+            "name": "reserved1",
+            "display_name": "Reserved 1",
+            "offset_bits": 16,
+            "size_bits": 16,
+            "type": null,
+            "optional": false,
+            "presence_condition": null,
+            "description": "Must be zero",
+            "constraints": []
+          },
+          {
+            "name": "ip_address",
+            "display_name": "IP Address",
+            "offset_bits": 32,
+            "size_bits": 32,
+            "type": "ip_address",
+            "optional": false,
+            "presence_condition": null,
+            "description": "IP address",
+            "constraints": []
+          },
+          {
+            "name": "reserved2",
+            "display_name": "Reserved 2",
+            "offset_bits": 64,
+            "size_bits": 32,
+            "type": null,
+            "optional": false,
+            "presence_condition": null,
+            "description": "Must be zero",
+            "constraints": []
+          },
+          {
+            "name": "reserved3",
+            "display_name": "Reserved 3",
+            "offset_bits": 96,
+            "size_bits": 32,
+            "type": null,
+            "optional": false,
+            "presence_condition": null,
+            "description": "Must be zero",
+            "constraints": []
+          },
+          {
+            "name": "metric",
+            "display_name": "Metric",
+            "offset_bits": 128,
+            "size_bits": 32,
+            "type": "uint32",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Metric value",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": "",
+          "offset_bits": null,
+          "size": null
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      }
+    ],
+    "array_types": [],
+    "parsing_context": [],
+    "helper_functions": [],
+    "transform_functions": []
+  }
+}

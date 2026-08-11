@@ -1,0 +1,244 @@
+{
+  "rfc": "959",
+  "model": "deepseek-v4-flash:cloud",
+  "method": "ascii",
+  "output": {
+    "protocol": "File Transfer Protocol",
+    "rfc": "RFC 959",
+    "pdus": [
+      "block_header",
+      "restart_marker_block",
+      "byte_string",
+      "replicated_byte"
+    ],
+    "bit_string_types": [
+      {
+        "name": "octet",
+        "size_bits": 8,
+        "description": "An 8-bit byte of data."
+      },
+      {
+        "name": "descriptor_byte",
+        "size_bits": 8,
+        "description": "Descriptor byte whose bit flags indicate block characteristics."
+      }
+    ],
+    "enumerated_types": [
+      {
+        "name": "descriptor_code",
+        "variants": [
+          {
+            "name": "end_of_record",
+            "type": "descriptor_byte",
+            "condition": "descriptor_byte & 128 == 128"
+          },
+          {
+            "name": "end_of_file",
+            "type": "descriptor_byte",
+            "condition": "descriptor_byte & 64 == 64"
+          },
+          {
+            "name": "suspected_errors",
+            "type": "descriptor_byte",
+            "condition": "descriptor_byte & 32 == 32"
+          },
+          {
+            "name": "restart_marker",
+            "type": "descriptor_byte",
+            "condition": "descriptor_byte & 16 == 16"
+          }
+        ]
+      }
+    ],
+    "structure_types": [
+      {
+        "name": "block_header",
+        "header_size_bytes": 3,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "descriptor",
+            "display_name": "Descriptor",
+            "offset_bits": 0,
+            "size_bits": 8,
+            "type": "descriptor_byte",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Descriptor byte with bit flags indicating block characteristics.",
+            "constraints": []
+          },
+          {
+            "name": "byte_count",
+            "display_name": "Byte Count",
+            "offset_bits": 8,
+            "size_bits": 16,
+            "type": null,
+            "optional": false,
+            "presence_condition": null,
+            "description": "Count of data bytes following the block header.",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": "data_block",
+          "offset_bits": 24,
+          "size": "byte_count * 8"
+        },
+        "constraints": [],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "restart_marker_block",
+        "header_size_bytes": 3,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "descriptor",
+            "display_name": "Descriptor",
+            "offset_bits": 0,
+            "size_bits": 8,
+            "type": "descriptor_byte",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Descriptor byte with restart marker bit set.",
+            "constraints": [
+              "descriptor & 16 == 16"
+            ]
+          },
+          {
+            "name": "byte_count",
+            "display_name": "Byte Count",
+            "offset_bits": 8,
+            "size_bits": 16,
+            "type": null,
+            "optional": false,
+            "presence_condition": null,
+            "description": "Number of 8-bit bytes in the restart marker.",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": "marker",
+          "offset_bits": 24,
+          "size": "byte_count * 8"
+        },
+        "constraints": [
+          "descriptor & 16 == 16"
+        ],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "byte_string",
+        "header_size_bytes": 1,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "regular_data_flag",
+            "display_name": "Flag (0)",
+            "offset_bits": 0,
+            "size_bits": 1,
+            "type": "bit",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Left-most bit set to 0 for regular data.",
+            "constraints": [
+              "regular_data_flag == 0"
+            ]
+          },
+          {
+            "name": "count",
+            "display_name": "Count",
+            "offset_bits": 1,
+            "size_bits": 7,
+            "type": null,
+            "optional": false,
+            "presence_condition": null,
+            "description": "Number n of regular data bytes.",
+            "constraints": [
+              "count > 0"
+            ]
+          }
+        ],
+        "payload": {
+          "name": "data",
+          "offset_bits": 8,
+          "size": "count * 8"
+        },
+        "constraints": [
+          "count > 0"
+        ],
+        "parse_from": null,
+        "serialize_to": null
+      },
+      {
+        "name": "replicated_byte",
+        "header_size_bytes": 2,
+        "byte_order": null,
+        "fields": [
+          {
+            "name": "replication_flag",
+            "display_name": "Flag (10)",
+            "offset_bits": 0,
+            "size_bits": 2,
+            "type": "bit",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Two-bit flag set to binary 10 for replicated data.",
+            "constraints": [
+              "replication_flag == 2"
+            ]
+          },
+          {
+            "name": "count",
+            "display_name": "Count",
+            "offset_bits": 2,
+            "size_bits": 6,
+            "type": null,
+            "optional": false,
+            "presence_condition": null,
+            "description": "Number n of replications of the data byte.",
+            "constraints": []
+          },
+          {
+            "name": "data_byte",
+            "display_name": "Data Byte",
+            "offset_bits": 8,
+            "size_bits": 8,
+            "type": "octet",
+            "optional": false,
+            "presence_condition": null,
+            "description": "Data byte d to replicate.",
+            "constraints": []
+          }
+        ],
+        "payload": {
+          "name": null,
+          "offset_bits": null,
+          "size": null
+        },
+        "constraints": [
+          "replication_flag == 2"
+        ],
+        "parse_from": null,
+        "serialize_to": null
+      }
+    ],
+    "array_types": [
+      {
+        "name": "marker_bytes",
+        "element_type": "octet",
+        "length": "byte_count"
+      },
+      {
+        "name": "data_bytes",
+        "element_type": "octet",
+        "length": "count"
+      }
+    ],
+    "parsing_context": [],
+    "helper_functions": [],
+    "transform_functions": []
+  }
+}
