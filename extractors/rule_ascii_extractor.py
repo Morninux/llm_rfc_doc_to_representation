@@ -1,18 +1,10 @@
-import os
+#locate packet ascii diagrams with local text rules
+
 import re
-
-from load_llm import PROJECT_PATH
-from text_input import (
-    RFC_EXTRACTION_INSTRUCTION,
-    generate_rfc_representation,
-    print_extraction_results,
-)
-
-
-RFC_DOCUMENT_PATH = os.path.join(PROJECT_PATH, "rfc_document_set")
 
 
 def is_diagram_line(line):
+    #check common borders, cells, and packet bit rulers
     stripped = line.strip()
     if not stripped:
         return False
@@ -28,6 +20,7 @@ def is_diagram_line(line):
 
 
 def locate_ascii_packet_diagrams(document, context_lines=12):
+    #collect lines that look like ascii diagram content
     lines = document.splitlines()
     marked = []
     for index, line in enumerate(lines):
@@ -36,23 +29,26 @@ def locate_ascii_packet_diagrams(document, context_lines=12):
     if not marked:
         return []
 
+    #merge nearby lines into diagram candidates
     groups = []
-    start = previous = marked[0]
+    start = marked[0]
+    previous = marked[0]
     for index in marked[1:]:
         if index - previous <= 3:
             previous = index
             continue
         groups.append((start, previous))
-        start = previous = index
+        start = index
+        previous = index
     groups.append((start, previous))
 
+    #filter ordinary tables and likely state machines
     results = []
     for start, end in groups:
         diagram_start = max(0, start - 1)
         diagram_end = min(len(lines), end + 2)
         diagram_lines = lines[diagram_start:diagram_end]
         diagram_text = "\n".join(diagram_lines)
-
         border_rows = 0
         cell_rows = 0
         for line in diagram_lines:
@@ -67,72 +63,43 @@ def locate_ascii_packet_diagrams(document, context_lines=12):
             continue
         if not has_ruler and cell_rows < 2:
             continue
-        #state machines commonly use the same box characters, but connect small boxes with arrows
-        #maybe this is a way to judge
         if not has_ruler and ("->" in diagram_text or "<-" in diagram_text):
             continue
 
+        #preserve nearby text that explains diagram fields
         context_start = max(0, diagram_start - context_lines)
         context_end = min(len(lines), diagram_end + context_lines)
         results.append(
             {
                 "start_line": diagram_start + 1,
                 "end_line": diagram_end,
-                "diagram": diagram_text,
                 "context": "\n".join(lines[context_start:context_end]),
             }
         )
     return results
 
 
-def _format_diagram_evidence(rfc_number, diagrams):
+def format_rule_ascii_evidence(rfc_number, diagrams):
+    #format selected diagrams as one representation evidence source
     sections = [
         "RFC " + str(rfc_number) + " packet-diagram candidates were located locally.",
         "Use only the candidate diagrams and their nearby RFC text below as evidence.",
     ]
     for index, item in enumerate(diagrams, start=1):
+        section = "\n<CANDIDATE number=\"{}\" lines=\"{}-{}\">\n{}\n</CANDIDATE>"
         sections.append(
-            "\n<CANDIDATE number=\"{}\" lines=\"{}-{}\">\n{}\n</CANDIDATE>".format(
-                index,
-                item["start_line"],
-                item["end_line"],
-                item["context"],
+            section.format(
+                index, item["start_line"], item["end_line"], item["context"]
             )
         )
     return "\n".join(sections)
 
 
-def extract_rfc_from_ascii_diagrams(
-    rfc_number,
-    model_list,
-    document_path=RFC_DOCUMENT_PATH,
-    stream_output=False,
-):
-    number = str(rfc_number).strip()
-    if not number.isdigit():
-        raise ValueError("RFC number must contain digits only: " + number)
-    if not os.path.isdir(document_path):
-        raise FileNotFoundError("RFC document folder not found: " + document_path)
-
-    source_path = os.path.join(document_path, "rfc" + number + ".txt")
-    if not os.path.isfile(source_path):
-        raise FileNotFoundError("RFC document not found: " + source_path)
-    with open(source_path, "r", encoding="utf-8", errors="replace") as file:
-        document = file.read()
-
+def extract_rule_ascii_evidence(rfc_number, document, model_name=None):
+    #find diagrams locally and return their combined evidence text
     diagrams = locate_ascii_packet_diagrams(document)
     if not diagrams:
-        raise RuntimeError("No packet-like ASCII diagram was found in RFC " + number + ".")
-
-    evidence = _format_diagram_evidence(number, diagrams)
-    prompt = RFC_EXTRACTION_INSTRUCTION.replace("{RFC_TEXT}", evidence)
-    results = []
-    for model_name in model_list:
-        try:
-            answer = generate_rfc_representation(model_name, prompt)
-            results.append((model_name, answer, None, None))
-        except RuntimeError as error:
-            results.append((model_name, None, None, str(error)))
-        if stream_output:
-            print_extraction_results([results[-1]])
-    return results
+        raise RuntimeError(
+            "No packet-like ASCII diagram was found in RFC " + str(rfc_number) + "."
+        )
+    return format_rule_ascii_evidence(rfc_number, diagrams)

@@ -15,7 +15,7 @@ OLLAMA_HEALTH_URL = "http://127.0.0.1:11434/api/tags"
 
 def find_ollama_executable(): #find the local ollama executable without using a cloud service
     #prefer an executable already available on the system path
-    executable = shutil.which("ollama") #just like ask Windows CMD where is ollama
+    executable = shutil.which("ollama")  #ask windows where the executable is located
     if executable:
         return executable
 

@@ -1,19 +1,23 @@
+#save extraction results as json files with stable names
+
 import json
 import os
 import re
 
-from load_llm import PROJECT_PATH
+from ollama_client import PROJECT_PATH
 
 
 SAVEFILE_PATH = os.path.join(PROJECT_PATH, "savefile")
 
 
 def safe_filename_part(value):
+    #replace characters that are unsafe in result filenames
     safe_value = re.sub(r"[^A-Za-z0-9._-]+", "_", str(value)).strip("._")
     return safe_value or "unknown"
 
 
 def serializable_output(answer):
+    #store valid json as data and keep other responses as text
     if answer is None:
         raw_output = ""
     else:
@@ -24,23 +28,34 @@ def serializable_output(answer):
         return raw_output
 
 
-def export_extraction_results(results, rfc_number, method, output_path=SAVEFILE_PATH):
-    os.makedirs(output_path, exist_ok=True)
-    number = safe_filename_part(str(rfc_number).strip())
-    method_name = safe_filename_part(str(method).strip().lower())
-    exported_results = []
+def get_result_path(rfc_number, model_name, method, output_path=SAVEFILE_PATH):
+    #use one filename rule for exporting and batch resume checks
+    filename = "rfc{}_{}_{}.json".format(
+        safe_filename_part(str(rfc_number).strip()),
+        safe_filename_part(model_name),
+        safe_filename_part(str(method).strip().lower()),
+    )
+    return os.path.join(output_path, filename)
 
+
+def result_exists(rfc_number, model_name, method, output_path=SAVEFILE_PATH):
+    #return whether one exact method result has already been saved
+    path = get_result_path(rfc_number, model_name, method, output_path)
+    return os.path.isfile(path)
+
+
+def export_extraction_results(results, rfc_number, method, output_path=SAVEFILE_PATH):
+    #write every successful model response to its own result file
+    os.makedirs(output_path, exist_ok=True)
+    exported_results = []
     for model_name, answer, _, error in results:
         if error:
             exported_results.append((model_name, answer, None, error))
             continue
         try:
-            filename = "rfc{}_{}_{}.json".format(
-                number,
-                safe_filename_part(model_name),
-                method_name,
+            result_path = get_result_path(
+                rfc_number, model_name, method, output_path
             )
-            result_path = os.path.join(output_path, filename)
             exported_data = {
                 "rfc": str(rfc_number).strip(),
                 "model": model_name,
