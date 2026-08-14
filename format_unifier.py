@@ -8,10 +8,13 @@ def format_standardized():
 
     for name in os.listdir(input_folder):
         if name.endswith(".json"):
-            with open(input_folder + "/" + name, "r") as file:
+            with open(input_folder + "/" + name, "r", encoding="utf-8") as file:
                 data = file.read()
 
             data = data.lower().replace("_", " ")
 
-            with open(output_folder + "/" + name, "w") as file:
+            with open(output_folder + "/" + name, "w", encoding="utf-8") as file:
                 file.write(data)
+
+if __name__ == "__main__":
+    format_standardized()
