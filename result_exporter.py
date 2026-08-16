@@ -69,14 +69,7 @@ def export_extraction_results(results, rfc_number, method, output_path=SAVEFILE_
                 output_path,
                 error=bool(error),
             )
-            exported_data = {
-                "rfc": str(rfc_number).strip(),
-                "model": model_name,
-                "method": str(method).strip().lower(),
-                "output": serializable_output(answer),
-            }
-            if error:
-                exported_data["error"] = str(error)
+            exported_data = serializable_output(answer)
             with open(result_path, "w", encoding="utf-8", newline="\n") as file:
                 json.dump(exported_data, file, ensure_ascii=False, indent=2)
                 file.write("\n")
