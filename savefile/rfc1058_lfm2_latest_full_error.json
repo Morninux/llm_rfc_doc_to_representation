@@ -1,7 +1,0 @@
-{
-  "rfc": "1058",
-  "model": "lfm2:latest",
-  "method": "full",
-  "output": "{\"title\": \"Routing Information Protocol (RIP)\", \"date\": \"June 1988\", \"sections\": [\"Overview\", \"Route Generation\", \"Triggered Updates\", \"Response Datagram Structure\", \"Compatibility\", \"Control Functions\"], \"key_points\": {\"route_generation\": \"Generates triggered updates when routes change, sending only modified entries to avoid unnecessary traffic.\", \"triggered_updates\": \"Includes both route changes and \"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",
-  "error": "Model lfm2:latest failed the representation contract after one retry: response is not exactly one valid JSON object"
-}

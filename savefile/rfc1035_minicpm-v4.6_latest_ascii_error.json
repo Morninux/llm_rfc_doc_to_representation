@@ -1,9 +1,0 @@
-{
-  "rfc": "1035",
-  "model": "minicpm-v4.6:latest",
-  "method": "ascii",
-  "output": {
-    "status": "parsed"
-  },
-  "error": "Model minicpm-v4.6:latest failed the representation contract after one retry: missing required keys: protocol, rfc, pdus, bit_string_types, enumerated_types, structure_types, array_types, parsing_context, helper_functions, transform_functions"
-}

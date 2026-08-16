@@ -1,9 +1,0 @@
-{
-  "rfc": "1112",
-  "model": "minicpm-v4.6:latest",
-  "method": "full",
-  "output": {
-    "problem": "You are an expert on state transition diagrams for IGMP, and you need to analyze the provided text to understand how a host joins a new group. The analysis should focus on the steps and conditions that trigger the transition from the Non-Member state to the Delaying Member state or another state based on the event 'join group'. Also, note the recommended actions: transmit a Report for the group, repeated once or twice after short delays."
-  },
-  "error": "Model minicpm-v4.6:latest failed the representation contract after one retry: missing required keys: protocol, rfc, pdus, bit_string_types, enumerated_types, structure_types, array_types, parsing_context, helper_functions, transform_functions"
-}
