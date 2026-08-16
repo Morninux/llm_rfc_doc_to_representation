@@ -1,8 +1,7 @@
-#generate and repair structured representations with one model
+#generate structured representations with one model
 
 from ollama_client import run_model
-from prompts import build_representation_prompt, build_representation_repair_prompt
-from representation_validator import validate_representation_json
+from prompts import build_representation_prompt
 
 
 class RepresentationGenerationError(RuntimeError):
@@ -20,27 +19,4 @@ class RepresentationGenerationError(RuntimeError):
 def generate_representation(model_name, evidence):
     #build the shared prompt and request one json response
     prompt = build_representation_prompt(evidence)
-    answer = run_model(model_name, prompt, json_output=True)
-    try:
-        return validate_representation_json(answer)
-    except ValueError as first_error:
-        #give the model one opportunity to repair its response
-        repair_prompt = build_representation_repair_prompt(
-            prompt, answer, first_error
-        )
-        try:
-            repaired = run_model(model_name, repair_prompt, json_output=True)
-        except RuntimeError as repair_error:
-            raise RepresentationGenerationError(
-                model_name, answer, repair_error
-            ) from repair_error
-        try:
-            return validate_representation_json(repaired)
-        except ValueError as second_error:
-            #keep the first response when the repair response is empty
-            error_answer = repaired
-            if not str(error_answer).strip():
-                error_answer = answer
-            raise RepresentationGenerationError(
-                model_name, error_answer, second_error
-            ) from second_error
+    return run_model(model_name, prompt, json_output=True)

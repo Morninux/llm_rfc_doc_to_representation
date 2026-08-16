@@ -4,7 +4,6 @@ import json
 
 from ollama_client import run_model
 from prompts import build_diagram_location_prompt, build_diagram_repair_prompt
-from representation_validator import remove_thinking_blocks
 
 
 def add_line_numbers(document):
@@ -17,9 +16,8 @@ def add_line_numbers(document):
 
 def parse_diagram_ranges(answer, line_count):
     #parse and validate every returned diagram line range
-    source = remove_thinking_blocks(answer)
     try:
-        data = json.loads(source)
+        data = json.loads(answer)
     except json.JSONDecodeError as error:
         raise ValueError("diagram location response is not valid json") from error
     if not isinstance(data, dict):
