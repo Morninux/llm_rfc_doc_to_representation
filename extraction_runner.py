@@ -1,12 +1,8 @@
 #run every extraction method through one shared model loop
 
 from extractors import EVIDENCE_EXTRACTORS
-from representation_generator import (
-    RepresentationGenerationError,
-    generate_representation,
-)
+from representation_generator import RepresentationGenerationError, generate_representation
 from rfc_loader import load_rfc_document
-
 
 METHODS = tuple(EVIDENCE_EXTRACTORS.keys())
 
@@ -15,9 +11,7 @@ def normalize_method(method):
     #validate a method before selecting its evidence extractor
     method_name = str(method).strip().lower()
     if method_name not in EVIDENCE_EXTRACTORS:
-        raise ValueError(
-            "Extraction method must be 'full', 'ascii', or 'llm_ascii'."
-        )
+        raise ValueError("Extraction method must be 'full', 'ascii', or 'llm_ascii'.")
     return method_name
 
 

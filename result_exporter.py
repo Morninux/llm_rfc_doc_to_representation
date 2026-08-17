@@ -32,11 +32,7 @@ def get_result_path(
     rfc_number, model_name, method, output_path=SAVEFILE_PATH, error=False
 ):
     #use one filename rule for exporting and batch resume checks
-    filename = "rfc{}_{}_{}".format(
-        safe_filename_part(str(rfc_number).strip()),
-        safe_filename_part(model_name),
-        safe_filename_part(str(method).strip().lower()),
-    )
+    filename = f"rfc{safe_filename_part(str(rfc_number).strip())}_{safe_filename_part(model_name)}_{safe_filename_part(str(method).strip().lower())}"
     if error:
         filename += "_error"
     filename += ".json"
@@ -46,9 +42,7 @@ def get_result_path(
 def result_exists(rfc_number, model_name, method, output_path=SAVEFILE_PATH):
     #accept either a successful result or a saved validation error
     result_path = get_result_path(rfc_number, model_name, method, output_path)
-    error_path = get_result_path(
-        rfc_number, model_name, method, output_path, error=True
-    )
+    error_path = get_result_path(rfc_number, model_name, method, output_path, error=True)
     return os.path.isfile(result_path) or os.path.isfile(error_path)
 
 
@@ -62,20 +56,12 @@ def export_extraction_results(results, rfc_number, method, output_path=SAVEFILE_
             exported_results.append((model_name, answer, None, error))
             continue
         try:
-            result_path = get_result_path(
-                rfc_number,
-                model_name,
-                method,
-                output_path,
-                error=bool(error),
-            )
+            result_path = get_result_path(rfc_number,model_name,method,output_path,error=bool(error),)
             exported_data = serializable_output(answer)
             with open(result_path, "w", encoding="utf-8", newline="\n") as file:
                 json.dump(exported_data, file, ensure_ascii=False, indent=2)
                 file.write("\n")
             exported_results.append((model_name, answer, result_path, error))
         except OSError as export_error:
-            exported_results.append(
-                (model_name, answer, None, "Export failed: " + str(export_error))
-            )
+            exported_results.append((model_name, answer, None, "Export failed: " + str(export_error)))
     return exported_results

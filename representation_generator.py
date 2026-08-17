@@ -7,11 +7,7 @@ from prompts import build_representation_prompt
 class RepresentationGenerationError(RuntimeError):
     #keep invalid model output available for error export
     def __init__(self, model_name, answer, reason):
-        message = (
-            "Model " + model_name
-            + " failed the representation contract after one retry: "
-            + str(reason)
-        )
+        message = ("Model " + model_name + " failed the representation contract after one retry: " + str(reason))
         super().__init__(message)
         self.answer = answer
 
