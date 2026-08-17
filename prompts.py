@@ -118,8 +118,12 @@ Example:
 
 "size": "length - 8"
 
-16. If multiple different packet formats are defined, represent them as separate
-    structure types.
+16. Each distinct packet-format ASCII diagram must be represented as a separate
+    entry in "packet". All extracted information associated with that
+    diagram, including PDUs, bit string types, enumerated types, structure types,
+    array types, parsing context, helper functions, and transform functions,
+    must be stored only within that diagram's entry. Information from different
+    diagrams must not be merged.
 
 17. If multiple packet formats are alternatives of a common packet type, they may
     be represented as variants of an enumerated type.
@@ -163,99 +167,105 @@ The JSON must follow this structure:
   "protocol": "string",
   "rfc": "string",
 
-  "pdus": [
-    "string"
-  ],
-
-  "bit_string_types": [
+  "packet": [
     {
       "name": "string",
-      "size_bits": "integer or null",
-      "description": "string"
-    }
-  ],
 
-  "enumerated_types": [
-    {
-      "name": "string",
-      "variants": [
+      "pdus": [
+        "string"
+      ],
+
+      "bit_string_types": [
         {
           "name": "string",
-          "type": "string",
-          "condition": "string or null"
-        }
-      ]
-    }
-  ],
-
-  "structure_types": [
-    {
-      "name": "string",
-
-      "header_size_bytes": "integer or null",
-
-      "byte_order": "string or null",
-
-      "fields": [
-        {
-          "name": "string",
-          "display_name": "string",
-          "offset_bits": "integer or null",
           "size_bits": "integer or null",
-          "type": "string or null",
-          "optional": "boolean or null",
-          "presence_condition": "string or null",
-          "description": "string",
-          "constraints": [
-            "string"
+          "description": "string"
+        }
+      ],
+
+      "enumerated_types": [
+        {
+          "name": "string",
+          "variants": [
+            {
+              "name": "string",
+              "type": "string",
+              "condition": "string or null"
+            }
           ]
         }
       ],
 
-      "payload": {
-        "name": "string",
-        "offset_bits": "integer or null",
-        "size": "integer, expression, or null"
-      },
+      "structure_types": [
+        {
+          "name": "string",
 
-      "constraints": [
-        "string"
+          "header_size_bytes": "integer or null",
+
+          "byte_order": "string or null",
+
+          "fields": [
+            {
+              "name": "string",
+              "display_name": "string",
+              "offset_bits": "integer or null",
+              "size_bits": "integer or null",
+              "type": "string or null",
+              "optional": "boolean or null",
+              "presence_condition": "string or null",
+              "description": "string",
+              "constraints": [
+                "string"
+              ]
+            }
+          ],
+
+          "payload": {
+            "name": "string",
+            "offset_bits": "integer or null",
+            "size": "integer, expression, or null"
+          },
+
+          "constraints": [
+            "string"
+          ],
+
+          "parse_from": "string or null",
+          "serialize_to": "string or null"
+        }
       ],
 
-      "parse_from": "string or null",
-      "serialize_to": "string or null"
-    }
-  ],
+      "array_types": [
+        {
+          "name": "string",
+          "element_type": "string",
+          "length": "integer, expression, or null"
+        }
+      ],
 
-  "array_types": [
-    {
-      "name": "string",
-      "element_type": "string",
-      "length": "integer, expression, or null"
-    }
-  ],
+      "parsing_context": [
+        {
+          "name": "string",
+          "type": "string",
+          "description": "string"
+        }
+      ],
 
-  "parsing_context": [
-    {
-      "name": "string",
-      "type": "string",
-      "description": "string"
-    }
-  ],
+      "helper_functions": [
+        {
+          "name": "string",
+          "description": "string"
+        }
+      ],
 
-  "helper_functions": [
-    {
-      "name": "string",
-      "description": "string"
-    }
-  ],
-
-  "transform_functions": [
-    {
-      "name": "string",
-      "from": "string",
-      "to": "string",
-      "description": "string"
+      "transform_functions": [
+        {
+          "name": "string",
+          "from": "string",
+          "to": "string",
+          "description": "string"
+        }
+      ]
     }
   ]
 }
