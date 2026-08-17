@@ -1,0 +1,305 @@
+{
+  "protocol": "TFTP",
+  "rfc": "RFC 1350 TFTP Revision 2",
+  "packet": [
+    {
+      "name": "rrq_wrq_packet",
+      "pdus": [
+        "RRQ",
+        "WRQ"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [
+        {
+          "name": "opcode",
+          "variants": [
+            {
+              "name": "rrq",
+              "type": "uint16",
+              "condition": null
+            },
+            {
+              "name": "wrq",
+              "type": "uint16",
+              "condition": null
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "rrq_wrq_structure",
+          "header_size_bytes": 2,
+          "byte_order": "big",
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "uint16",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Operation code, 1=RRQ, 2=WRQ",
+              "constraints": []
+            },
+            {
+              "name": "filename",
+              "display_name": "Filename",
+              "offset_bits": 16,
+              "size_bits": null,
+              "type": "string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Netscii string terminated by zero byte",
+              "constraints": []
+            },
+            {
+              "name": "mode",
+              "display_name": "Mode",
+              "offset_bits": null,
+              "size_bits": null,
+              "type": "string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Netscii string terminated by zero byte",
+              "constraints": []
+            }
+          ],
+          "payload": {
+            "name": null,
+            "offset_bits": null,
+            "size": null
+          },
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "data_packet",
+      "pdus": [
+        "DATA"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [
+        {
+          "name": "opcode",
+          "variants": [
+            {
+              "name": "data",
+              "type": "uint16",
+              "condition": null
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "data_structure",
+          "header_size_bytes": 4,
+          "byte_order": "big",
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "uint16",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Operation code, 3=DATA",
+              "constraints": []
+            },
+            {
+              "name": "block_number",
+              "display_name": "Block Number",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "uint16",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Sequential block number starting at 1",
+              "constraints": []
+            },
+            {
+              "name": "data",
+              "display_name": "Data",
+              "offset_bits": 32,
+              "size_bits": null,
+              "type": "bytes",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Payload up to 512 bytes",
+              "constraints": [
+                "data.length <= 512"
+              ]
+            }
+          ],
+          "payload": {
+            "name": null,
+            "offset_bits": null,
+            "size": null
+          },
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "ack_packet",
+      "pdus": [
+        "ACK"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [
+        {
+          "name": "opcode",
+          "variants": [
+            {
+              "name": "ack",
+              "type": "uint16",
+              "condition": null
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "ack_structure",
+          "header_size_bytes": 4,
+          "byte_order": "big",
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "uint16",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Operation code, 4=ACK",
+              "constraints": []
+            },
+            {
+              "name": "block_number",
+              "display_name": "Block Number",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "uint16",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Block number of acknowledged DATA packet",
+              "constraints": []
+            }
+          ],
+          "payload": {
+            "name": null,
+            "offset_bits": null,
+            "size": null
+          },
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "error_packet",
+      "pdus": [
+        "ERROR"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [
+        {
+          "name": "opcode",
+          "variants": [
+            {
+              "name": "error",
+              "type": "uint16",
+              "condition": null
+            }
+          ]
+        },
+        {
+          "name": "error_code",
+          "variants": [
+            {
+              "name": "undefined_error",
+              "type": "uint16",
+              "condition": null
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "error_structure",
+          "header_size_bytes": 4,
+          "byte_order": "big",
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "uint16",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Operation code, 5=ERROR",
+              "constraints": []
+            },
+            {
+              "name": "error_code",
+              "display_name": "Error Code",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "uint16",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Integer error code",
+              "constraints": []
+            },
+            {
+              "name": "error_message",
+              "display_name": "Error Message",
+              "offset_bits": 32,
+              "size_bits": null,
+              "type": "string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Human readable netscii string terminated by zero byte",
+              "constraints": []
+            }
+          ],
+          "payload": {
+            "name": null,
+            "offset_bits": null,
+            "size": null
+          },
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "protocol": "udp",
+  "rfc": "768",
+  "packet": [
+    {
+      "name": "datagram",
+      "pdus": [
+        "User Datagram Header"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "user_datagram_header",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "source_port",
+              "display_name": "Source Port",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "integer",
+              "optional": true,
+              "presence_condition": null,
+              "description": "port of the sending process, or zero if not used",
+              "constraints": [
+                "length >= 8"
+              ]
+            },
+            {
+              "name": "destination_port",
+              "display_name": "Destination Port",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "integer",
+              "optional": null,
+              "presence_condition": null,
+              "description": "port of the receiving process",
+              "constraints": []
+            },
+            {
+              "name": "length",
+              "display_name": "Length",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": "integer",
+              "optional": null,
+              "presence_condition": null,
+              "description": "total length of the UDP datagram including header and data",
+              "constraints": [
+                "length >= 8"
+              ]
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 48,
+              "size_bits": 16,
+              "type": "integer",
+              "optional": null,
+              "presence_condition": null,
+              "description": "one's complement checksum of pseudo header and payload",
+              "constraints": []
+            },
+            {
+              "name": "payload",
+              "display_name": "Data",
+              "offset_bits": 64,
+              "size": "length - 8"
+            }
+          ],
+          "payload": {
+            "name": "data_octets",
+            "offset_bits": 64,
+            "size": "length - 8"
+          },
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [
+        {
+          "name": "checksum_calculation",
+          "description": "compute one's complement of one's complement sum of pseudo header and data"
+        }
+      ],
+      "transform_functions": []
+    }
+  ]
+}

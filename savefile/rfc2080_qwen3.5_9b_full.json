@@ -1,0 +1,3 @@
+{
+  "user_query": "# addresses\n   on a single physical interface.  Normally, this means that several\n   logical IPv6 networks are being carried over one physical medium.  It\n   is possible that a router may have multiple link-local addresses for\n\n\nMalkin & Minnear            Standards Track                    [Page 15]\n\"\n\nThe user query appears to be a fragment of a technical document, specifically RFC 2080 titled "
+}

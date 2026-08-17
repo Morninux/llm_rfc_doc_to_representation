@@ -1,0 +1,96 @@
+{
+  "protocol": "Internet Group Management Protocol (IGMP)",
+  "rfc": "RFC 2236",
+  "packet": [
+    {
+      "name": "IGMP Membership Query",
+      "pdus": [
+        "IGMP"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "IGMP Membership Query",
+          "header_size_bytes": "8",
+          "byte_order": "Big Endian",
+          "fields": [
+            {
+              "name": "Type",
+              "display_name": "Type",
+              "offset_bits": "0-1",
+              "size_bits": "8",
+              "type": "Octet",
+              "optional": "false",
+              "presence_condition": "type == 0x11",
+              "constraints": [
+                "type == 0x11"
+              ],
+              "parse_from": "bits[7:0]",
+              "serialize_to": "bits[7:0]"
+            },
+            {
+              "name": "Max Resp Time",
+              "display_name": "Max Resp Time",
+              "offset_bits": "2-3",
+              "size_bits": "8",
+              "type": "Octet",
+              "optional": "false",
+              "presence_condition": "max_resp_time[1:0]",
+              "constraints": [
+                "max_resp_time[1:0]"
+              ],
+              "parse_from": "bits[7:2]",
+              "serialize_to": "bits[2:0]"
+            },
+            {
+              "name": "Checksum",
+              "display_name": "Checksum",
+              "offset_bits": "4-7",
+              "size_bits": "16",
+              "type": "Checksum",
+              "optional": "false",
+              "presence_condition": "checksum == calc_checksum(IGMP_header)",
+              "constraints": [
+                "checksum == calc_checksum(IGMP_header)"
+              ],
+              "parse_from": "IGMP_header[7:0]",
+              "serialize_to": "IGMP_header[7:0]"
+            },
+            {
+              "name": "Group Address",
+              "display_name": "Group Address",
+              "offset_bits": "8-31",
+              "size_bits": "28",
+              "type": "IPv4Address",
+              "optional": "false",
+              "presence_condition": "group_address[27:0]",
+              "constraints": [
+                "group_address[27:0]"
+              ],
+              "parse_from": "IGMP_header[31:8]",
+              "serialize_to": "IGMP_header[8:31]"
+            }
+          ],
+          "payload": {
+            "name": "IGMP",
+            "offset_bits": "32-35",
+            "size": "4",
+            "type": "Enum",
+            "optional": "false",
+            "presence_condition": "igmp[32:32]",
+            "constraints": [
+              "igmp == 0x00000000"
+            ],
+            "parse_from": "bits[31:32]",
+            "serialize_to": "bits[32:31]"
+          }
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

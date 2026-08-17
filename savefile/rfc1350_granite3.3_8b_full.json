@@ -1,0 +1,58 @@
+{
+  "document_title": "TFTP Protocol (Revision 2)",
+  "rfc_number": "1350",
+  "author": "Karen R. Sollins",
+  "date": "July 1992",
+  "version": "Revision 2",
+  "abstract": "This RFC describes the TFTP (Trivial File Transfer Protocol) version 2, which is a simple file transfer protocol designed for minimal implementation. It includes specifications for packet structures, packet types (like RRQ, WRQ, DATA, ACK, and ERROR), and error codes.",
+  "main_sections": [
+    {
+      "section_number": "1",
+      "title": "Introduction",
+      "content": "TFTP is a simple file transfer protocol designed for minimal implementation. It is commonly used in bootstrapping networked computers, where the protocol's simplicity and speed are advantageous. TFTP uses the User Datagram Protocol (UDP) for transport and is not a connection-oriented protocol."
+    },
+    {
+      "section_number": "2",
+      "title": "General Description",
+      "content": "TFTP operates on a simple request-reply basis, where a client sends a request (RRQ or WRQ) and the server responds with a DATA packet containing data blocks, or an ACK to acknowledge the receipt of data. The protocol uses block numbers to ensure data integrity and retransmission in case of packet loss."
+    },
+    {
+      "section_number": "3",
+      "title": "Data Transfer",
+      "content": "Data transfer occurs in DATA packets that contain a block number and the actual data. The block numbers start from 1 and increment for each new block. A zero-byte data field in a DATA packet signifies the end of the transfer."
+    },
+    {
+      "section_number": "4",
+      "title": "Error Handling and Termination",
+      "content": "Error packets (ERROR) are used to signal problems, such as file not found or access violations. Normal termination is marked by a final DATA packet that is acknowledged, after which the connection can be terminated. Premature termination is indicated by an ERROR packet."
+    },
+    {
+      "section_number": "5",
+      "title": "Packet Formats",
+      "content": "TFTP packets include opcodes, block numbers, and data fields. The data packet format is specified in Figure 5-2, while ACK packets are shown in Figure 5-3, and ERROR packets in Figure 5-4."
+    },
+    {
+      "section_number": "6",
+      "title": "Normal Termination",
+      "content": "The end of a transfer is marked by a DATA packet containing 0 to 511 bytes, acknowledged by an ACK packet. The sender may terminate the connection after sending the final ACK, but dallying is encouraged to retransmit lost final ACKs."
+    },
+    {
+      "section_number": "7",
+      "title": "Premature Termination",
+      "content": "An ERROR packet is sent when a request cannot be granted or an error occurs. This packet is not retransmitted or acknowledged, so its receipt is not guaranteed."
+    },
+    {
+      "section_number": "I",
+      "title": "Appendix",
+      "content": "Includes order of headers, TFTP formats, and error codes with their meanings."
+    }
+  ],
+  "references": [
+    "USASI X3.4-1968",
+    "Postel, J., 'User Datagram Protocol' (RFC 768)",
+    "Postel, J., 'Telnet Protocol Specification' (RFC 764)",
+    "Braden, R., 'Requirements for Internet Hosts -- Application and Support' (RFC 1123)"
+  ],
+  "security_considerations": "Since TFTP lacks login and access control, caution is advised in granting rights to TFTP server processes to prevent unauthorized access to a server's file system.",
+  "author_details": "Karen R. Sollins, Massachusetts Institute of Technology, Laboratory for Computer Science, 545 Technology Square, Cambridge, MA 02139-1986, Phone: (617) 253-6006, EMail: SOLLINS@LCS.MIT.EDU"
+}

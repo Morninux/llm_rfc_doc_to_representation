@@ -1,0 +1,111 @@
+{
+  "protocol": "IGMP",
+  "rfc": "RFC 2236",
+  "packet": [
+    {
+      "name": "IGMP Packet",
+      "pdus": [
+        "IGMP Message"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [
+        {
+          "name": "membership_query_type",
+          "variants": [
+            {
+              "name": "General Query",
+              "type": "0x11",
+              "condition": "Sub-type for learning which groups have members"
+            },
+            {
+              "name": "Group-Specific Query",
+              "type": "0x11",
+              "condition": "Sub-type for learning if a particular group has members"
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "IGMP Header",
+          "header_size_bytes": null,
+          "byte_order": "network",
+          "fields": [
+            {
+              "name": "type",
+              "display_name": "Type",
+              "offset_bits": 0,
+              "size_bits": 8,
+              "type": "enumerated",
+              "optional": false,
+              "presence_condition": null,
+              "description": "There are three types of IGMP messages of concern to the host-router interaction.",
+              "constraints": []
+            },
+            {
+              "name": "max_resp_time",
+              "display_name": "Max Resp Time",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": "integer",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Maximum response time field.",
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "integer",
+              "optional": false,
+              "presence_condition": null,
+              "description": "IGMP message checksum.",
+              "constraints": []
+            },
+            {
+              "name": "group_address",
+              "display_name": "Group Address",
+              "offset_bits": 32,
+              "size_bits": 32,
+              "type": "ip_address",
+              "optional": false,
+              "presence_condition": null,
+              "description": "The group address the message is for.",
+              "constraints": []
+            }
+          ],
+          "payload": {
+            "name": null,
+            "offset_bits": 32,
+            "size": null
+          },
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [
+        {
+          "name": "ip_ttl",
+          "type": "fixed_value",
+          "description": "All IGMP messages are sent with IP TTL 1."
+        },
+        {
+          "name": "ip_protocol_number",
+          "type": "fixed_value",
+          "description": "IGMP messages use an IP protocol number of 2."
+        },
+        {
+          "name": "ip_options",
+          "type": "required_option",
+          "description": "All IGMP messages contain the IP Router Alert option [RFC 2113] in their IP header."
+        }
+      ],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

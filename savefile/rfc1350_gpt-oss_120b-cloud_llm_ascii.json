@@ -1,0 +1,499 @@
+{
+  "protocol": "tftp",
+  "rfc": "1350",
+  "packet": [
+    {
+      "name": "Diagram 2 RRQ/WRQ Packet",
+      "pdus": [
+        "RRQ_WRQ"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [
+        {
+          "name": "tftp_opcode",
+          "variants": [
+            {
+              "name": "RRQ",
+              "type": "integer",
+              "condition": null
+            },
+            {
+              "name": "WRQ",
+              "type": "integer",
+              "condition": null
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "rrq_wrq_packet",
+          "header_size_bytes": 2,
+          "byte_order": "big_endian",
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "tftp_opcode",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Opcode: 1 = RRQ, 2 = WRQ",
+              "constraints": []
+            },
+            {
+              "name": "filename",
+              "display_name": "Filename",
+              "offset_bits": 16,
+              "size_bits": null,
+              "type": "string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Filename string terminated by a zero byte",
+              "constraints": []
+            },
+            {
+              "name": "mode",
+              "display_name": "Mode",
+              "offset_bits": null,
+              "size_bits": null,
+              "type": "string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Mode string (netascii, octet, or mail) terminated by a zero byte",
+              "constraints": []
+            }
+          ],
+          "payload": {
+            "name": "",
+            "offset_bits": null,
+            "size": null
+          },
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "Diagram 3 DATA Packet",
+      "pdus": [
+        "DATA"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [
+        {
+          "name": "tftp_opcode",
+          "variants": [
+            {
+              "name": "DATA",
+              "type": "integer",
+              "condition": null
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "data_packet",
+          "header_size_bytes": 4,
+          "byte_order": "big_endian",
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "tftp_opcode",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Opcode = 3",
+              "constraints": []
+            },
+            {
+              "name": "block_number",
+              "display_name": "Block Number",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "integer",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Block number, starting at 1",
+              "constraints": []
+            }
+          ],
+          "payload": {
+            "name": "data",
+            "offset_bits": 32,
+            "size": "0..512 bytes"
+          },
+          "constraints": [
+            "data_length <= 512"
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "Diagram 4 ACK Packet",
+      "pdus": [
+        "ACK"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [
+        {
+          "name": "tftp_opcode",
+          "variants": [
+            {
+              "name": "ACK",
+              "type": "integer",
+              "condition": null
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "ack_packet",
+          "header_size_bytes": 4,
+          "byte_order": "big_endian",
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "tftp_opcode",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Opcode = 4",
+              "constraints": []
+            },
+            {
+              "name": "block_number",
+              "display_name": "Block Number",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "integer",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Block number being acknowledged",
+              "constraints": []
+            }
+          ],
+          "payload": {
+            "name": "",
+            "offset_bits": null,
+            "size": null
+          },
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "Diagram 5 ERROR Packet",
+      "pdus": [
+        "ERROR"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [
+        {
+          "name": "tftp_opcode",
+          "variants": [
+            {
+              "name": "ERROR",
+              "type": "integer",
+              "condition": null
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "error_packet",
+          "header_size_bytes": 4,
+          "byte_order": "big_endian",
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "tftp_opcode",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Opcode = 5",
+              "constraints": []
+            },
+            {
+              "name": "error_code",
+              "display_name": "Error Code",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "integer",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Integer indicating error type",
+              "constraints": []
+            },
+            {
+              "name": "error_msg",
+              "display_name": "Error Message",
+              "offset_bits": 32,
+              "size_bits": null,
+              "type": "string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Human‑readable message terminated by zero byte",
+              "constraints": []
+            }
+          ],
+          "payload": {
+            "name": "",
+            "offset_bits": null,
+            "size": null
+          },
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "Diagram 11 UDP Header",
+      "pdus": [
+        "UDP"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "udp_header",
+          "header_size_bytes": 8,
+          "byte_order": "big_endian",
+          "fields": [
+            {
+              "name": "source_port",
+              "display_name": "Source Port",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "integer",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Port chosen by sender",
+              "constraints": []
+            },
+            {
+              "name": "destination_port",
+              "display_name": "Destination Port",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "integer",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Port chosen by receiver (69 for TFTP)",
+              "constraints": []
+            },
+            {
+              "name": "length",
+              "display_name": "Length",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": "integer",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Number of bytes in UDP packet including header",
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 48,
+              "size_bits": 16,
+              "type": "integer",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Checksum of UDP packet",
+              "constraints": []
+            }
+          ],
+          "payload": {
+            "name": "udp_payload",
+            "offset_bits": 64,
+            "size": "length - 8 bytes"
+          },
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "Diagram 6 TFTP Formats Summary",
+      "pdus": [],
+      "bit_string_types": [],
+      "enumerated_types": [
+        {
+          "name": "tftp_opcode",
+          "variants": [
+            {
+              "name": "RRQ",
+              "type": "integer",
+              "condition": null
+            },
+            {
+              "name": "WRQ",
+              "type": "integer",
+              "condition": null
+            },
+            {
+              "name": "DATA",
+              "type": "integer",
+              "condition": null
+            },
+            {
+              "name": "ACK",
+              "type": "integer",
+              "condition": null
+            },
+            {
+              "name": "ERROR",
+              "type": "integer",
+              "condition": null
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "rrq_wrq_packet",
+          "header_size_bytes": 2,
+          "byte_order": "big_endian",
+          "fields": [],
+          "payload": {
+            "name": "",
+            "offset_bits": null,
+            "size": null
+          },
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        },
+        {
+          "name": "data_packet",
+          "header_size_bytes": 4,
+          "byte_order": "big_endian",
+          "fields": [],
+          "payload": {
+            "name": "",
+            "offset_bits": null,
+            "size": null
+          },
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        },
+        {
+          "name": "ack_packet",
+          "header_size_bytes": 4,
+          "byte_order": "big_endian",
+          "fields": [],
+          "payload": {
+            "name": "",
+            "offset_bits": null,
+            "size": null
+          },
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        },
+        {
+          "name": "error_packet",
+          "header_size_bytes": 4,
+          "byte_order": "big_endian",
+          "fields": [],
+          "payload": {
+            "name": "",
+            "offset_bits": null,
+            "size": null
+          },
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "Diagram 7 TFTP Formats Repetition",
+      "pdus": [],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "Diagram 8 TFTP Formats Repetition",
+      "pdus": [],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "Diagram 9 Initial Connection Protocol for Reading a File",
+      "pdus": [],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "Diagram 10 Initial Connection Protocol for Reading a File (Repeated)",
+      "pdus": [],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

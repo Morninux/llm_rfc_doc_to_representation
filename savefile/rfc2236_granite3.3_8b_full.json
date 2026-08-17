@@ -1,0 +1,33 @@
+{
+  "RFC_Title": "Internet Group Management Protocol (IGMP)",
+  "RFC_Number": "2236",
+  "Status": "Standards Track",
+  "Publication_Date": "November 1997",
+  "Author": "William C. Fenner",
+  "Affiliation": "Xerox PARC",
+  "Address": "3333 Coyote Hill Road, Palo Alto, CA 94304, Phone: +1 650 812 4816, EMail: fenner@parc.xerox.com",
+  "Abstract": "This memo specifies version 2 of the Internet Group Management Protocol (IGMP), an Internet Standard protocol used by hosts to report their multicast group memberships to an adjacent multicast router. This memo obsoletes RFC 1112 (IGMPv1).",
+  "Changes_from_IGMPv1": [
+    "The IGMPv1 'Version' and 'Type' fields are combined into a single 'Type' field.",
+    "A new IGMP Type is assigned to Version 2 Membership Report messages, allowing differentiation between IGMPv1 and IGMPv2 host report messages.",
+    "A new IGMP Type is created for the IGMPv2 Leave Group message.",
+    "The Membership Query message is changed so that a previously unused field contains a new value, the Max Response Time.",
+    "A querier election mechanism is standardized in IGMPv2, unlike in IGMPv1 which left the election up to the multicast routing protocol.",
+    "The IGMPv2 spec relaxes the requirements on validity-checking for Membership Queries and Membership Reports.",
+    "The IGMPv2 spec requires the presence of the IP Router Alert option [RFC 2113] in all packets described in this memo."
+  ],
+  "Security_Considerations": [
+    "A forged Query message can cause Querier duties to be assigned to the forger, potentially disrupting multicast traffic.",
+    "Forged Report messages can cause multicast routers to incorrectly believe there are group members on a subnet, leading to inefficient multicast routing.",
+    "Forged Version 1 Report Messages may put a router into a 'version 1 members present' state, causing it to ignore Leave messages and potentially disrupt multicast traffic.",
+    "Forged Leave messages can cause unnecessary Group-Specific Queries and extra processing.",
+    "Defenses against forged messages include ignoring messages from unknown subnets and requiring Router Alert options for certain message types."
+  ],
+  "Acknowledgments": "IGMPv2 was designed by Rosen Sharma and Steve Deering.",
+  "References": [
+    "Bradner, S., \"Key words for use in RFCs to Indicate Requirement Levels\", BCP 14, RFC 2119, March 1997.",
+    "Katz, D., \"IP Router Alert Option,\" RFC 2113, February 1997.",
+    "Deering, S., \"Host Extensions for IP Multicasting\", STD 5, RFC 1112, August 1989."
+  ],
+  "Full_Copyright_Statement": "Copyright (C) The Internet Society (1997).  All Rights Reserved. This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or assist in its implementation may be prepared, copied, published and distributed, in whole or in part, without restriction of any kind, provided that the above copyright notice and this paragraph are included on all such copies and derivative works. However, this document itself may not be modified in any way, such as by removing the copyright notice or references to the Internet Society or other Internet organizations, except as needed for the purpose of developing Internet standards in which case the procedures for copyrights defined in the Internet Standards process must be followed, or as required to translate it into languages other than English. The limited permissions granted above are perpetual and will not be revoked by the Internet Society or its successors or assigns. This document and the information contained herein is provided on an \"AS IS\" basis and THE INTERNET SOCIETY AND THE INTERNET ENGINEERING TASK FORCE DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE."
+}

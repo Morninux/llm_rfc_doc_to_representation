@@ -1,0 +1,63 @@
+{
+  "title": "IGMPv2 Security Considerations and Key Changes from IGMPv1",
+  "summary": "Section 10 (Security Considerations) of RFC 2236 details how to prevent forged messages that could disrupt IGMP group membership management. Section 13 (Appendix I - Changes from IGMPv1) outlines specific improvements in IGMPv2, including standardizing the querier election mechanism and requiring Router Alert options for enhanced security.",
+  "security_measures": [
+    {
+      "message_type": "Query Message",
+      "threat": "Forged Query message causing Querier role assignment or unnecessary traffic",
+      "impact": "Assigns Querier duties to forger; causes temporary loss of membership updates"
+    },
+    {
+      "message_type": "Report Message (v1)",
+      "threat": "Externally forged v1 Reports causing 'members present' state when there are none",
+      "impact": "Triggers Group-Specific Queries, extra processing, potential traffic loss up to [Group Membership Interval]"
+    },
+    {
+      "message_type": "Report Message (v2)",
+      "threat": "Forged Reports making multicast routers think members exist on a subnet",
+      "impact": "May cause unnecessary group membership reports from hosts"
+    },
+    {
+      "message_type": "Leave Message",
+      "threat": "Externally forged Leave messages triggering new queries",
+      "impact": "Extra processing, but no loss of desired traffic; can break Querier state if not handled correctly"
+    }
+  ],
+  "security_defenses": [
+    {
+      "type": "Source Address Verification",
+      "description": "Ignore messages from sources that do not belong to the local subnet assigned to the receiving interface."
+    },
+    {
+      "type": "Router Alert Option",
+      "description": "Require IP Router Alert option [RFC 2113] and do not forward Report or Leave messages via routers.",
+      "note": "Breaking backwards compatibility with implementations that do not support Router Alert"
+    },
+    {
+      "type": "Version-Specific Handling",
+      "description": "Configurable switch to ignore Version 1 messages completely for scenarios where fast leave is critical."
+    }
+  ],
+  "igmpv2_improvements_over_v1": [
+    {
+      "feature": "Standardized Querier Election",
+      "description": "Eliminates the need for different mechanisms per multicast routing protocol, though care must be taken when coexisting with IGMPv1 routers"
+    },
+    {
+      "feature": "Type Field Merging",
+      "description": "Combines Version and Type fields into a single 'Type' field for easier identification of v1 vs v2 reports"
+    },
+    {
+      "feature": "Router Alert Requirement",
+      "description": "All IGMPv2 packets must include the IP Router Alert option [RFC 2113]"
+    },
+    {
+      "feature": "Max Response Time Field",
+      "description": "Uses a previously unused field in queries to carry Max Response Time"
+    },
+    {
+      "feature": "Leave Group Message",
+      "description": "New message type introduced for IGMPv2 Leave Group handling"
+    }
+  ]
+}

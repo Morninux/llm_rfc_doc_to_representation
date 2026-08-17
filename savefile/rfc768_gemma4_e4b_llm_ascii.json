@@ -1,0 +1,170 @@
+{
+  "protocol": "null",
+  "rfc": "null",
+  "packet": [
+    {
+      "name": "user_datagram_header",
+      "pdus": [
+        "User Datagram Header Format"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "user_datagram_header",
+          "header_size_bytes": "null",
+          "byte_order": "null",
+          "fields": [
+            {
+              "name": "source_port",
+              "display_name": "Source Port",
+              "offset_bits": "null",
+              "size_bits": "null",
+              "type": "null",
+              "optional": true,
+              "presence_condition": "null",
+              "description": "Optional field indicating the port of the sending process. If not used, a value of zero is inserted.",
+              "constraints": [
+                "null"
+              ]
+            },
+            {
+              "name": "destination_port",
+              "display_name": "Destination Port",
+              "offset_bits": "null",
+              "size_bits": "null",
+              "type": "null",
+              "optional": null,
+              "presence_condition": "null",
+              "description": "Destination Port",
+              "constraints": []
+            },
+            {
+              "name": "length",
+              "display_name": "Length",
+              "offset_bits": "null",
+              "size_bits": "null",
+              "type": "null",
+              "optional": null,
+              "presence_condition": "null",
+              "description": "Length",
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": "null",
+              "size_bits": "null",
+              "type": "null",
+              "optional": null,
+              "presence_condition": "null",
+              "description": "Checksum",
+              "constraints": []
+            }
+          ],
+          "payload": {
+            "name": "data_octets",
+            "offset_bits": "null",
+            "size": "null"
+          },
+          "constraints": [],
+          "parse_from": "null",
+          "serialize_to": "null"
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "pseudo_header",
+      "pdus": [
+        "pseudo header"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "pseudo_header",
+          "header_size_bytes": "null",
+          "byte_order": "null",
+          "fields": [
+            {
+              "name": "source_address",
+              "display_name": "source address",
+              "offset_bits": "0",
+              "size_bits": "null",
+              "type": "null",
+              "optional": null,
+              "presence_condition": "null",
+              "description": "Source address",
+              "constraints": []
+            },
+            {
+              "name": "destination_address",
+              "display_name": "destination address",
+              "offset_bits": "null",
+              "size_bits": "null",
+              "type": "null",
+              "optional": null,
+              "presence_condition": "null",
+              "description": "Destination address",
+              "constraints": []
+            },
+            {
+              "name": "zero",
+              "display_name": "zero",
+              "offset_bits": "null",
+              "size_bits": "null",
+              "type": "null",
+              "optional": null,
+              "presence_condition": "null",
+              "description": "zero",
+              "constraints": []
+            },
+            {
+              "name": "protocol",
+              "display_name": "protocol",
+              "offset_bits": "null",
+              "size_bits": "null",
+              "type": "null",
+              "optional": null,
+              "presence_condition": "null",
+              "description": "protocol",
+              "constraints": []
+            },
+            {
+              "name": "udp_length",
+              "display_name": "UDP length",
+              "offset_bits": "null",
+              "size_bits": "null",
+              "type": "null",
+              "optional": null,
+              "presence_condition": "null",
+              "description": "UDP length",
+              "constraints": []
+            }
+          ],
+          "payload": {
+            "name": "null",
+            "offset_bits": "null",
+            "size": "null"
+          },
+          "constraints": [],
+          "parse_from": "null",
+          "serialize_to": "null"
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [
+        {
+          "name": "checksum_calculation",
+          "description": "16-bit one's complement of the one's complement sum of a pseudo header of information from the IP header, the UDP header, and the data, padded with zero octets at the end (if necessary) to make a multiple of two octets."
+        }
+      ],
+      "transform_functions": []
+    }
+  ]
+}

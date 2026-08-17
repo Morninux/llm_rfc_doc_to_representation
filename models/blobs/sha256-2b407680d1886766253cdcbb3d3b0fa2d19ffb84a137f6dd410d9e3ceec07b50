@@ -1,0 +1,1 @@
+{"architecture":"amd64","base_name":"deepseek-v4-flash:preview","capabilities":["completion","tools","thinking"],"context_length":1048576,"embedding_length":4096,"file_type":"FP8","model_type":"158B","os":"linux","remote_host":"https://ollama.com","remote_model":"deepseek-v4-flash:preview","rootfs":{"diff_ids":[],"type":"layers"}}

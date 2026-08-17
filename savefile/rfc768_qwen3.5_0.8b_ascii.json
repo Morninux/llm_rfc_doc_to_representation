@@ -1,0 +1,94 @@
+{
+  "protocol": "HTTP/1.0",
+  "rfc": "RFC 768 packet-diagram candidates were located locally.",
+  "packet": [
+    {
+      "name": "user_data",
+      "pdus": [
+        "User Datagram Header"
+      ],
+      "bit_string_types": [
+        {
+          "name": "Source Port",
+          "size_bits": 0,
+          "description": "Optional field indicating the port of sending process."
+        },
+        {
+          "name": "Destination Port",
+          "size_bits": 0,
+          "description": "Optional field indicating the port to which a reply should be addressed in the absence of any other information. If not used, a value of zero is inserted."
+        }
+      ],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "User Datagram Header",
+          "header_size_bytes": 0,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "Source Port",
+              "display_name": "Source Port",
+              "offset_bits": 16,
+              "size_bits": 32,
+              "type": "integer or null",
+              "optional": true,
+              "presence_condition": "x != 0",
+              "description": "Optional field indicating the port of sending process, and may be assumed to be the port to which a reply should be addressed in the absence of any other information.",
+              "constraints": []
+            },
+            {
+              "name": "Destination Port",
+              "display_name": "Destination Port",
+              "offset_bits": 16,
+              "size_bits": 32,
+              "type": "integer or null",
+              "optional": true,
+              "presence_condition": "x == 0",
+              "description": "Optional field indicating the port to which a reply should be addressed in the absence of any other information. If not used, a value of zero is inserted.",
+              "constraints": []
+            },
+            {
+              "name": "Length",
+              "display_name": "Length",
+              "offset_bits": 16,
+              "size_bits": 32,
+              "type": "integer or null",
+              "optional": true,
+              "presence_condition": "",
+              "description": "Length of the data octet(s).",
+              "constraints": [
+                "length >= 8"
+              ]
+            },
+            {
+              "name": "Checksum",
+              "display_name": "Checksum",
+              "offset_bits": 16,
+              "size_bits": 32,
+              "type": "integer or null",
+              "optional": true,
+              "presence_condition": "x == 0",
+              "description": "16-bit one's complement of the one's complement sum of a pseudo header of information from the IP header, the UDP header, and the data, padded with zero octets at the end (if necessary) to make a multiple of two octets.",
+              "constraints": []
+            }
+          ],
+          "payload": {
+            "name": "data",
+            "offset_bits": 0,
+            "size": "length - 8"
+          },
+          "constraints": [
+            "Length >= 8"
+          ],
+          "parse_from": "null",
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

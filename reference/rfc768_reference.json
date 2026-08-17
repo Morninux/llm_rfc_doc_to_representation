@@ -1,0 +1,221 @@
+{
+  "protocol": "User Datagram Protocol",
+  "rfc": "RFC 768",
+  "packet": [
+    {
+      "name": "user_datagram_header",
+      "pdus": [
+        "user_datagram"
+      ],
+      "bit_string_types": [
+        {
+          "name": "source_port",
+          "size_bits": 16,
+          "description": "Source Port is an optional field, when meaningful, it indicates the port of the sending process, and may be assumed to be the port to which a reply should be addressed in the absence of any other information. If not used, a value of zero is inserted."
+        },
+        {
+          "name": "destination_port",
+          "size_bits": 16,
+          "description": "Destination Port has a meaning within the context of a particular internet destination address."
+        },
+        {
+          "name": "length",
+          "size_bits": 16,
+          "description": "Length is the length in octets of this user datagram including this header and the data. (This means the minimum value of the length is eight.)"
+        },
+        {
+          "name": "checksum",
+          "size_bits": 16,
+          "description": "Checksum is the 16-bit one's complement of the one's complement sum of a pseudo header of information from the IP header, the UDP header, and the data, padded with zero octets at the end (if necessary) to make a multiple of two octets."
+        },
+        {
+          "name": "data_octets",
+          "size_bits": null,
+          "description": ""
+        }
+      ],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "user_datagram",
+          "header_size_bytes": 8,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "source_port",
+              "display_name": "Source Port",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "source_port",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Source Port is an optional field, when meaningful, it indicates the port of the sending process, and may be assumed to be the port to which a reply should be addressed in the absence of any other information. If not used, a value of zero is inserted.",
+              "constraints": []
+            },
+            {
+              "name": "destination_port",
+              "display_name": "Destination Port",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "destination_port",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Destination Port has a meaning within the context of a particular internet destination address.",
+              "constraints": []
+            },
+            {
+              "name": "length",
+              "display_name": "Length",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": "length",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Length is the length in octets of this user datagram including this header and the data. (This means the minimum value of the length is eight.)",
+              "constraints": [
+                "length >= 8"
+              ]
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 48,
+              "size_bits": 16,
+              "type": "checksum",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Checksum is the 16-bit one's complement of the one's complement sum of a pseudo header of information from the IP header, the UDP header, and the data, padded with zero octets at the end (if necessary) to make a multiple of two octets.",
+              "constraints": []
+            }
+          ],
+          "payload": {
+            "name": "data_octets",
+            "offset_bits": 64,
+            "size": "length - 8"
+          },
+          "constraints": [
+            "length >= 8"
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "udp_pseudo_header",
+      "pdus": [],
+      "bit_string_types": [
+        {
+          "name": "source_address",
+          "size_bits": 32,
+          "description": "The pseudo header conceptually prefixed to the UDP header contains the source address, the destination address, the protocol, and the UDP length. This information gives protection against misrouted datagrams."
+        },
+        {
+          "name": "destination_address",
+          "size_bits": 32,
+          "description": "The pseudo header conceptually prefixed to the UDP header contains the source address, the destination address, the protocol, and the UDP length. This information gives protection against misrouted datagrams."
+        },
+        {
+          "name": "zero",
+          "size_bits": 8,
+          "description": "zero"
+        },
+        {
+          "name": "protocol",
+          "size_bits": 8,
+          "description": "This is protocol 17 (21 octal) when used in the Internet Protocol."
+        },
+        {
+          "name": "udp_length",
+          "size_bits": 16,
+          "description": "The pseudo header conceptually prefixed to the UDP header contains the source address, the destination address, the protocol, and the UDP length."
+        }
+      ],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "udp_pseudo_header",
+          "header_size_bytes": 12,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "source_address",
+              "display_name": "source address",
+              "offset_bits": 0,
+              "size_bits": 32,
+              "type": "source_address",
+              "optional": false,
+              "presence_condition": null,
+              "description": "The pseudo header conceptually prefixed to the UDP header contains the source address, the destination address, the protocol, and the UDP length. This information gives protection against misrouted datagrams.",
+              "constraints": []
+            },
+            {
+              "name": "destination_address",
+              "display_name": "destination address",
+              "offset_bits": 32,
+              "size_bits": 32,
+              "type": "destination_address",
+              "optional": false,
+              "presence_condition": null,
+              "description": "The pseudo header conceptually prefixed to the UDP header contains the source address, the destination address, the protocol, and the UDP length. This information gives protection against misrouted datagrams.",
+              "constraints": []
+            },
+            {
+              "name": "zero",
+              "display_name": "zero",
+              "offset_bits": 64,
+              "size_bits": 8,
+              "type": "zero",
+              "optional": false,
+              "presence_condition": null,
+              "description": "zero",
+              "constraints": [
+                "zero == 0"
+              ]
+            },
+            {
+              "name": "protocol",
+              "display_name": "protocol",
+              "offset_bits": 72,
+              "size_bits": 8,
+              "type": "protocol",
+              "optional": false,
+              "presence_condition": null,
+              "description": "This is protocol 17 (21 octal) when used in the Internet Protocol.",
+              "constraints": [
+                "protocol == 17"
+              ]
+            },
+            {
+              "name": "udp_length",
+              "display_name": "UDP length",
+              "offset_bits": 80,
+              "size_bits": 16,
+              "type": "udp_length",
+              "optional": false,
+              "presence_condition": null,
+              "description": "The pseudo header conceptually prefixed to the UDP header contains the source address, the destination address, the protocol, and the UDP length.",
+              "constraints": []
+            }
+          ],
+          "payload": {
+            "name": "",
+            "offset_bits": null,
+            "size": null
+          },
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

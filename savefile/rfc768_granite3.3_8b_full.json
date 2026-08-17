@@ -1,0 +1,81 @@
+{
+  "protocol": "User Datagram Protocol",
+  "rfc": "768",
+  "packet": [
+    {
+      "name": "udp_datagram",
+      "pdus": [
+        "udp_datagram"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "udp_header",
+          "header_size_bytes": 8,
+          "byte_order": "big_endian",
+          "fields": [
+            {
+              "name": "source_port",
+              "display_name": "Source Port",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": true,
+              "presence_condition": null,
+              "description": "The port of the sending process.",
+              "constraints": []
+            },
+            {
+              "name": "destination_port",
+              "display_name": "Destination Port",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "The port to which the datagram is directed.",
+              "constraints": []
+            },
+            {
+              "name": "length",
+              "display_name": "Length",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "The total length of the UDP datagram in octets, including the header and data.",
+              "constraints": [
+                ">= 8"
+              ]
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "The 16-bit one's complement of the one's complement sum of the UDP header, data, and a pseudo header from the IP header.",
+              "constraints": []
+            }
+          ],
+          "payload": {
+            "name": "data_octets",
+            "offset_bits": 0,
+            "size": "length - 8"
+          },
+          "constraints": [],
+          "parse_from": "raw_packet",
+          "serialize_to": "raw_packet"
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

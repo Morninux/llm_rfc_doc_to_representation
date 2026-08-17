@@ -1,0 +1,48 @@
+{
+  "title": "TFTP Protocol Specification Excerpts",
+  "sections": [
+    {
+      "heading": "Data Transfer Details and Acknowledgments",
+      "content": "The data field is from zero to 512 bytes long. If it is 512 bytes long, the block is not the last block of data; if it is from zero to 511 bytes long, it signals the end of the transfer. (See the section on Normal Termination for details.)\n\nAll packets other than duplicate ACK's and those used for termination are acknowledged unless a timeout occurs. Sending a DATA packet is an acknowledgment for the first ACK packet of the previous DATA packet. The WRQ and DATA packets are acknowledged by ACK or ERROR packets, while RRQ and ACK packets are acknowledged by DATA or ERROR packets. Figure 5-3 depicts an ACK packet; the opcode is 4. The block number in an ACK echoes the block number of the DATA packet being acknowledged. A WRQ is acknowledged with an ACK packet having a block number of zero.",
+      "figures_referenced": [
+        "Figure 5-3: ACK packet"
+      ]
+    },
+    {
+      "heading": "ERROR Packet Format",
+      "content": "An ERROR packet (opcode 5) takes the form depicted in Figure 5-4. An ERROR packet can be the acknowledgment of any other type of packet. The error code is an integer indicating the nature of the error. A table of values and meanings is given in the appendix. The error message is intended for human consumption, and should be in netascii. Like all other strings, it is terminated with a zero byte.",
+      "figures_referenced": [
+        "Figure 5-4: ERROR packet"
+      ]
+    },
+    {
+      "heading": "Normal Termination (Section 6)",
+      "content": "The end of a transfer is marked by a DATA packet that contains between 0 and 511 bytes of data (i.e., Datagram length < 516). This packet is acknowledged by an ACK packet like all other DATA packets. The host acknowledging the final DATA packet may terminate its side of the connection on sending the final ACK. On the other hand, dallying is encouraged. This means that the host sending the final ACK will wait for a while before terminating in order to retransmit the final ACK if it has been lost. The acknowledger will know that the ACK has been lost if it receives the final DATA packet again. The host sending the last DATA must retransmit it until the packet is acknowledged or the sending host times out. If the response is an ACK, the transmission was completed successfully. If the sender of the data times out and is not prepared to retransmit any more, the transfer may still have been completed successfully, after which the acknowledger or network may have experienced a problem. It is also possible in this case that the transfer was unsuccessful. In any case, the connection has been closed.",
+      "details": "Termination relies on sending a DATA packet with 0 to 511 bytes of data."
+    },
+    {
+      "heading": "Premature Termination (Section 7)",
+      "content": "If a request can not be granted, or some error occurs during the transfer, then an ERROR packet (opcode 5) is sent. This is only a courtesy since it will not be retransmitted or acknowledged, so it may never be received. Timeouts must also be used to detect errors.",
+      "details": "The ERROR packet is sent for failures or inability to grant a request."
+    },
+    {
+      "heading": "TFTP Format Summary (Appendix)",
+      "content": "Provides a summary table mapping packet types to their structure: \n- **RRQ/WRQ**: Opcode (2 bytes), Filename (string), Mode (string).\n- **DATA**: Opcode (2 bytes), Block # (2 bytes), Data (n bytes).\n- **ACK**: Opcode (2 bytes), Block # (2 bytes).\n- **ERROR**: Opcode (2 bytes), ErrorCode (2 bytes), ErrMsg (string), 0 byte termination.",
+      "tables_referenced": [
+        "TFTP Formats Table"
+      ]
+    },
+    {
+      "heading": "Initial Connection Protocol (Appendix)",
+      "content": "Describes the initial exchange for reading a file:\n1. Host A sends an 'RRQ' to host B (Source= A's TID, Destination= 69).\n2. Host B sends a 'DATA' (with block number= 1) to host A (Source= B's TID, Destination= A's TID).",
+      "sequence": [
+        "RRQ (Read Request)",
+        "DATA (Block 1)"
+      ]
+    },
+    {
+      "heading": "Error Codes (Appendix)",
+      "content": "Defines common error codes:\n- 0: Not defined.\n- 1: File not found.\n- 2: Access violation.\n- 3: Disk full or allocation exceeded.\n- 4: Illegal TFTP operation.\n- 5: Unknown transfer ID.\n- 6: File already exists.\n- 7: No such user."
+    }
+  ]
+}

@@ -1,0 +1,222 @@
+{
+  "protocol": "RIPng for IPv6",
+  "rfc": "RFC 2080",
+  "packet": [
+    {
+      "name": "RIPng Header",
+      "pdus": [],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "Route Table Entry",
+          "byte_order": "big-endian",
+          "fields": [
+            {
+              "name": "command",
+              "display_name": "command",
+              "offset_bits": "0",
+              "size_bits": "1",
+              "type": "enumerated type",
+              "optional": "false",
+              "presence_condition": "",
+              "constraints": [
+                "1"
+              ],
+              "parse_from": "",
+              "serialize_to": ""
+            },
+            {
+              "name": "version",
+              "display_name": "version",
+              "offset_bits": "1",
+              "size_bits": "1",
+              "type": "enumerated type",
+              "optional": "false",
+              "presence_condition": "",
+              "constraints": [
+                "0"
+              ],
+              "parse_from": "",
+              "serialize_to": ""
+            }
+          ],
+          "payload": {
+            "name": "null",
+            "offset_bits": "null",
+            "size": "null"
+          },
+          "constraints": [],
+          "parse_from": "",
+          "serialize_to": ""
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "Route Table Entry",
+      "pdus": [],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "Route Table Entry",
+          "byte_order": "big-endian",
+          "fields": [
+            {
+              "name": "route tag",
+              "display_name": "route tag",
+              "offset_bits": "16",
+              "size_bits": "1",
+              "type": "enumerated type",
+              "optional": "false",
+              "presence_condition": "",
+              "constraints": [
+                "1-15 or 16 (infinity)"
+              ],
+              "parse_from": "",
+              "serialize_to": ""
+            },
+            {
+              "name": "prefix len",
+              "display_name": "prefix len",
+              "offset_bits": "16",
+              "size_bits": "4",
+              "type": "enumerated type",
+              "optional": "false",
+              "presence_condition": "",
+              "constraints": [
+                "0-63"
+              ],
+              "parse_from": "",
+              "serialize_to": ""
+            },
+            {
+              "name": "metric",
+              "display_name": "metric",
+              "offset_bits": "20",
+              "size_bits": "4",
+              "type": "enumerated type",
+              "optional": "false",
+              "presence_condition": "",
+              "constraints": [
+                "1-15 or 16 (infinity)"
+              ],
+              "parse_from": "",
+              "serialize_to": ""
+            }
+          ],
+          "payload": {
+            "name": "null",
+            "offset_bits": "null",
+            "size": "null"
+          },
+          "constraints": [],
+          "parse_from": "",
+          "serialize_to": ""
+        }
+      ],
+      "array_types": [
+        {
+          "name": "Route Table Entry",
+          "byte_order": "big-endian",
+          "fields": [
+            {
+              "name": "route tag",
+              "display_name": "route tag",
+              "offset_bits": "16",
+              "size_bits": "1",
+              "type": "enumerated type",
+              "optional": "false",
+              "presence_condition": "",
+              "constraints": [
+                "1-15 or 16 (infinity)"
+              ],
+              "parse_from": "",
+              "serialize_to": ""
+            },
+            {
+              "name": "prefix len",
+              "display_name": "prefix len",
+              "offset_bits": "16",
+              "size_bits": "4",
+              "type": "enumerated type",
+              "optional": "false",
+              "presence_condition": "",
+              "constraints": [
+                "0-63"
+              ],
+              "parse_from": "",
+              "serialize_to": ""
+            },
+            {
+              "name": "metric",
+              "display_name": "metric",
+              "offset_bits": "20",
+              "size_bits": "4",
+              "type": "enumerated type",
+              "optional": "false",
+              "presence_condition": "",
+              "constraints": [
+                "1-15 or 16 (infinity)"
+              ],
+              "parse_from": "",
+              "serialize_to": ""
+            }
+          ],
+          "payload": {
+            "name": "null",
+            "offset_bits": "null",
+            "size": "null"
+          },
+          "parse_from": "",
+          "serialize_to": "next"
+        }
+      ],
+      "parse_from": "RIPng Header",
+      "serialize_to": "RIPng Header"
+    },
+    {
+      "name": "Next Hop",
+      "pdus": [],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "IPv6 next hop address",
+          "byte_order": "big-endian",
+          "fields": [
+            {
+              "name": "IPv6 prefix",
+              "display_name": "IPv6 prefix",
+              "offset_bits": "0-15",
+              "size_bits": "16",
+              "type": "ipv6-prefix",
+              "optional": "false",
+              "presence_condition": "",
+              "constraints": [
+                "0-127"
+              ],
+              "parse_from": "Route Table Entry",
+              "serialize_to": ""
+            }
+          ],
+          "payload": {
+            "name": "null",
+            "offset_bits": "null",
+            "size": "null"
+          },
+          "constraints": [],
+          "parse_from": "Route Table Entry",
+          "serialize_to": ""
+        }
+      ],
+      "array_types": [],
+      "parse_from": "Route Table Entry",
+      "serialize_to": "Route Table Entry"
+    }
+  ]
+}

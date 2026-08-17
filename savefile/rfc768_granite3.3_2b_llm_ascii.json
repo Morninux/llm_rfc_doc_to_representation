@@ -1,0 +1,81 @@
+{
+  "protocol": "User Datagram Protocol (UDP)",
+  "rfc": "RFC 768",
+  "packet": [
+    {
+      "name": "User Datagram",
+      "pdus": [],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "User Datagram Header",
+          "header_size_bytes": 8,
+          "byte_order": "little-endian",
+          "fields": [
+            {
+              "name": "Source Port",
+              "display_name": "Source Port",
+              "offset_bits": "0-7",
+              "size_bits": "8",
+              "type": "Bit String Type",
+              "optional": true,
+              "presence_condition": "source_port != 0",
+              "constraints": [
+                "0 <= source_port <= 65535"
+              ],
+              "parse_from": "field[8]",
+              "serialize_to": "field[8]"
+            },
+            {
+              "name": "Destination Port",
+              "display_name": "Destination Port",
+              "offset_bits": "8-15",
+              "size_bits": "8",
+              "type": "Bit String Type",
+              "optional": true,
+              "presence_condition": "destination_port != 0",
+              "constraints": [
+                "0 <= destination_port <= 65535"
+              ],
+              "parse_from": "field[16]",
+              "serialize_to": "field[16]"
+            },
+            {
+              "name": "Length",
+              "display_name": "Length",
+              "offset_bits": "16-19",
+              "size_bits": "16",
+              "type": "Bit String Type",
+              "optional": false,
+              "presence_condition": "",
+              "constraints": [
+                "length <= 65535"
+              ],
+              "parse_from": "field[20]",
+              "serialize_to": "field[20]"
+            },
+            {
+              "name": "Checksum",
+              "display_name": "Checksum",
+              "offset_bits": "20-23",
+              "size_bits": "16",
+              "type": "Bit String Type",
+              "optional": false,
+              "presence_condition": "",
+              "constraints": [
+                "checksum is valid"
+              ],
+              "parse_from": "field[24]",
+              "serialize_to": "field[24]"
+            }
+          ]
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

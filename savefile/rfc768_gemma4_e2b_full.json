@@ -1,0 +1,128 @@
+{
+  "protocol": "UDP",
+  "rfc": "RFC 768",
+  "packet": [
+    {
+      "name": "User Datagram Header",
+      "pdus": [
+        "UDP"
+      ],
+      "bit_string_types": [
+        {
+          "name": "Source Port",
+          "size_bits": 8,
+          "description": "Port of the sending process"
+        },
+        {
+          "name": "Destination Port",
+          "size_bits": 8,
+          "description": "Port of the destination"
+        },
+        {
+          "name": "Length",
+          "size_bits": 16,
+          "description": "Length in octets of this user datagram including this header and the data"
+        },
+        {
+          "name": "Checksum",
+          "size_bits": 16,
+          "description": "One's complement checksum"
+        }
+      ],
+      "enumerated_types": [
+        {
+          "name": "Protocol Number",
+          "variants": [
+            {
+              "name": "UDP",
+              "type": "UDP",
+              "condition": "17 (21 octal) when used in the Internet Protocol"
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "UDP Header",
+          "header_size_bytes": 8,
+          "byte_order": "Network Byte Order (implied by layout)",
+          "fields": [
+            {
+              "name": "source_port",
+              "display_name": "Source Port",
+              "offset_bits": 0,
+              "size_bits": 8,
+              "type": "uint16",
+              "optional": true,
+              "presence_condition": "when meaningful",
+              "description": "Port of the sending process. If not used, a value of zero is inserted.",
+              "constraints": [
+                "0 <= value <= 65535"
+              ]
+            },
+            {
+              "name": "destination_port",
+              "display_name": "Destination Port",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": "uint16",
+              "optional": true,
+              "presence_condition": "always present",
+              "description": "Port of the destination, meaningful within the context of a particular internet destination address.",
+              "constraints": [
+                "0 <= value <= 65535"
+              ]
+            },
+            {
+              "name": "length",
+              "display_name": "Length",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "uint16",
+              "optional": false,
+              "presence_condition": "always present",
+              "description": "Length in octets of this user datagram including this header and the data.",
+              "constraints": [
+                "length >= 8"
+              ]
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": "uint16",
+              "optional": false,
+              "presence_condition": "always present",
+              "description": "One's complement checksum of the pseudo header information.",
+              "constraints": [
+                "0 <= value <= 65535"
+              ]
+            }
+          ],
+          "payload": null,
+          "constraints": [
+            "length >= 8"
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [
+        {
+          "name": "IP Interface",
+          "type": "IP/UDP Interface",
+          "description": "UDP module must be able to determine source and destination internet addresses and the protocol field from the internet header."
+        }
+      ],
+      "helper_functions": [
+        {
+          "name": "checksum_calculation",
+          "description": "The procedure used to calculate the checksum, same as used in TCP."
+        }
+      ],
+      "transform_functions": []
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "protocol": "IGMP",
+  "rfc": "RFC 2236",
+  "packet": [
+    {
+      "name": "igmp_message",
+      "pdus": [
+        "igmp_query"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "igmp_query",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "type",
+              "display_name": "Type",
+              "offset_bits": null,
+              "size_bits": 8,
+              "type": "bit_string_type",
+              "optional": null,
+              "presence_condition": null,
+              "description": "The type field indicates the IGMP message type.",
+              "constraints": [
+                "type in {0x11, 0x12, 0x22}"
+              ]
+            },
+            {
+              "name": "max_resp_time",
+              "display_name": "Max. Response Time",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": "bit_string_type",
+              "optional": null,
+              "presence_condition": null,
+              "description": "The max. response time field indicates the maximum time",
+              "constraints": [
+                "0 <= max_resp_time < 256"
+              ]
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "bit_string_type",
+              "optional": null,
+              "presence_condition": null,
+              "description": "The checksum field provides error checking.",
+              "constraints": [
+                "0 <= checksum < 65536"
+              ]
+            },
+            {
+              "name": "group_address",
+              "display_name": "Group Address",
+              "offset_bits": 32,
+              "size_bits": 32,
+              "type": "bit_string_type",
+              "optional": null,
+              "presence_condition": null,
+              "description": "The group address field identifies the multicast group.",
+              "constraints": null
+            }
+          ],
+          "payload": null,
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

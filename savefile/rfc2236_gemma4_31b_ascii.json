@@ -1,0 +1,107 @@
+{
+  "protocol": "IGMP",
+  "rfc": "2236",
+  "packet": [
+    {
+      "name": "IGMP Message",
+      "pdus": [
+        "IGMP Message"
+      ],
+      "bit_string_types": [
+        {
+          "name": "igmp_type",
+          "size_bits": 8,
+          "description": "Type of the IGMP message"
+        },
+        {
+          "name": "igmp_max_resp_time",
+          "size_bits": 8,
+          "description": "Maximum Response Time"
+        },
+        {
+          "name": "igmp_checksum",
+          "size_bits": 16,
+          "description": "Checksum"
+        },
+        {
+          "name": "igmp_group_address",
+          "size_bits": 32,
+          "description": "Group Address"
+        }
+      ],
+      "enumerated_types": [
+        {
+          "name": "igmp_message_type",
+          "variants": [
+            {
+              "name": "Membership Query",
+              "type": "igmp_type",
+              "condition": "0x11"
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "igmp_message",
+          "header_size_bytes": 8,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "type",
+              "display_name": "Type",
+              "offset_bits": 0,
+              "size_bits": 8,
+              "type": "igmp_message_type",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Type of the IGMP message",
+              "constraints": []
+            },
+            {
+              "name": "max_resp_time",
+              "display_name": "Max Resp Time",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": "igmp_max_resp_time",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Maximum Response Time",
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "igmp_checksum",
+              "optional": false,
+              "presence_condition": null,
+              "sdescription": "Checksum",
+              "constraints": []
+            },
+            {
+              "name": "group_address",
+              "display_name": "Group Address",
+              "offset_bits": 32,
+              "size_bits": 32,
+              "type": "igmp_group_address",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Group Address",
+              "constraints": []
+            }
+          ],
+          "payload": null,
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

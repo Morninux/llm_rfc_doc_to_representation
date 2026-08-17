@@ -1,0 +1,73 @@
+{
+  "protocol": "User Datagram Protocol",
+  "rfc": "RFC 768",
+  "packet": [
+    {
+      "name": "udp_header",
+      "pdus": [
+        "User Datagram Header"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "udp_header",
+          "header_size_bytes": 8,
+          "byte_order": "big_endian",
+          "fields": [
+            {
+              "name": "source_port",
+              "display_name": "Source Port",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": false,
+              "description": "Optional field; if not used, a value of zero is inserted."
+            },
+            {
+              "name": "destination_port",
+              "display_name": "Destination Port",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": false,
+              "description": "Destination Port has a meaning within the context of a particular internet destination address."
+            },
+            {
+              "name": "length",
+              "display_name": "Length",
+              "offset_bits": 48,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": false,
+              "description": "Length in octets of this user datagram including this header and the data. Minimum value of the length is eight."
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 64,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": false,
+              "description": "16-bit one's complement of the one's complement sum of a pseudo header of information from the IP header, the UDP header, and the data, padded with zero octets at the end (if necessary) to make a multiple of two octets."
+            }
+          ],
+          "payload": {
+            "name": "data_octets",
+            "offset_bits": 128,
+            "size": "length - 16"
+          },
+          "constraints": [
+            "length >= 8"
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

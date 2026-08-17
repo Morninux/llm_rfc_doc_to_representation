@@ -1,0 +1,353 @@
+{
+  "protocol": "THE TFTP PROTOCOL (REVISION 2)",
+  "rfc": "RFC 1350",
+  "packet": [
+    {
+      "name": "rrq_wrq_packet",
+      "pdus": [
+        "rrq",
+        "wrq"
+      ],
+      "bit_string_types": [
+        {
+          "name": "opcode",
+          "size_bits": 16,
+          "description": "RRQ and WRQ packets (opcodes 1 and 2 respectively) have the format shown in Figure 5-1."
+        },
+        {
+          "name": "filename",
+          "size_bits": null,
+          "description": "The file name is a sequence of bytes in netascii terminated by a zero byte."
+        },
+        {
+          "name": "0",
+          "size_bits": 8,
+          "description": "0"
+        },
+        {
+          "name": "mode",
+          "size_bits": null,
+          "description": "The mode field contains the string \"netascii\", \"octet\", or \"mail\" (or any combination of upper and lower case, such as \"NETASCII\", NetAscii\", etc.) in netascii indicating the three modes defined in the protocol."
+        }
+      ],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "rrq_wrq_packet",
+          "header_size_bytes": 2,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "opcode",
+              "optional": false,
+              "presence_condition": null,
+              "description": "RRQ and WRQ packets (opcodes 1 and 2 respectively) have the format shown in Figure 5-1.",
+              "constraints": [
+                "opcode == 1 or opcode == 2"
+              ]
+            },
+            {
+              "name": "filename",
+              "display_name": "Filename",
+              "offset_bits": 16,
+              "size_bits": null,
+              "type": "filename",
+              "optional": false,
+              "presence_condition": null,
+              "description": "The file name is a sequence of bytes in netascii terminated by a zero byte.",
+              "constraints": []
+            },
+            {
+              "name": "0",
+              "display_name": "0",
+              "offset_bits": null,
+              "size_bits": 8,
+              "type": "0",
+              "optional": false,
+              "presence_condition": null,
+              "description": "0",
+              "constraints": []
+            },
+            {
+              "name": "mode",
+              "display_name": "Mode",
+              "offset_bits": null,
+              "size_bits": null,
+              "type": "mode",
+              "optional": false,
+              "presence_condition": null,
+              "description": "The mode field contains the string \"netascii\", \"octet\", or \"mail\" (or any combination of upper and lower case, such as \"NETASCII\", NetAscii\", etc.) in netascii indicating the three modes defined in the protocol.",
+              "constraints": []
+            },
+            {
+              "name": "0",
+              "display_name": "0",
+              "offset_bits": null,
+              "size_bits": 8,
+              "type": "0",
+              "optional": false,
+              "presence_condition": null,
+              "description": "0",
+              "constraints": []
+            }
+          ],
+          "payload": {
+            "name": "",
+            "offset_bits": null,
+            "size": null
+          },
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "data_packet",
+      "pdus": [
+        "data"
+      ],
+      "bit_string_types": [
+        {
+          "name": "opcode",
+          "size_bits": 16,
+          "description": "DATA packets (opcode = 3) have a block number and data field."
+        },
+        {
+          "name": "block_number",
+          "size_bits": 16,
+          "description": "The block numbers on data packets begin with one and increase by one for each new block of data."
+        },
+        {
+          "name": "data",
+          "size_bits": null,
+          "description": "The data field is from zero to 512 bytes long. If it is 512 bytes long, the block is not the last block of data; if it is from zero to 511 bytes long, it signals the end of the transfer."
+        }
+      ],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "data_packet",
+          "header_size_bytes": 2,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "opcode",
+              "optional": false,
+              "presence_condition": null,
+              "description": "DATA packets (opcode = 3) have a block number and data field.",
+              "constraints": [
+                "opcode == 3"
+              ]
+            },
+            {
+              "name": "block_number",
+              "display_name": "Block #",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "block_number",
+              "optional": false,
+              "presence_condition": null,
+              "description": "The block numbers on data packets begin with one and increase by one for each new block of data.",
+              "constraints": []
+            }
+          ],
+          "payload": {
+            "name": "data",
+            "offset_bits": 32,
+            "size": null
+          },
+          "constraints": [
+            "data length >= 0",
+            "data length <= 512"
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "ack_packet",
+      "pdus": [
+        "ack"
+      ],
+      "bit_string_types": [
+        {
+          "name": "opcode",
+          "size_bits": 16,
+          "description": "Figure 5-3 depicts an ACK packet; the opcode is 4."
+        },
+        {
+          "name": "block_number",
+          "size_bits": 16,
+          "description": "The block number in an ACK echoes the block number of the DATA packet being acknowledged. A WRQ is acknowledged with an ACK packet having a block number of zero."
+        }
+      ],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "ack_packet",
+          "header_size_bytes": 2,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "opcode",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Figure 5-3 depicts an ACK packet; the opcode is 4.",
+              "constraints": [
+                "opcode == 4"
+              ]
+            },
+            {
+              "name": "block_number",
+              "display_name": "Block #",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "block_number",
+              "optional": false,
+              "presence_condition": null,
+              "description": "The block number in an ACK echoes the block number of the DATA packet being acknowledged. A WRQ is acknowledged with an ACK packet having a block number of zero.",
+              "constraints": []
+            }
+          ],
+          "payload": {
+            "name": "",
+            "offset_bits": null,
+            "size": null
+          },
+          "constraints": [
+            "opcode == 4"
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "error_packet",
+      "pdus": [
+        "error"
+      ],
+      "bit_string_types": [
+        {
+          "name": "opcode",
+          "size_bits": 16,
+          "description": "An ERROR packet (opcode 5) takes the form depicted in Figure 5-4."
+        },
+        {
+          "name": "error_code",
+          "size_bits": 16,
+          "description": "The error code is an integer indicating the nature of the error. A table of values and meanings is given in the appendix."
+        },
+        {
+          "name": "err_msg",
+          "size_bits": null,
+          "description": "The error message is intended for human consumption, and should be in netascii. Like all other strings, it is terminated with a zero byte."
+        },
+        {
+          "name": "0",
+          "size_bits": 8,
+          "description": "Like all other strings, it is terminated with a zero byte."
+        }
+      ],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "error_packet",
+          "header_size_bytes": 2,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "opcode",
+              "optional": false,
+              "presence_condition": null,
+              "description": "An ERROR packet (opcode 5) takes the form depicted in Figure 5-4.",
+              "constraints": [
+                "opcode == 5"
+              ]
+            },
+            {
+              "name": "error_code",
+              "display_name": "ErrorCode",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "error_code",
+              "optional": false,
+              "presence_condition": null,
+              "description": "The error code is an integer indicating the nature of the error. A table of values and meanings is given in the appendix.",
+              "constraints": [
+                "error_code >= 0",
+                "error_code <= 7"
+              ]
+            },
+            {
+              "name": "err_msg",
+              "display_name": "ErrMsg",
+              "offset_bits": 32,
+              "size_bits": null,
+              "type": "err_msg",
+              "optional": false,
+              "presence_condition": null,
+              "description": "The error message is intended for human consumption, and should be in netascii. Like all other strings, it is terminated with a zero byte.",
+              "constraints": []
+            },
+            {
+              "name": "0",
+              "display_name": "0",
+              "offset_bits": null,
+              "size_bits": 8,
+              "type": "0",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Like all other strings, it is terminated with a zero byte.",
+              "constraints": []
+            }
+          ],
+          "payload": {
+            "name": "",
+            "offset_bits": null,
+            "size": null
+          },
+          "constraints": [
+            "opcode == 5"
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

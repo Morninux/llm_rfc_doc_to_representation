@@ -1,0 +1,296 @@
+{
+  "protocol": "RIPng",
+  "rfc": "RFC 2080",
+  "packet": [
+    {
+      "name": "ripng_packet",
+      "pdus": [
+        "RIPngMessage"
+      ],
+      "bit_string_types": [
+        {
+          "name": "command",
+          "size_bits": 8,
+          "description": "Command field used to specify the purpose of the message"
+        },
+        {
+          "name": "version",
+          "size_bits": 8,
+          "description": "Protocol version; version 1"
+        },
+        {
+          "name": "must_be_zero",
+          "size_bits": 16,
+          "description": "Must be zero"
+        }
+      ],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "RIPngMessage",
+          "header_size_bytes": 4,
+          "byte_order": "big-endian",
+          "fields": [
+            {
+              "name": "command",
+              "display_name": "command",
+              "offset_bits": 0,
+              "size_bits": 8,
+              "type": "command",
+              "optional": null,
+              "presence_condition": null,
+              "description": "Command field used to specify the purpose of the message",
+              "constraints": []
+            },
+            {
+              "name": "version",
+              "display_name": "version",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": "version",
+              "optional": null,
+              "presence_condition": null,
+              "description": "Protocol version; version 1",
+              "constraints": [
+                "version == 1"
+              ]
+            },
+            {
+              "name": "must_be_zero",
+              "display_name": "must be zero",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "must_be_zero",
+              "optional": null,
+              "presence_condition": null,
+              "description": "Must be zero",
+              "constraints": [
+                "must_be_zero == 0"
+              ]
+            }
+          ],
+          "payload": {
+            "name": "route_table_entries",
+            "offset_bits": 32,
+            "size": "N * 160"
+          },
+          "constraints": [
+            "version == 1",
+            "must_be_zero == 0"
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [
+        {
+          "name": "route_table_entries",
+          "element_type": "RouteTableEntry",
+          "length": "N"
+        }
+      ],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "route_table_entry",
+      "pdus": [
+        "RouteTableEntry"
+      ],
+      "bit_string_types": [
+        {
+          "name": "ipv6_prefix",
+          "size_bits": 128,
+          "description": "IPv6 prefix (16 octets)"
+        },
+        {
+          "name": "route_tag",
+          "size_bits": 16,
+          "description": "Route tag (2 octets)"
+        },
+        {
+          "name": "prefix_len",
+          "size_bits": 8,
+          "description": "Prefix length (1 octet)"
+        },
+        {
+          "name": "metric",
+          "size_bits": 8,
+          "description": "Metric (1 octet)"
+        }
+      ],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "RouteTableEntry",
+          "header_size_bytes": null,
+          "byte_order": "big-endian",
+          "fields": [
+            {
+              "name": "ipv6_prefix",
+              "display_name": "IPv6 prefix",
+              "offset_bits": 0,
+              "size_bits": 128,
+              "type": "ipv6_prefix",
+              "optional": null,
+              "presence_condition": null,
+              "description": "IPv6 prefix (16 octets)",
+              "constraints": []
+            },
+            {
+              "name": "route_tag",
+              "display_name": "route tag",
+              "offset_bits": 128,
+              "size_bits": 16,
+              "type": "route_tag",
+              "optional": null,
+              "presence_condition": null,
+              "description": "Route tag (2 octets)",
+              "constraints": []
+            },
+            {
+              "name": "prefix_len",
+              "display_name": "prefix len",
+              "offset_bits": 144,
+              "size_bits": 8,
+              "type": "prefix_len",
+              "optional": null,
+              "presence_condition": null,
+              "description": "Prefix length (1 octet)",
+              "constraints": []
+            },
+            {
+              "name": "metric",
+              "display_name": "metric",
+              "offset_bits": 152,
+              "size_bits": 8,
+              "type": "metric",
+              "optional": null,
+              "presence_condition": null,
+              "description": "Metric (1 octet)",
+              "constraints": []
+            }
+          ],
+          "payload": {
+            "name": "none",
+            "offset_bits": null,
+            "size": null
+          },
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "next_hop_route_table_entry",
+      "pdus": [
+        "NextHopRouteTableEntry"
+      ],
+      "bit_string_types": [
+        {
+          "name": "ipv6_next_hop_address",
+          "size_bits": 128,
+          "description": "IPv6 next hop address (16 octets)"
+        },
+        {
+          "name": "must_be_zero_2",
+          "size_bits": 16,
+          "description": "Must be zero (2 octets)"
+        },
+        {
+          "name": "must_be_zero_1",
+          "size_bits": 8,
+          "description": "Must be zero (1 octet)"
+        },
+        {
+          "name": "xff",
+          "size_bits": 8,
+          "description": "Fixed value 0xFF"
+        }
+      ],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "NextHopRouteTableEntry",
+          "header_size_bytes": null,
+          "byte_order": "big-endian",
+          "fields": [
+            {
+              "name": "ipv6_next_hop_address",
+              "display_name": "IPv6 next hop address",
+              "offset_bits": 0,
+              "size_bits": 128,
+              "type": "ipv6_next_hop_address",
+              "optional": null,
+              "presence_condition": null,
+              "description": "IPv6 next hop address (16 octets)",
+              "constraints": []
+            },
+            {
+              "name": "must_be_zero_2",
+              "display_name": "must be zero",
+              "offset_bits": 128,
+              "size_bits": 16,
+              "type": "must_be_zero_2",
+              "optional": null,
+              "presence_condition": null,
+              "description": "Must be zero (2 octets)",
+              "constraints": [
+                "must_be_zero_2 == 0"
+              ]
+            },
+            {
+              "name": "must_be_zero_1",
+              "display_name": "must be zero",
+              "offset_bits": 144,
+              "size_bits": 8,
+              "type": "must_be_zero_1",
+              "optional": null,
+              "presence_condition": null,
+              "description": "Must be zero (1 octet)",
+              "constraints": [
+                "must_be_zero_1 == 0"
+              ]
+            },
+            {
+              "name": "xff",
+              "display_name": "0xFF",
+              "offset_bits": 152,
+              "size_bits": 8,
+              "type": "xff",
+              "optional": null,
+              "presence_condition": null,
+              "description": "Fixed value 0xFF",
+              "constraints": [
+                "xff == 255"
+              ]
+            }
+          ],
+          "payload": {
+            "name": "none",
+            "offset_bits": null,
+            "size": null
+          },
+          "constraints": [
+            "ipv6_next_hop_address is link-local",
+            "must_be_zero_2 == 0",
+            "must_be_zero_1 == 0",
+            "xff == 255"
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

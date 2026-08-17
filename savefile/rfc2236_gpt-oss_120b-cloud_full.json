@@ -1,0 +1,105 @@
+{
+  "protocol": "IGMP",
+  "rfc": "2236",
+  "packet": [
+    {
+      "name": "IGMP Message",
+      "pdus": [
+        "IGMP"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [
+        {
+          "name": "igmp_type",
+          "variants": [
+            {
+              "name": "membership_query",
+              "type": "uint8",
+              "condition": "type == 0x11"
+            },
+            {
+              "name": "v2_membership_report",
+              "type": "uint8",
+              "condition": "type == 0x16"
+            },
+            {
+              "name": "leave_group",
+              "type": "uint8",
+              "condition": "type == 0x17"
+            },
+            {
+              "name": "v1_membership_report",
+              "type": "uint8",
+              "condition": "type == 0x12"
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "igmp_header",
+          "header_size_bytes": 8,
+          "byte_order": "big",
+          "fields": [
+            {
+              "name": "type",
+              "display_name": "Type",
+              "offset_bits": 0,
+              "size_bits": 8,
+              "type": "igmp_type",
+              "optional": null,
+              "presence_condition": null,
+              "description": "Identifies the IGMP message type.",
+              "constraints": []
+            },
+            {
+              "name": "max_resp_time",
+              "display_name": "Max Response Time",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "Maximum time before sending a responding report, in units of 1/10 second. Zero in non‑Query messages.",
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "16‑bit one's complement of the one's complement sum of the entire IGMP message.",
+              "constraints": []
+            },
+            {
+              "name": "group_address",
+              "display_name": "Group Address",
+              "offset_bits": 32,
+              "size_bits": 32,
+              "type": "ipv4_address",
+              "optional": null,
+              "presence_condition": null,
+              "description": "IPv4 multicast address. Zero for General Query; otherwise the queried or reported group address.",
+              "constraints": []
+            }
+          ],
+          "payload": {
+            "name": "additional_data",
+            "offset_bits": 64,
+            "size": null
+          },
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

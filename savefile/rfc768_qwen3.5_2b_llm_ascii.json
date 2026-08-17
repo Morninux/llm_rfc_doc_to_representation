@@ -1,0 +1,54 @@
+{
+  "protocol": "User Datagram Protocol",
+  "rfc": "<DIAGRAM number=\"1\" lines=\"30-42\">...<RFC_DOCUMENT>",
+  "packet": [
+    {
+      "name": "user_datalam_header",
+      "pdus": [
+        "data octets"
+      ],
+      "bit_string_types": [
+        {
+          "name": "source_port",
+          "size_bits": null,
+          "description": "an optional field, when meaningful, it indicates the port of the sending process, and may be assumed to be the port to which a reply should be addressed in the absence of any other information. If not used, a value of zero is inserted."
+        }
+      ],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "user_datalam_header",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "source_port",
+              "display_name": "Source Port",
+              "offset_bits": null,
+              "size_bits": null,
+              "type": null,
+              "optional": true,
+              "presence_condition": null,
+              "description": "The port of the sending process. If not used, a value of zero is inserted.",
+              "constraints": []
+            }
+          ],
+          "payload": {
+            "name": "length",
+            "offset_bits": 8,
+            "size": 4
+          },
+          "constraints": [
+            "source_port == 0"
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "protocol": "Internet Group Management Protocol, Version 2",
+  "rfc": "RFC 2236",
+  "packet": [
+    {
+      "name": "igmp_message",
+      "pdus": [
+        "igmp"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [
+        {
+          "name": "igmp_type",
+          "variants": [
+            {
+              "name": "membership_query",
+              "type": "uint8",
+              "condition": null
+            },
+            {
+              "name": "v1_membership_report",
+              "type": "uint8",
+              "condition": null
+            },
+            {
+              "name": "v2_membership_report",
+              "type": "uint8",
+              "condition": null
+            },
+            {
+              "name": "leave_group",
+              "type": "uint8",
+              "condition": null
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "igmp_header",
+          "header_size_bytes": 8,
+          "byte_order": "big-endian",
+          "fields": [
+            {
+              "name": "type",
+              "display_name": "Type",
+              "offset_bits": 0,
+              "size_bits": 8,
+              "type": "uint8",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Message type identifier",
+              "constraints": [
+                "value in {0x11, 0x12, 0x16, 0x17}"
+              ]
+            },
+            {
+              "name": "max_resp_time",
+              "display_name": "Max Response Time",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": "uint8",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Maximum response time in 1/10 seconds (ignored in non-query messages)",
+              "constraints": [
+                "value >= 0"
+              ]
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "uint16",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Checksum of IGMP message",
+              "constraints": [
+                "checksum_valid"
+              ]
+            },
+            {
+              "name": "group_address",
+              "display_name": "Group Address",
+              "offset_bits": 32,
+              "size_bits": 32,
+              "type": "ipv4_address",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Multicast group address (zero for general query)",
+              "constraints": []
+            }
+          ],
+          "payload": {
+            "name": "payload",
+            "offset_bits": 64,
+            "size": null
+          },
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [
+        {
+          "name": "checksum_valid",
+          "description": "Verify IGMP checksum matches one's complement sum over the entire IGMP message."
+        }
+      ],
+      "transform_functions": []
+    }
+  ]
+}

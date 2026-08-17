@@ -1,0 +1,79 @@
+{
+  "protocol": "TFTP over UDP",
+  "rfc": "1350",
+  "packet": [
+    {
+      "name": "tftp_udp_packet",
+      "pdus": [
+        "tftp_packet"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "tftp_packet",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "source_port",
+              "display_name": "Source Port",
+              "offset_bits": null,
+              "size_bits": null,
+              "type": "bit_string",
+              "optional": null,
+              "presence_condition": null,
+              "description": "Port number chosen by the sender.",
+              "constraints": []
+            },
+            {
+              "name": "dest_port",
+              "display_name": "Destination Port",
+              "offset_bits": null,
+              "size_bits": null,
+              "type": "bit_string",
+              "optional": null,
+              "presence_condition": null,
+              "description": "Port number set to 69 for RRQ or WRQ.",
+              "constraints": []
+            },
+            {
+              "name": "length",
+              "display_name": "Length",
+              "offset_bits": null,
+              "size_bits": null,
+              "type": "bit_string",
+              "optional": null,
+              "presence_condition": null,
+              "description": "Number of bytes in the UDP packet, including the UDP header.",
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": null,
+              "size_bits": null,
+              "type": "bit_string",
+              "optional": null,
+              "presence_condition": null,
+              "description": "Calculated using rules described in RFC2.",
+              "constraints": []
+            }
+          ],
+          "payload": {
+            "name": "tftp_data",
+            "offset_bits": null,
+            "size": null
+          },
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

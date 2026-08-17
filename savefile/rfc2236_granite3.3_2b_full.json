@@ -1,0 +1,30 @@
+{
+  "document_type": "RFC",
+  "title": "RFC 2236 - Internet Group Management Protocol (IGMP)",
+  "authors": [
+    "William C. Fenner",
+    "Steve Deering"
+  ],
+  "category": "Standards Track",
+  "publication_date": "November 1997",
+  "description": "This document specifies the Internet Group Management Protocol (IGMP), a protocol used by IP hosts to report their multicast group memberships to their local multicast routing routers. It describes the IGMP protocol, including query and report messages, leave messages, and security considerations.",
+  "references": [
+    "RFC 2119",
+    "RFC 2113",
+    "RFC 1112"
+  ],
+  "changes_from_IGMPv1": [
+    "Combine IGMP 'Version' and 'Type' fields into a single 'Type' field.",
+    "Introduce new IGMP types for Version 2 Membership Report messages and Leave Group messages.",
+    "Modify Membership Query message to include a Max Response Time field.",
+    "Implement a standardized querier election mechanism.",
+    "Relax validity-checking requirements for Membership Queries and Reports.",
+    "Require the presence of the IP Router Alert option [RFC 2113] in all IGMP packets."
+  ],
+  "author_address": {
+    "name": "William C. Fenner",
+    "organization": "Xerox PARC",
+    "email": "fenner@parc.xerox.com"
+  },
+  "copyright_statement": "Copyright (C) The Internet Society (1997).  All Rights Reserved."
+}

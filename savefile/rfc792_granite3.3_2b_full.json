@@ -1,0 +1,27 @@
+{
+  "response": {
+    "type": "RFC",
+    "id": 792,
+    "title": "Internet Control Message Protocol (ICMP)",
+    "date": "September 1981",
+    "description": "This RFC describes the Internet Control Message Protocol (ICMP), which is used for error reporting between Internet Protocol (IP) hosts. ICMP provides a means for sending error messages indicating, for example, that a host is unreachable or that a datagram was lost.",
+    "sections": [
+      {
+        "type": "Summary of Message Types",
+        "content": "Summary of message types used by ICMP, including Echo Reply (Type 0), Destination Unreachable (Type 3), Source Quench (Type 4), Redirect (Type 5), Echo (Type 8), Time Exceeded (Type 11), Parameter Problem (Type 12), Timestamp (Type 13), Timestamp Reply (Type 14), Information Request (Type 15), and Information Reply (Type 16)."
+      },
+      {
+        "type": "ICMP Fields",
+        "content": "Detailed description of ICMP header fields, including Type, Code, Checksum, Identifier, and Sequence Number. The Type field indicates the type of ICMP message, while the Code field provides additional information. The Checksum is a 16-bit value used for error detection, and Identifier and Sequence Number are used for session identification and sequencing, respectively."
+      },
+      {
+        "type": "Timestamp or Timestamp Reply Message",
+        "content": "Description of Timestamp message (Type 13) and Timestamp Reply message (Type 14), which are used for exchanging timestamps between hosts for network timing and synchronization purposes."
+      },
+      {
+        "type": "Information Request or Information Reply Message",
+        "content": "Explanation of Information Request message (Type 15) and Information Reply message (Type 16), used for querying network information, such as the local network address."
+      }
+    ]
+  }
+}

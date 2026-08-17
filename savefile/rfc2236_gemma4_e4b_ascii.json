@@ -1,0 +1,90 @@
+{
+  "protocol": "IGMP",
+  "rfc": "2236",
+  "packet": [
+    {
+      "name": "igmp_message",
+      "pdus": [
+        "IGMP Message of Concern to Hosts"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [
+        {
+          "name": "igmp_type",
+          "variants": [
+            {
+              "name": "membership_query",
+              "type": "Membership Query",
+              "condition": "0x11"
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "igmp_message_of_concern_to_hosts",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "type",
+              "display_name": "Type",
+              "offset_bits": "0",
+              "size_bits": "16",
+              "type": "unsigned_short",
+              "optional": false,
+              "presence_condition": null,
+              "description": "The type of the IGMP message.",
+              "constraints": []
+            },
+            {
+              "name": "max_resp_time",
+              "display_name": "Max Resp Time",
+              "offset_bits": "16",
+              "size_bits": "16",
+              "type": "unsigned_short",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Maximum time to wait for responses.",
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": "32",
+              "size_bits": "32",
+              "type": "unsigned_long",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Message checksum.",
+              "constraints": []
+            },
+            {
+              "name": "group_address",
+              "display_name": "Group Address",
+              "offset_bits": "64",
+              "size_bits": "128",
+              "type": "ipv4_address",
+              "optional": false,
+              "presence_condition": null,
+              "description": "The group address.",
+              "constraints": []
+            }
+          ],
+          "payload": {
+            "name": "padding",
+            "offset_bits": "256",
+            "size": "null"
+          },
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

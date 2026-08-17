@@ -1,0 +1,871 @@
+{
+  "protocol": "TFTP",
+  "rfc": "1350",
+  "packet": [
+    {
+      "name": "RRQ_WRQ_Packet",
+      "pdus": [
+        "RRQ",
+        "WRQ"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [
+        {
+          "name": "Opcode",
+          "variants": [
+            {
+              "name": "RRQ",
+              "type": "uint16",
+              "condition": "value == 1"
+            },
+            {
+              "name": "WRQ",
+              "type": "uint16",
+              "condition": "value == 2"
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "RRQ_WRQ_Packet",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "Opcode",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Operation code: 1 for RRQ, 2 for WRQ",
+              "constraints": [
+                "opcode == 1 or opcode == 2"
+              ]
+            },
+            {
+              "name": "filename",
+              "display_name": "Filename",
+              "offset_bits": 16,
+              "size_bits": null,
+              "type": "string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "File name in netascii, terminated by zero byte",
+              "constraints": [
+                "ends with zero byte"
+              ]
+            },
+            {
+              "name": "filename_terminator",
+              "display_name": "Zero byte",
+              "offset_bits": null,
+              "size_bits": 8,
+              "type": "uint8",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Zero byte terminating filename",
+              "constraints": [
+                "value == 0"
+              ]
+            },
+            {
+              "name": "mode",
+              "display_name": "Mode",
+              "offset_bits": null,
+              "size_bits": null,
+              "type": "string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Transfer mode: netascii, octet, or mail (case-insensitive)",
+              "constraints": [
+                "lower(mode) in ['netascii','octet','mail']"
+              ]
+            },
+            {
+              "name": "mode_terminator",
+              "display_name": "Zero byte",
+              "offset_bits": null,
+              "size_bits": 8,
+              "type": "uint8",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Zero byte terminating mode",
+              "constraints": [
+                "value == 0"
+              ]
+            }
+          ],
+          "payload": {
+            "name": "payload",
+            "offset_bits": null,
+            "size": null
+          },
+          "constraints": [
+            "opcode == 1 or opcode == 2"
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "DATA_Packet",
+      "pdus": [
+        "DATA"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [
+        {
+          "name": "Opcode",
+          "variants": [
+            {
+              "name": "DATA",
+              "type": "uint16",
+              "condition": "value == 3"
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "DATA_Packet",
+          "header_size_bytes": 4,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "Opcode",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Operation code: 3 for DATA",
+              "constraints": [
+                "opcode == 3"
+              ]
+            },
+            {
+              "name": "block_number",
+              "display_name": "Block #",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "uint16",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Block number, starts at 1 and increases by 1 for each new block",
+              "constraints": [
+                "block_number >= 1"
+              ]
+            }
+          ],
+          "payload": {
+            "name": "data",
+            "offset_bits": 32,
+            "size": "n"
+          },
+          "constraints": [
+            "0 <= n <= 512",
+            "if n == 512 then not last block else last block"
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "ACK_Packet",
+      "pdus": [
+        "ACK"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [
+        {
+          "name": "Opcode",
+          "variants": [
+            {
+              "name": "ACK",
+              "type": "uint16",
+              "condition": "value == 4"
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "ACK_Packet",
+          "header_size_bytes": 4,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "Opcode",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Operation code: 4 for ACK",
+              "constraints": [
+                "opcode == 4"
+              ]
+            },
+            {
+              "name": "block_number",
+              "display_name": "Block #",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "uint16",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Block number of the DATA packet being acknowledged; zero for WRQ acknowledgment",
+              "constraints": [
+                "block_number >= 0"
+              ]
+            }
+          ],
+          "payload": {
+            "name": "payload",
+            "offset_bits": null,
+            "size": null
+          },
+          "constraints": [
+            "opcode == 4"
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "ERROR_Packet",
+      "pdus": [
+        "ERROR"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [
+        {
+          "name": "Opcode",
+          "variants": [
+            {
+              "name": "ERROR",
+              "type": "uint16",
+              "condition": "value == 5"
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "ERROR_Packet",
+          "header_size_bytes": 4,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "Opcode",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Operation code: 5 for ERROR",
+              "constraints": [
+                "opcode == 5"
+              ]
+            },
+            {
+              "name": "error_code",
+              "display_name": "ErrorCode",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "uint16",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Integer indicating the nature of the error",
+              "constraints": []
+            },
+            {
+              "name": "error_message",
+              "display_name": "ErrMsg",
+              "offset_bits": 32,
+              "size_bits": null,
+              "type": "string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Error message in netascii, terminated by zero byte",
+              "constraints": [
+                "ends with zero byte"
+              ]
+            },
+            {
+              "name": "error_message_terminator",
+              "display_name": "Zero byte",
+              "offset_bits": null,
+              "size_bits": 8,
+              "type": "uint8",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Zero byte terminating error message",
+              "constraints": [
+                "value == 0"
+              ]
+            }
+          ],
+          "payload": {
+            "name": "payload",
+            "offset_bits": null,
+            "size": null
+          },
+          "constraints": [
+            "opcode == 5"
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "TFTP_Formats_Appendix_1",
+      "pdus": [
+        "RRQ",
+        "WRQ",
+        "DATA"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [
+        {
+          "name": "Opcode",
+          "variants": [
+            {
+              "name": "RRQ",
+              "type": "uint16",
+              "condition": "value == 1"
+            },
+            {
+              "name": "WRQ",
+              "type": "uint16",
+              "condition": "value == 2"
+            },
+            {
+              "name": "DATA",
+              "type": "uint16",
+              "condition": "value == 3"
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "RRQ_WRQ_Packet",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "Opcode",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Operation code: 1 for RRQ, 2 for WRQ",
+              "constraints": [
+                "opcode == 1 or opcode == 2"
+              ]
+            },
+            {
+              "name": "filename",
+              "display_name": "Filename",
+              "offset_bits": 16,
+              "size_bits": null,
+              "type": "string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "File name in netascii, terminated by zero byte",
+              "constraints": [
+                "ends with zero byte"
+              ]
+            },
+            {
+              "name": "filename_terminator",
+              "display_name": "Zero byte",
+              "offset_bits": null,
+              "size_bits": 8,
+              "type": "uint8",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Zero byte terminating filename",
+              "constraints": [
+                "value == 0"
+              ]
+            },
+            {
+              "name": "mode",
+              "display_name": "Mode",
+              "offset_bits": null,
+              "size_bits": null,
+              "type": "string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Transfer mode: netascii, octet, or mail (case-insensitive)",
+              "constraints": [
+                "lower(mode) in ['netascii','octet','mail']"
+              ]
+            },
+            {
+              "name": "mode_terminator",
+              "display_name": "Zero byte",
+              "offset_bits": null,
+              "size_bits": 8,
+              "type": "uint8",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Zero byte terminating mode",
+              "constraints": [
+                "value == 0"
+              ]
+            }
+          ],
+          "payload": {
+            "name": "payload",
+            "offset_bits": null,
+            "size": null
+          },
+          "constraints": [
+            "opcode == 1 or opcode == 2"
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        },
+        {
+          "name": "DATA_Packet",
+          "header_size_bytes": 4,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "Opcode",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Operation code: 3 for DATA",
+              "constraints": [
+                "opcode == 3"
+              ]
+            },
+            {
+              "name": "block_number",
+              "display_name": "Block #",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "uint16",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Block number, starts at 1 and increases by 1 for each new block",
+              "constraints": [
+                "block_number >= 1"
+              ]
+            }
+          ],
+          "payload": {
+            "name": "data",
+            "offset_bits": 32,
+            "size": "n"
+          },
+          "constraints": [
+            "0 <= n <= 512"
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "TFTP_Formats_Appendix_2",
+      "pdus": [
+        "RRQ",
+        "WRQ",
+        "DATA",
+        "ACK",
+        "ERROR"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [
+        {
+          "name": "Opcode",
+          "variants": [
+            {
+              "name": "RRQ",
+              "type": "uint16",
+              "condition": "value == 1"
+            },
+            {
+              "name": "WRQ",
+              "type": "uint16",
+              "condition": "value == 2"
+            },
+            {
+              "name": "DATA",
+              "type": "uint16",
+              "condition": "value == 3"
+            },
+            {
+              "name": "ACK",
+              "type": "uint16",
+              "condition": "value == 4"
+            },
+            {
+              "name": "ERROR",
+              "type": "uint16",
+              "condition": "value == 5"
+            }
+          ]
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "RRQ_WRQ_Packet",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "Opcode",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Operation code: 1 for RRQ, 2 for WRQ",
+              "constraints": [
+                "opcode == 1 or opcode == 2"
+              ]
+            },
+            {
+              "name": "filename",
+              "display_name": "Filename",
+              "offset_bits": 16,
+              "size_bits": null,
+              "type": "string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "File name in netascii, terminated by zero byte",
+              "constraints": [
+                "ends with zero byte"
+              ]
+            },
+            {
+              "name": "filename_terminator",
+              "display_name": "Zero byte",
+              "offset_bits": null,
+              "size_bits": 8,
+              "type": "uint8",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Zero byte terminating filename",
+              "constraints": [
+                "value == 0"
+              ]
+            },
+            {
+              "name": "mode",
+              "display_name": "Mode",
+              "offset_bits": null,
+              "size_bits": null,
+              "type": "string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Transfer mode: netascii, octet, or mail (case-insensitive)",
+              "constraints": [
+                "lower(mode) in ['netascii','octet','mail']"
+              ]
+            },
+            {
+              "name": "mode_terminator",
+              "display_name": "Zero byte",
+              "offset_bits": null,
+              "size_bits": 8,
+              "type": "uint8",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Zero byte terminating mode",
+              "constraints": [
+                "value == 0"
+              ]
+            }
+          ],
+          "payload": {
+            "name": "payload",
+            "offset_bits": null,
+            "size": null
+          },
+          "constraints": [
+            "opcode == 1 or opcode == 2"
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        },
+        {
+          "name": "DATA_Packet",
+          "header_size_bytes": 4,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "Opcode",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Operation code: 3 for DATA",
+              "constraints": [
+                "opcode == 3"
+              ]
+            },
+            {
+              "name": "block_number",
+              "display_name": "Block #",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "uint16",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Block number, starts at 1 and increases by 1 for each new block",
+              "constraints": [
+                "block_number >= 1"
+              ]
+            }
+          ],
+          "payload": {
+            "name": "data",
+            "offset_bits": 32,
+            "size": "n"
+          },
+          "constraints": [
+            "0 <= n <= 512"
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        },
+        {
+          "name": "ACK_Packet",
+          "header_size_bytes": 4,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "Opcode",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Operation code: 4 for ACK",
+              "constraints": [
+                "opcode == 4"
+              ]
+            },
+            {
+              "name": "block_number",
+              "display_name": "Block #",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "uint16",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Block number of the DATA packet being acknowledged; zero for WRQ acknowledgment",
+              "constraints": [
+                "block_number >= 0"
+              ]
+            }
+          ],
+          "payload": {
+            "name": "payload",
+            "offset_bits": null,
+            "size": null
+          },
+          "constraints": [
+            "opcode == 4"
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        },
+        {
+          "name": "ERROR_Packet",
+          "header_size_bytes": 4,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "opcode",
+              "display_name": "Opcode",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "Opcode",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Operation code: 5 for ERROR",
+              "constraints": [
+                "opcode == 5"
+              ]
+            },
+            {
+              "name": "error_code",
+              "display_name": "ErrorCode",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "uint16",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Integer indicating the nature of the error",
+              "constraints": []
+            },
+            {
+              "name": "error_message",
+              "display_name": "ErrMsg",
+              "offset_bits": 32,
+              "size_bits": null,
+              "type": "string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Error message in netascii, terminated by zero byte",
+              "constraints": [
+                "ends with zero byte"
+              ]
+            },
+            {
+              "name": "error_message_terminator",
+              "display_name": "Zero byte",
+              "offset_bits": null,
+              "size_bits": 8,
+              "type": "uint8",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Zero byte terminating error message",
+              "constraints": [
+                "value == 0"
+              ]
+            }
+          ],
+          "payload": {
+            "name": "payload",
+            "offset_bits": null,
+            "size": null
+          },
+          "constraints": [
+            "opcode == 5"
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "UDP_Header",
+      "pdus": [
+        "UDP"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "UDP_Header",
+          "header_size_bytes": 8,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "source_port",
+              "display_name": "Source Port",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "uint16",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Picked by originator of packet",
+              "constraints": []
+            },
+            {
+              "name": "destination_port",
+              "display_name": "Destination Port",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "uint16",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Picked by destination machine (69 for RRQ or WRQ)",
+              "constraints": []
+            },
+            {
+              "name": "length",
+              "display_name": "Length",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": "uint16",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Number of bytes in UDP packet, including UDP header",
+              "constraints": [
+                "length >= 8"
+              ]
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 48,
+              "size_bits": 16,
+              "type": "uint16",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Checksum computed as described in reference 2",
+              "constraints": []
+            }
+          ],
+          "payload": {
+            "name": "payload",
+            "offset_bits": 64,
+            "size": "length - 8"
+          },
+          "constraints": [
+            "length >= 8"
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "protocol": "UDP",
+  "rfc": "RFC 768",
+  "packet": [
+    {
+      "name": "udp_header",
+      "pdus": [
+        "udp_header"
+      ],
+      "bit_string_types": [
+        {
+          "name": "source_port",
+          "size_bits": 16,
+          "description": "Optional field indicating the port of the sending process."
+        },
+        {
+          "name": "destination_port",
+          "size_bits": 16,
+          "description": "Field indicating the port to which replies should be addressed."
+        },
+        {
+          "name": "length",
+          "size_bits": 16,
+          "description": "Field indicating the length of the UDP data."
+        },
+        {
+          "name": "checksum",
+          "size_bits": 16,
+          "description": "The 16-bit one's complement of the sum of the header and data."
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "udp_header",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "source_port",
+              "display_name": "Source Port",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": true,
+              "presence_condition": "meaningful",
+              "description": "Optional field indicating the port of the sending process.",
+              "constraints": []
+            },
+            {
+              "name": "destination_port",
+              "display_name": "Destination Port",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Field indicating the port to which replies should be addressed.",
+              "constraints": []
+            },
+            {
+              "name": "length",
+              "display_name": "Length",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Field indicating the length of the UDP data.",
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "The 16-bit one's complement of the sum of the header and data.",
+              "constraints": []
+            }
+          ],
+          "payload": {
+            "name": "data_octets",
+            "offset_bits": 32,
+            "size": null
+          },
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

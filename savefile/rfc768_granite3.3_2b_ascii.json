@@ -1,0 +1,165 @@
+{
+  "protocol": "User Datagram Protocol (UDP)",
+  "rfc": "RFC 768",
+  "packet": [
+    {
+      "name": "user_datagram_header",
+      "pdus": [
+        "User Datagram"
+      ],
+      "bit_string_types": [
+        {
+          "name": "source_port",
+          "size_bits": "7",
+          "description": "Source Port"
+        },
+        {
+          "name": "destination_port",
+          "size_bits": "16",
+          "description": "Destination Port"
+        },
+        {
+          "name": "length",
+          "size_bits": "16",
+          "description": "Length"
+        },
+        {
+          "name": "checksum",
+          "size_bits": "16",
+          "description": "Checksum"
+        }
+      ],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "source_port",
+          "header_size_bytes": "2",
+          "byte_order": "big",
+          "fields": [
+            {
+              "name": "source_port",
+              "display_name": "Source Port",
+              "offset_bits": "0-7",
+              "size_bits": "7",
+              "type": "Bit String Type",
+              "optional": true,
+              "presence_condition": "source_port != 0",
+              "constraints": [
+                "0 <= source_port <= 65535"
+              ],
+              "parse_from": "header",
+              "serialize_to": "header"
+            }
+          ],
+          "payload": {
+            "name": "none",
+            "offset_bits": "8-15",
+            "size": "0 or length - 8"
+          },
+          "constraints": [
+            "0 <= length <= 65535"
+          ],
+          "parse_from": "header",
+          "serialize_to": "header"
+        },
+        {
+          "name": "destination_port",
+          "header_size_bytes": "2",
+          "byte_order": "big",
+          "fields": [
+            {
+              "name": "destination_port",
+              "display_name": "Destination Port",
+              "offset_bits": "16-23",
+              "size_bits": "16",
+              "type": "Bit String Type",
+              "optional": true,
+              "presence_condition": "destination_port != 0",
+              "constraints": [
+                "0 <= destination_port <= 65535"
+              ],
+              "parse_from": "header",
+              "serialize_to": "header"
+            }
+          ],
+          "payload": {
+            "name": "none",
+            "offset_bits": "24-31",
+            "size": "0 or length - 8"
+          },
+          "constraints": [
+            "0 <= length <= 65535"
+          ],
+          "parse_from": "header",
+          "serialize_to": "header"
+        },
+        {
+          "name": "length",
+          "header_size_bytes": "2",
+          "byte_order": "big",
+          "fields": [
+            {
+              "name": "length",
+              "display_name": "Length",
+              "offset_bits": "32-47",
+              "size_bits": "16",
+              "type": "Bit String Type",
+              "optional": false,
+              "presence_condition": "length > 0",
+              "constraints": [
+                "8 <= length <= 65535"
+              ],
+              "parse_from": "header",
+              "serialize_to": "header"
+            }
+          ],
+          "payload": {
+            "name": "data octets",
+            "offset_bits": "48-",
+            "size": "length - 8"
+          },
+          "constraints": [
+            "8 <= length <= 65535"
+          ],
+          "parse_from": "header",
+          "serialize_to": "header"
+        },
+        {
+          "name": "checksum",
+          "header_size_bytes": "2",
+          "byte_order": "big",
+          "fields": [
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": "64-87",
+              "size_bits": "16",
+              "type": "Bit String Type",
+              "optional": false,
+              "presence_condition": "checksum != 0x0000",
+              "constraints": [
+                "checksum != 0x0000"
+              ],
+              "parse_from": "header",
+              "serialize_to": "header"
+            }
+          ],
+          "payload": {
+            "name": "none",
+            "offset_bits": "88-",
+            "size": "0"
+          },
+          "constraints": [
+            "checksum != 0x0000"
+          ],
+          "parse_from": "header",
+          "serialize_to": "header"
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

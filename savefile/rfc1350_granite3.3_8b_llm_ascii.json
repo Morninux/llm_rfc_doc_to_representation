@@ -1,0 +1,81 @@
+{
+  "protocol": "TFTP (Trivial File Transfer Protocol)",
+  "rfc": "RFC 1350",
+  "packet": [
+    {
+      "name": "tftp_packet",
+      "pdus": [
+        "tftp_packet"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "tftp_packet",
+          "header_size_bytes": 5,
+          "byte_order": "big-endian",
+          "fields": [
+            {
+              "name": "local_medium",
+              "display_name": "Local Medium",
+              "offset_bits": 0,
+              "size_bits": 8,
+              "type": "uint8",
+              "optional": null,
+              "presence_condition": null,
+              "description": "Local medium-specific information",
+              "constraints": []
+            },
+            {
+              "name": "internet_address",
+              "display_name": "Internet Address",
+              "offset_bits": 8,
+              "size_bits": 16,
+              "type": "uint16",
+              "optional": null,
+              "presence_condition": null,
+              "description": "Internet address of the remote host",
+              "constraints": []
+            },
+            {
+              "name": "datagram_length",
+              "display_name": "Datagram Length",
+              "offset_bits": 24,
+              "size_bits": 16,
+              "type": "uint16",
+              "optional": null,
+              "presence_condition": null,
+              "description": "Length of the datagram in bytes",
+              "constraints": []
+            },
+            {
+              "name": "opcode",
+              "display_name": "TFTP Opcode",
+              "offset_bits": 30,
+              "size_bits": 4,
+              "type": "uint8",
+              "optional": null,
+              "presence_condition": null,
+              "description": "TFTP operation code",
+              "constraints": []
+            }
+          ],
+          "payload": {
+            "name": "data",
+            "offset_bits": null,
+            "size": null
+          },
+          "constraints": [
+            "datagram_length >= 0"
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

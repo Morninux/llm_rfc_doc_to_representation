@@ -1,0 +1,5 @@
+{
+  "status": "ready",
+  "action": "generate_answer",
+  "thought": "The user has provided the full text of RFC 2236 (IGMPv2) and asked me to think silently before responding. I need to understand what they want me to do with this document. Since there's no specific question, I should summarize the key points of the RFC and offer to answer questions or help implement it."
+}

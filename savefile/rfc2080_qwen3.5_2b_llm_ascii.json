@@ -1,0 +1,31 @@
+{
+  "protocol": "RIPng",
+  "rfc\":\"RFC 2080,RFC 2080 \"RIPng for IPv6\" \"January 1997\",\"packet": [
+    {
+      "name": "timers",
+      "pdus": [
+        "unspecified"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "default_route_precedence",
+      "pdus": [
+        "unspecified"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

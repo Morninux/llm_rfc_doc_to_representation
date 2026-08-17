@@ -1,0 +1,218 @@
+{
+  "protocol": "RIPng for IPv6",
+  "rfc": "2080",
+  "packet": [
+    {
+      "name": "request_message",
+      "pdus": [
+        "request_message"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "request_message",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "command",
+              "display_name": "Command",
+              "offset_bits": null,
+              "size_bits": 2,
+              "type": "enumerated",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Specifies the type of RIP message, either request or response.",
+              "constraints": [
+                "command in {request, response}"
+              ]
+            },
+            {
+              "name": "version",
+              "display_name": "Version",
+              "offset_bits": null,
+              "size_bits": 4,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "The protocol version, which must be 1 for RIPng.",
+              "constraints": [
+                "version == 1"
+              ]
+            },
+            {
+              "name": "update_check",
+              "display_name": "Update Check",
+              "offset_bits": null,
+              "size_bits": 1,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Flag indicating whether an update is included in this message.",
+              "constraints": []
+            },
+            {
+              "name": "auth_type",
+              "display_name": "Authentication Type",
+              "offset_bits": null,
+              "size_bits": 2,
+              "type": "enumerated",
+              "optional": true,
+              "presence_condition": "if update_check == true",
+              "description": "Authentication type, if any, for the update included in this message.",
+              "constraints": []
+            },
+            {
+              "name": "auth_data_length",
+              "display_name": "Authentication Data Length",
+              "offset_bits": null,
+              "size_bits": 12,
+              "type": "bit_string",
+              "optional": true,
+              "presence_condition": "if update_check == true and auth_type != no_authentication",
+              "description": "Length, in octets, of the authentication data.",
+              "constraints": []
+            },
+            {
+              "name": "routing_header_length",
+              "display_name": "Routing Header Length",
+              "offset_bits": null,
+              "size_bits": 4,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "The length of the Routing Header, in octets.",
+              "constraints": []
+            },
+            {
+              "name": "update_list_length",
+              "display_name": "Update List Length",
+              "offset_bits": null,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": "if command == request",
+              "description": "The number of entries in the update list.",
+              "constraints": []
+            }
+          ],
+          "payload": null,
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "response_message",
+      "pdus": [
+        "response_message"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "response_message",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "command",
+              "display_name": "Command",
+              "offset_bits": null,
+              "size_bits": 2,
+              "type": "enumerated",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Specifies the type of RIP message, either request or response.",
+              "constraints": [
+                "command in {request, response}"
+              ]
+            },
+            {
+              "name": "version",
+              "display_name": "Version",
+              "offset_bits": null,
+              "size_bits": 4,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "The protocol version, which must be 1 for RIPng.",
+              "constraints": [
+                "version == 1"
+              ]
+            },
+            {
+              "name": "update_check",
+              "display_name": "Update Check",
+              "offset_bits": null,
+              "size_bits": 1,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Flag indicating whether an update is included in this message.",
+              "constraints": []
+            },
+            {
+              "name": "auth_type",
+              "display_name": "Authentication Type",
+              "offset_bits": null,
+              "size_bits": 2,
+              "type": "enumerated",
+              "optional": true,
+              "presence_condition": "if update_check == true",
+              "description": "Authentication type, if any, for the update included in this message.",
+              "constraints": []
+            },
+            {
+              "name": "auth_data_length",
+              "display_name": "Authentication Data Length",
+              "offset_bits": null,
+              "size_bits": 12,
+              "type": "bit_string",
+              "optional": true,
+              "presence_condition": "if update_check == true and auth_type != no_authentication",
+              "description": "Length, in octets, of the authentication data.",
+              "constraints": []
+            },
+            {
+              "name": "routing_header_length",
+              "display_name": "Routing Header Length",
+              "offset_bits": null,
+              "size_bits": 4,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "The length of the Routing Header, in octets.",
+              "constraints": []
+            },
+            {
+              "name": "update_list_length",
+              "display_name": "Update List Length",
+              "offset_bits": null,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": "if command == response",
+              "description": "The number of entries in the update list.",
+              "constraints": []
+            }
+          ],
+          "payload": null,
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

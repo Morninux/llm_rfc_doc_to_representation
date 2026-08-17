@@ -1,0 +1,1 @@
+{"architecture":"amd64","base_name":"gpt-oss:120b","capabilities":["completion","tools","thinking"],"context_length":131072,"embedding_length":2880,"file_type":"MXFP4","model_type":"117B","os":"linux","remote_host":"https://ollama.com","remote_model":"gpt-oss:120b","rootfs":{"diff_ids":[],"type":"layers"}}

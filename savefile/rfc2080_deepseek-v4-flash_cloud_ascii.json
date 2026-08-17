@@ -1,0 +1,310 @@
+{
+  "protocol": "RIPng",
+  "rfc": "RFC 2080",
+  "packet": [
+    {
+      "name": "RIPng Packet",
+      "pdus": [
+        "RIPng Message"
+      ],
+      "bit_string_types": [
+        {
+          "name": "command",
+          "size_bits": 8,
+          "description": "Command field specifying purpose of the message"
+        },
+        {
+          "name": "version",
+          "size_bits": 8,
+          "description": "Version number; this document describes version 1"
+        },
+        {
+          "name": "must_be_zero",
+          "size_bits": 16,
+          "description": "Must be zero"
+        }
+      ],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "RIPngPacket",
+          "header_size_bytes": 4,
+          "byte_order": "big-endian",
+          "fields": [
+            {
+              "name": "command",
+              "display_name": "Command",
+              "offset_bits": 0,
+              "size_bits": 8,
+              "type": "command",
+              "optional": null,
+              "presence_condition": null,
+              "description": "Command field",
+              "constraints": []
+            },
+            {
+              "name": "version",
+              "display_name": "Version",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": "version",
+              "optional": null,
+              "presence_condition": null,
+              "description": "Version number",
+              "constraints": [
+                "version == 1"
+              ]
+            },
+            {
+              "name": "must_be_zero",
+              "display_name": "Must be zero",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "must_be_zero",
+              "optional": null,
+              "presence_condition": null,
+              "description": "Must be zero",
+              "constraints": [
+                "must_be_zero == 0"
+              ]
+            }
+          ],
+          "payload": {
+            "name": "route_table_entries",
+            "offset_bits": 32,
+            "size": null
+          },
+          "constraints": [
+            "must_be_zero == 0",
+            "version == 1"
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [
+        {
+          "name": "route_table_entries",
+          "element_type": "RTE",
+          "length": null
+        }
+      ],
+      "parsing_context": [
+        {
+          "name": "mtu",
+          "type": "integer",
+          "description": "Maximum transmission unit of the medium, used to determine maximum number of RTEs"
+        }
+      ],
+      "helper_functions": [
+        {
+          "name": "calculate_number_of_rtes",
+          "description": "Returns INT((MTU - sizeof(IPv6_hdrs) - UDP_hdrlen - RIPng_hdrlen) / RTE_size)"
+        }
+      ],
+      "transform_functions": []
+    },
+    {
+      "name": "Route Table Entry (RTE)",
+      "pdus": [
+        "RTE"
+      ],
+      "bit_string_types": [
+        {
+          "name": "ipv6_prefix",
+          "size_bits": 128,
+          "description": "IPv6 prefix"
+        },
+        {
+          "name": "route_tag",
+          "size_bits": 16,
+          "description": "Route tag"
+        },
+        {
+          "name": "prefix_len",
+          "size_bits": 8,
+          "description": "Prefix length"
+        },
+        {
+          "name": "metric",
+          "size_bits": 8,
+          "description": "Metric value"
+        }
+      ],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "RTE",
+          "header_size_bytes": 20,
+          "byte_order": "big-endian",
+          "fields": [
+            {
+              "name": "ipv6_prefix",
+              "display_name": "IPv6 prefix",
+              "offset_bits": 0,
+              "size_bits": 128,
+              "type": "ipv6_prefix",
+              "optional": null,
+              "presence_condition": null,
+              "description": "IPv6 prefix of the destination",
+              "constraints": []
+            },
+            {
+              "name": "route_tag",
+              "display_name": "Route Tag",
+              "offset_bits": 128,
+              "size_bits": 16,
+              "type": "route_tag",
+              "optional": null,
+              "presence_condition": null,
+              "description": "Route tag",
+              "constraints": []
+            },
+            {
+              "name": "prefix_len",
+              "display_name": "Prefix Len",
+              "offset_bits": 144,
+              "size_bits": 8,
+              "type": "prefix_len",
+              "optional": null,
+              "presence_condition": null,
+              "description": "Prefix length",
+              "constraints": []
+            },
+            {
+              "name": "metric",
+              "display_name": "Metric",
+              "offset_bits": 152,
+              "size_bits": 8,
+              "type": "metric",
+              "optional": null,
+              "presence_condition": null,
+              "description": "Metric value; between 1 and 15 inclusive, or 16 for infinity",
+              "constraints": [
+                "metric >= 1 && metric <= 15 || metric == 16"
+              ]
+            }
+          ],
+          "payload": null,
+          "constraints": [
+            "metric >= 1 && metric <= 15 || metric == 16"
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "Next Hop Route Table Entry",
+      "pdus": [
+        "NextHopRTE"
+      ],
+      "bit_string_types": [
+        {
+          "name": "ipv6_next_hop_address",
+          "size_bits": 128,
+          "description": "IPv6 next hop address"
+        },
+        {
+          "name": "must_be_zero_2",
+          "size_bits": 16,
+          "description": "Must be zero"
+        },
+        {
+          "name": "must_be_zero_1",
+          "size_bits": 8,
+          "description": "Must be zero"
+        },
+        {
+          "name": "constant_0xff",
+          "size_bits": 8,
+          "description": "Constant value 0xFF to identify next hop RTE"
+        }
+      ],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "NextHopRTE",
+          "header_size_bytes": 20,
+          "byte_order": "big-endian",
+          "fields": [
+            {
+              "name": "ipv6_next_hop_address",
+              "display_name": "IPv6 next hop address",
+              "offset_bits": 0,
+              "size_bits": 128,
+              "type": "ipv6_next_hop_address",
+              "optional": null,
+              "presence_condition": null,
+              "description": "IPv6 next hop address; must be link-local",
+              "constraints": [
+                "ipv6_next_hop_address is link-local"
+              ]
+            },
+            {
+              "name": "must_be_zero_2",
+              "display_name": "Must be zero",
+              "offset_bits": 128,
+              "size_bits": 16,
+              "type": "must_be_zero_2",
+              "optional": null,
+              "presence_condition": null,
+              "description": "Must be zero",
+              "constraints": [
+                "must_be_zero_2 == 0"
+              ]
+            },
+            {
+              "name": "must_be_zero_1",
+              "display_name": "Must be zero",
+              "offset_bits": 144,
+              "size_bits": 8,
+              "type": "must_be_zero_1",
+              "optional": null,
+              "presence_condition": null,
+              "description": "Must be zero",
+              "constraints": [
+                "must_be_zero_1 == 0"
+              ]
+            },
+            {
+              "name": "constant_0xff",
+              "display_name": "0xFF",
+              "offset_bits": 152,
+              "size_bits": 8,
+              "type": "constant_0xff",
+              "optional": null,
+              "presence_condition": null,
+              "description": "Constant 0xFF",
+              "constraints": [
+                "constant_0xff == 0xff"
+              ]
+            }
+          ],
+          "payload": null,
+          "constraints": [
+            "must_be_zero_2 == 0",
+            "must_be_zero_1 == 0",
+            "constant_0xff == 0xff"
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [
+        {
+          "name": "current_next_hop",
+          "type": "IPv6 address",
+          "description": "The next hop address from the most recent Next Hop RTE applies to subsequent address RTEs until another Next Hop RTE or end of message"
+        }
+      ],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

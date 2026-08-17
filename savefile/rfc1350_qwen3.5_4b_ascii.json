@@ -1,0 +1,106 @@
+{
+  "protocol": "Internet User Datagram Protocol",
+  "rfc": "RFC 1350",
+  "packet": [
+    {
+      "name": "udp_header",
+      "pdus": [
+        "UDP packet",
+        "User Datagram Protocol packet"
+      ],
+      "bit_string_types": [
+        {
+          "name": "source_port_bits",
+          "size_bits": 16,
+          "description": "Source Port bits"
+        },
+        {
+          "name": "dest_port_bits",
+          "size_bits": 16,
+          "description": "Destination Port bits"
+        },
+        {
+          "name": "length_bits",
+          "size_bits": 16,
+          "description": "Length bits"
+        },
+        {
+          "name": "checksum_bits",
+          "size_bits": 16,
+          "description": "Checksum bits"
+        }
+      ],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "udp_structure",
+          "header_size_bytes": 8,
+          "byte_order": "big-endian",
+          "fields": [
+            {
+              "name": "source_port",
+              "display_name": "Source Port",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "bit_string_type",
+              "optional": null,
+              "presence_condition": null,
+              "description": "Picked by originator of packet.",
+              "constraints": []
+            },
+            {
+              "name": "dest_port",
+              "display_name": "Dest. Port",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "bit_string_type",
+              "optional": null,
+              "presence_condition": null,
+              "description": "Picked by destination machine (69 for RRQ or WRQ).",
+              "constraints": []
+            },
+            {
+              "name": "length",
+              "display_name": "Length",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": "bit_string_type",
+              "optional": null,
+              "presence_condition": null,
+              "description": "Number of bytes in UDP packet, including UDP header.",
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 48,
+              "size_bits": 16,
+              "type": "bit_string_type",
+              "optional": null,
+              "presence_condition": null,
+              "description": "Reference 2 describes rules for computing checksum.",
+              "constraints": []
+            }
+          ],
+          "payload": {
+            "name": "udp_payload",
+            "offset_bits": 8,
+            "size": null
+          },
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [
+        {
+          "name": "checksum_compute",
+          "description": "Reference 2 describes rules for computing checksum."
+        }
+      ],
+      "transform_functions": []
+    }
+  ]
+}

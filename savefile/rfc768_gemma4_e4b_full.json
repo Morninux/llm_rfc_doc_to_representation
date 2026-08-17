@@ -1,0 +1,30 @@
+{
+  "protocol": "User Datagram Protocol (UDP)",
+  "rfc": "RFC 768",
+  "packet": [
+    {
+      "name": "User Datagram Header Format",
+      "pdus": [
+        "udp_header"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [],
+      "array_types": [],
+      "parsing_context": [
+        {
+          "name": "pseudo_header_info",
+          "type": "structured_data",
+          "description": "The concept prefixing the UDP header, containing source address, destination address, protocol (17), and UDP length (derived from 'length' field)."
+        }
+      ],
+      "helper_functions": [
+        {
+          "name": "calculate_checksum",
+          "description": "Calculates the 16-bit one's complement of the one's complement sum of the pseudo header, the UDP header, and the data, padded with zero octets at the end if necessary."
+        }
+      ],
+      "transform_functions": []
+    }
+  ]
+}

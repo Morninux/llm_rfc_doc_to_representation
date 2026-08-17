@@ -1,0 +1,100 @@
+{
+  "protocol": "IP",
+  "rfc": "768",
+  "packet": [
+    {
+      "name": "User Datagram Header Format",
+      "pdus": [
+        "User Datagram"
+      ],
+      "bit_string_types": [
+        {
+          "name": "Source Port",
+          "size_bits": 16,
+          "description": "Source Port"
+        },
+        {
+          "name": "Destination Port",
+          "size_bits": 16,
+          "description": "Destination Port"
+        },
+        {
+          "name": "Length",
+          "size_bits": 16,
+          "description": "Length"
+        },
+        {
+          "name": "Checksum",
+          "size_bits": 16,
+          "description": "Checksum"
+        }
+      ],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "User Datagram Header Format",
+          "header_size_bytes": 8,
+          "byte_order": "network",
+          "fields": [
+            {
+              "name": "source_port",
+              "display_name": "Source Port",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "uint16",
+              "optional": true,
+              "presence_condition": "true",
+              "description": "Source Port",
+              "constraints": [
+                "0 <= value <= 65535"
+              ]
+            },
+            {
+              "name": "destination_port",
+              "display_name": "Destination Port",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "uint16",
+              "optional": true,
+              "presence_condition": "true",
+              "description": "Destination Port",
+              "constraints": [
+                "0 <= value <= 65535"
+              ]
+            },
+            {
+              "name": "length",
+              "display_name": "Length",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": "uint16",
+              "optional": true,
+              "presence_condition": "true",
+              "description": "Length of the data section",
+              "constraints": [
+                "length >= 8"
+              ]
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 48,
+              "size_bits": 16,
+              "type": "uint16",
+              "optional": true,
+              "presence_condition": "true",
+              "description": "Checksum",
+              "constraints": [
+                "16-bit one's complement sum of pseudo header and data"
+              ]
+            }
+          ]
+        },
+        "array_types അഭ",
+        "parsing_context"
+      ],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

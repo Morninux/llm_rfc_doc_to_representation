@@ -1,0 +1,677 @@
+{
+  "protocol": "ICMP",
+  "rfc": "RFC 792",
+  "packet": [
+    {
+      "name": "destination_unreachable_message",
+      "pdus": [
+        "ICMP"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "destination_unreachable_structure",
+          "header_size_bytes": 8,
+          "byte_order": "big_endian",
+          "fields": [
+            {
+              "name": "type",
+              "display_name": "Type",
+              "offset_bits": 0,
+              "size_bits": 8,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "ICMP message type",
+              "constraints": [
+                "type == 3"
+              ]
+            },
+            {
+              "name": "code",
+              "display_name": "Code",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "ICMP code for Destination Unreachable",
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "ICMP checksum",
+              "constraints": []
+            },
+            {
+              "name": "unused",
+              "display_name": "Unused",
+              "offset_bits": 32,
+              "size_bits": 32,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "Unused field, set to zero",
+              "constraints": []
+            }
+          ],
+          "payload": {
+            "name": "original_data",
+            "offset_bits": 64,
+            "size": null
+          },
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "time_exceeded_message",
+      "pdus": [
+        "ICMP"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "time_exceeded_structure",
+          "header_size_bytes": 8,
+          "byte_order": "big_endian",
+          "fields": [
+            {
+              "name": "type",
+              "display_name": "Type",
+              "offset_bits": 0,
+              "size_bits": 8,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "ICMP message type",
+              "constraints": [
+                "type == 11"
+              ]
+            },
+            {
+              "name": "code",
+              "display_name": "Code",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "ICMP code for Time Exceeded",
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "ICMP checksum",
+              "constraints": []
+            },
+            {
+              "name": "unused",
+              "display_name": "Unused",
+              "offset_bits": 32,
+              "size_bits": 32,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "Unused field, set to zero",
+              "constraints": []
+            }
+          ],
+          "payload": {
+            "name": "original_data",
+            "offset_bits": 64,
+            "size": null
+          },
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "parameter_problem_message",
+      "pdus": [
+        "ICMP"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "parameter_problem_structure",
+          "header_size_bytes": 8,
+          "byte_order": "big_endian",
+          "fields": [
+            {
+              "name": "type",
+              "display_name": "Type",
+              "offset_bits": 0,
+              "size_bits": 8,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "ICMP message type",
+              "constraints": [
+                "type == 12"
+              ]
+            },
+            {
+              "name": "code",
+              "display_name": "Code",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "ICMP code for Parameter Problem",
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "ICMP checksum",
+              "constraints": []
+            },
+            {
+              "name": "pointer",
+              "display_name": "Pointer",
+              "offset_bits": 32,
+              "size_bits": 8,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "Indicates the octet where error was discovered",
+              "constraints": []
+            },
+            {
+              "name": "unused",
+              "display_name": "Unused",
+              "offset_bits": 40,
+              "size_bits": 24,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "Unused field, set to zero",
+              "constraints": []
+            }
+          ],
+          "payload": {
+            "name": "original_data",
+            "offset_bits": 64,
+            "size": null
+          },
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "source_quench_message",
+      "pdus": [
+        "ICMP"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "source_quench_structure",
+          "header_size_bytes": 8,
+          "byte_order": "big_endian",
+          "fields": [
+            {
+              "name": "type",
+              "display_name": "Type",
+              "offset_bits": 0,
+              "size_bits": 8,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "ICMP message type",
+              "constraints": [
+                "type == 4"
+              ]
+            },
+            {
+              "name": "code",
+              "display_name": "Code",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "ICMP code for Source Quench",
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "ICMP checksum",
+              "constraints": []
+            },
+            {
+              "name": "unused",
+              "display_name": "Unused",
+              "offset_bits": 32,
+              "size_bits": 32,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "Unused field, set to zero",
+              "constraints": []
+            }
+          ],
+          "payload": {
+            "name": "original_data",
+            "offset_bits": 64,
+            "size": null
+          },
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "redirect_message",
+      "pdus": [
+        "ICMP"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "redirect_structure",
+          "header_size_bytes": 8,
+          "byte_order": "big_endian",
+          "fields": [
+            {
+              "name": "type",
+              "display_name": "Type",
+              "offset_bits": 0,
+              "size_bits": 8,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "ICMP message type",
+              "constraints": [
+                "type == 5"
+              ]
+            },
+            {
+              "name": "code",
+              "display_name": "Code",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "ICMP code for Redirect",
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "ICMP checksum",
+              "constraints": []
+            },
+            {
+              "name": "gateway_internet_address",
+              "display_name": "Gateway Internet Address",
+              "offset_bits": 32,
+              "size_bits": 32,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "Address of the gateway to use",
+              "constraints": []
+            }
+          ],
+          "payload": {
+            "name": "original_data",
+            "offset_bits": 64,
+            "size": null
+          },
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "echo_or_echo_reply_message",
+      "pdus": [
+        "ICMP"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "echo_structure",
+          "header_size_bytes": 8,
+          "byte_order": "big_endian",
+          "fields": [
+            {
+              "name": "type",
+              "display_name": "Type",
+              "offset_bits": 0,
+              "size_bits": 8,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "ICMP message type (0 = Echo Reply, 8 = Echo Request)",
+              "constraints": []
+            },
+            {
+              "name": "code",
+              "display_name": "Code",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "Reserved for Echo messages, set to zero",
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "ICMP checksum",
+              "constraints": []
+            },
+            {
+              "name": "identifier",
+              "display_name": "Identifier",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "Used to match requests/replies",
+              "constraints": []
+            },
+            {
+              "name": "sequence_number",
+              "display_name": "Sequence Number",
+              "offset_bits": 48,
+              "size_bits": 16,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "Sequence number of the echo request",
+              "constraints": []
+            }
+          ],
+          "payload": {
+            "name": "data",
+            "offset_bits": 64,
+            "size": null
+          },
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "timestamp_or_timestamp_reply_message",
+      "pdus": [
+        "ICMP"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "timestamp_structure",
+          "header_size_bytes": 20,
+          "byte_order": "big_endian",
+          "fields": [
+            {
+              "name": "type",
+              "display_name": "Type",
+              "offset_bits": 0,
+              "size_bits": 8,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "ICMP message type (13 = Timestamp Request, 14 = Timestamp Reply)",
+              "constraints": []
+            },
+            {
+              "name": "code",
+              "display_name": "Code",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "Reserved for Timestamp messages, set to zero",
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "ICMP checksum",
+              "constraints": []
+            },
+            {
+              "name": "identifier",
+              "display_name": "Identifier",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "Used to match requests/replies",
+              "constraints": []
+            },
+            {
+              "name": "sequence_number",
+              "display_name": "Sequence Number",
+              "offset_bits": 48,
+              "size_bits": 16,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "Sequence number of the timestamp request",
+              "constraints": []
+            },
+            {
+              "name": "originate_timestamp",
+              "display_name": "Originate Timestamp",
+              "offset_bits": 64,
+              "size_bits": 32,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "Time the request was sent",
+              "constraints": []
+            },
+            {
+              "name": "receive_timestamp",
+              "display_name": "Receive Timestamp",
+              "offset_bits": 96,
+              "size_bits": 32,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "Time the request was received",
+              "constraints": []
+            },
+            {
+              "name": "transmit_timestamp",
+              "display_name": "Transmit Timestamp",
+              "offset_bits": 128,
+              "size_bits": 32,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "Time the reply was sent",
+              "constraints": []
+            }
+          ],
+          "payload": {
+            "name": null,
+            "offset_bits": null,
+            "size": null
+          },
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "information_request_or_reply_message",
+      "pdus": [
+        "ICMP"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "information_structure",
+          "header_size_bytes": 8,
+          "byte_order": "big_endian",
+          "fields": [
+            {
+              "name": "type",
+              "display_name": "Type",
+              "offset_bits": 0,
+              "size_bits": 8,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "ICMP message type (15 = Information Request, 16 = Information Reply)",
+              "constraints": []
+            },
+            {
+              "name": "code",
+              "display_name": "Code",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "Reserved for Information messages, set to zero",
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "ICMP checksum",
+              "constraints": []
+            },
+            {
+              "name": "identifier",
+              "display_name": "Identifier",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "Used to match requests/replies",
+              "constraints": []
+            },
+            {
+              "name": "sequence_number",
+              "display_name": "Sequence Number",
+              "offset_bits": 48,
+              "size_bits": 16,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "Sequence number of the request",
+              "constraints": []
+            }
+          ],
+          "payload": {
+            "name": null,
+            "offset_bits": null,
+            "size": null
+          },
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

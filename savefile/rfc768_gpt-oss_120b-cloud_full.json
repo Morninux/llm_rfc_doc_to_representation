@@ -1,0 +1,221 @@
+{
+  "protocol": "User Datagram Protocol",
+  "rfc": "768",
+  "packet": [
+    {
+      "name": "udp_header_format",
+      "pdus": [
+        "udp_header"
+      ],
+      "bit_string_types": [
+        {
+          "name": "source_port_bits",
+          "size_bits": 16,
+          "description": "Source Port"
+        },
+        {
+          "name": "destination_port_bits",
+          "size_bits": 16,
+          "description": "Destination Port"
+        },
+        {
+          "name": "length_bits",
+          "size_bits": 16,
+          "description": "Length"
+        },
+        {
+          "name": "checksum_bits",
+          "size_bits": 16,
+          "description": "Checksum"
+        }
+      ],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "udp_header",
+          "header_size_bytes": 8,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "source_port",
+              "display_name": "Source Port",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "source_port_bits",
+              "optional": null,
+              "presence_condition": null,
+              "description": "Port of the sending process; may be zero if not used",
+              "constraints": []
+            },
+            {
+              "name": "destination_port",
+              "display_name": "Destination Port",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "destination_port_bits",
+              "optional": null,
+              "presence_condition": null,
+              "description": "Port of the destination process",
+              "constraints": []
+            },
+            {
+              "name": "length",
+              "display_name": "Length",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": "length_bits",
+              "optional": null,
+              "presence_condition": null,
+              "description": "Length of the datagram in octets, including header and data",
+              "constraints": [
+                "length >= 8"
+              ]
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 48,
+              "size_bits": 16,
+              "type": "checksum_bits",
+              "optional": null,
+              "presence_condition": null,
+              "description": "16‑bit one's complement of pseudo‑header and data",
+              "constraints": []
+            }
+          ],
+          "payload": {
+            "name": "data",
+            "offset_bits": 64,
+            "size": "length - 8"
+          },
+          "constraints": [
+            "length >= 8"
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "udp_pseudo_header_format",
+      "pdus": [
+        "udp_pseudo_header"
+      ],
+      "bit_string_types": [
+        {
+          "name": "source_address_bits",
+          "size_bits": 32,
+          "description": "Source IPv4 address"
+        },
+        {
+          "name": "destination_address_bits",
+          "size_bits": 32,
+          "description": "Destination IPv4 address"
+        },
+        {
+          "name": "zero_bits",
+          "size_bits": 8,
+          "description": "Zero padding"
+        },
+        {
+          "name": "protocol_bits",
+          "size_bits": 8,
+          "description": "Protocol identifier"
+        },
+        {
+          "name": "udp_length_bits",
+          "size_bits": 16,
+          "description": "UDP length"
+        }
+      ],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "udp_pseudo_header",
+          "header_size_bytes": 12,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "source_address",
+              "display_name": "Source Address",
+              "offset_bits": 0,
+              "size_bits": 32,
+              "type": "source_address_bits",
+              "optional": null,
+              "presence_condition": null,
+              "description": "IPv4 source address from IP header",
+              "constraints": []
+            },
+            {
+              "name": "destination_address",
+              "display_name": "Destination Address",
+              "offset_bits": 32,
+              "size_bits": 32,
+              "type": "destination_address_bits",
+              "optional": null,
+              "presence_condition": null,
+              "description": "IPv4 destination address from IP header",
+              "constraints": []
+            },
+            {
+              "name": "zero",
+              "display_name": "Zero",
+              "offset_bits": 64,
+              "size_bits": 8,
+              "type": "zero_bits",
+              "optional": null,
+              "presence_condition": null,
+              "description": "Zero padding field for checksum calculation",
+              "constraints": [
+                "zero == 0"
+              ]
+            },
+            {
+              "name": "protocol",
+              "display_name": "Protocol",
+              "offset_bits": 72,
+              "size_bits": 8,
+              "type": "protocol_bits",
+              "optional": null,
+              "presence_condition": null,
+              "description": "IP protocol number; for UDP it is 17",
+              "constraints": [
+                "protocol == 17"
+              ]
+            },
+            {
+              "name": "udp_length",
+              "display_name": "UDP Length",
+              "offset_bits": 80,
+              "size_bits": 16,
+              "type": "udp_length_bits",
+              "optional": null,
+              "presence_condition": null,
+              "description": "Length field from the UDP header",
+              "constraints": []
+            }
+          ],
+          "payload": {
+            "name": null,
+            "offset_bits": null,
+            "size": null
+          },
+          "constraints": [
+            "zero == 0",
+            "protocol == 17"
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

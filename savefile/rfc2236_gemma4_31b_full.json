@@ -1,0 +1,12 @@
+{
+  "summary": "This section of RFC 2236 defines the security considerations for the Internet Group Management Protocol (IGMPv2), as well as the changes from IGMPv1, and administrative details. It details the risks associated with forged Query, Report, and Leave messages, and proposes defense mechanisms against these attacks. It also outlines the technical differences between IGMPv1 and IGMPv2, specifically in the technical structure of the message types, the introduction of a new querier election mechanism, and the stability of the requirements for the IP Router Alert option.",
+  "key_points": [
+    "Security Considerations: Forged Query messages can hijack the Querier role, potentially causing traffic to flow to groups with no members if the forger ignores Leave messages.",
+    "Security Considerations: Forged Report messages can trick routers into thinking members are present on a subnet, causing unnecessary traffic.",
+    "Securitynesses: Forged Leave messages cause the router to send Group-Specific Queries, increasing processing overhead for routers and members.",
+    "Security Defenses: Suggested defenses include ignoring messages from source addresses not belonging to the local subnet or requiring the IP Router Alert option (RFC 2113).",
+    "Changes from IGMPv1: IGMPv2 combines the 'Version' and 'Type' fields into one, introduces a new 'Leave Group' message type, and adds a 'Max Response Time' field to Membership Queries.",
+    "Changes from IGMPv1: A standardized querier election mechanism is introduced to prevent multiple queriers per network.",
+    "Changes from IGMPv1: The IGMPv2 specification requires the IP Router Alert option in all packets."
+  ]
+}

@@ -1,0 +1,214 @@
+{
+  "protocol": "RIPng",
+  "rfc": "RFC 2080 – RIPng for IPv6",
+  "packet": [
+    {
+      "name": "RipngPacket",
+      "pdus": [
+        "RipngPacket"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "RipngHeader",
+          "header_size_bytes": 4,
+          "byte_order": "big-endian",
+          "fields": [
+            {
+              "name": "command",
+              "display_name": "Command",
+              "offset_bits": 0,
+              "size_bits": 8,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "Command field indicating the purpose of the message.",
+              "constraints": []
+            },
+            {
+              "name": "version",
+              "display_name": "Version",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "Protocol version number.",
+              "constraints": []
+            },
+            {
+              "name": "must_be_zero",
+              "display_name": "Reserved",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "Reserved field, must be zero.",
+              "constraints": [
+                "must_be_zero == 0"
+              ]
+            }
+          ],
+          "payload": {
+            "name": "route_table_entries",
+            "offset_bits": 32,
+            "size": null
+          },
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "RouteTableEntry",
+      "pdus": [
+        "RouteTableEntry"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "RouteTableEntry",
+          "header_size_bytes": null,
+          "byte_order": "big-endian",
+          "fields": [
+            {
+              "name": "ipv6_prefix",
+              "display_name": "IPv6 Prefix",
+              "offset_bits": 0,
+              "size_bits": 128,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "IPv6 prefix for the route.",
+              "constraints": []
+            },
+            {
+              "name": "route_tag",
+              "display_name": "Route Tag",
+              "offset_bits": 128,
+              "size_bits": 16,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "Route tag field.",
+              "constraints": []
+            },
+            {
+              "name": "prefix_len",
+              "display_name": "Prefix Length",
+              "offset_bits": 144,
+              "size_bits": 8,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "Prefix length field.",
+              "constraints": []
+            },
+            {
+              "name": "metric",
+              "display_name": "Metric",
+              "offset_bits": 152,
+              "size_bits": 8,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "Metric value.",
+              "constraints": []
+            }
+          ],
+          "payload": null,
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    },
+    {
+      "name": "NextHopRouteTableEntry",
+      "pdus": [
+        "NextHopRouteTableEntry"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "NextHopRouteTableEntry",
+          "header_size_bytes": null,
+          "byte_order": "big-endian",
+          "fields": [
+            {
+              "name": "ipv6_next_hop_address",
+              "display_name": "IPv6 Next Hop Address",
+              "offset_bits": 0,
+              "size_bits": 128,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "Next hop IPv6 address.",
+              "constraints": []
+            },
+            {
+              "name": "must_be_zero_2",
+              "display_name": "Reserved",
+              "offset_bits": 128,
+              "size_bits": 16,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "Reserved field, must be zero.",
+              "constraints": [
+                "must_be_zero_2 == 0"
+              ]
+            },
+            {
+              "name": "must_be_zero_1",
+              "display_name": "Reserved",
+              "offset_bits": 144,
+              "size_bits": 8,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "Reserved field, must be zero.",
+              "constraints": [
+                "must_be_zero_1 == 0"
+              ]
+            },
+            {
+              "name": "marker_ff",
+              "display_name": "Marker FF",
+              "offset_bits": 152,
+              "size_bits": 8,
+              "type": null,
+              "optional": null,
+              "presence_condition": null,
+              "description": "Marker byte with value 0xFF.",
+              "constraints": [
+                "marker_ff == 0xFF"
+              ]
+            }
+          ],
+          "payload": null,
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "source_document": "RFC 2080: RIPng for IPv6 (January 1997)",
+  "extracted_information": {
+    "topics": [
+      {
+        "topic": "Responding to Multiple Link-Local Addresses (RFC 2080)",
+        "summary": "If a router has multiple link-local addresses on a single physical interface, it must only originate a single Response message source address. The choice of this address should only change when the current choice is invalid. Using multiple source addresses for the same router will cause receiving nodes to assume they come from different routers, leading to undesirable behavior.",
+        "details": [
+          "Multiple link-local addresses can exist on a single physical interface, carrying multiple logical IPv6 networks.",
+          "When generating a Response message, the router must use the source address of the designated link-local address for a given interface.",
+          "The source address should remain constant unless the current choice is no longer valid."
+        ],
+        "context_page_numbers": [
+          15
+        ]
+      },
+      {
+        "topic": "RIPng Update Generation Procedures (RFC 2080)",
+        "summary": "Describes the process of creating a RIPng Response message: setting the version number, setting the command type, zeroing specific bytes, filling in Routing Table Entries (RTEs), respecting the MTU limit by sending sequential updates, and adhering to specific inclusion/exclusion rules for routes.",
+        "details": [
+          "Set version number to the current version of RIPng (version 1, as described in the document).",
+          "Set the command to Response.",
+          "Set bytes labeled 'must be zero' to zero.",
+          "Fill in RTEs: Examine each route in the routing table.",
+          "Exclusion rules: Routes to link-local addresses must *never* be included in an RTE.",
+          "Triggered Update rules: Only entries whose route change flags are set need be included.",
+          "Split Horizon rules: If the route should not be included after Split Horizon processing, skip it.",
+          "Inclusion rules: If the route is included, the destination prefix, prefix length, and metric are put into the RTE. The route tag is filled as defined in section 2.1.",
+          "Crucially, routes must be included in the datagram even if their metrics are infinite."
+        ],
+        "context_page_numbers": [
+          15
+        ]
+      },
+      {
+        "topic": "Split Horizon Algorithm (RFC 2080)",
+        "summary": "A mechanism designed to prevent routing update loops or inconsistencies by preventing the advertising of routes back out the interface from which they were learned. The preferred variant is Poison Reverse, which includes the routes but sets their metrics to infinity, effectively advertising that they are unreachable.",
+        "details": [
+          "Basic Split Horizon: Omits routes learned from one neighbor in updates sent to that neighbor. In a broadcast network, all routes learned from any neighbor on that network are omitted.",
+          "Poison Reverse (Preferred): Includes the routes in updates but sets their metrics to infinity, signaling unreachability.",
+          "Flexibility: Implementations should allow control over 'no horizoning', 'split horizoning', and 'poisoned reverse' per interface.",
+          "Theoretical discussion can be found in section 2.1.1 of [1]."
+        ],
+        "context_page_numbers": [
+          15
+        ]
+      },
+      {
+        "topic": "Administrative Controls for RIPng (RFC 2080)",
+        "summary": "Optional controls intended to improve RIPng stability and security, although not required by the core protocol. These allow administrators to manage trust and scope of routing information.",
+        "details": [
+          "Neighbor List: Allows restricting the set of neighbors allowed to send or receive updates.",
+          "Destination Filter: Permits specifying a list of allowed or disallowed destination prefixes for incoming or outgoing Response messages.",
+          "Default Behavior: By default, no restrictions are applied for any control.",
+          "Goal: These controls are vital for connecting RIPng to unstable or error-prone networks, such as restricting which networks are visible to third parties (e.g., Organization A limiting B's networks from being advertised to third parties)."
+        ],
+        "context_page_numbers": [
+          16
+        ]
+      },
+      {
+        "topic": "Security Considerations (RFC 2080)",
+        "summary": "Since RIPng operates over IPv6, it relies on standard IP security protocols to guarantee the integrity, authenticity, and confidentiality of routing exchanges.",
+        "details": [
+          "Authentication/Integrity: Relies on the IP Authentication Header (RFC 1826).",
+          "Confidentiality/Integrity: Relies on the IP Encapsulating Security Payload (ESP) (RFC 1827)."
+        ],
+        "context_page_numbers": [
+          17
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "user": "I need to understand this RFC document. Can you summarize the key points?",
+  "context": "The user is asking me to analyze and summarize this RFC document (RFC 2080) regarding RIPng for IPv6.",
+  "goals": [
+    "Summarize the main sections of the RFC",
+    "Identify key technical concepts covered",
+    "Highlight security and control mechanisms",
+    "Point out any important notes or requirements"
+  ],
+  "analysis": {
+    "document_type": "RFC (Request for Comments)",
+    "title": "RIPng for IPv6",
+    "author": "Malkin & Minnear, RFC 2080, January 1997",
+    "purpose": "Defines Routing Information Protocol Version 1 (RIPng) for IPv6 to replace RIP version 2 which used IP address families",
+    ", ": " },"
+  }
+}

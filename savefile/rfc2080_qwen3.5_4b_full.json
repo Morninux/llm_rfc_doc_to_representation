@@ -1,0 +1,172 @@
+{
+  "name": "rfc2080",
+  "text": "",
+  "title": "RIPng for IPv6",
+  "section_count": 5,
+  "references": [
+    {
+      "id": "1",
+      "authors": [
+        "Hedrick"
+      ],
+      "title": "Routing Information Protocol",
+      "reference_number": "RFC 1058",
+      "publisher": "Rutgers University",
+      "date": "June 1988"
+    },
+    {
+      "id": "2",
+      "authors": [
+        "Malkin"
+      ],
+      "title": "RIP Version 2 - Carrying Additional Information",
+      "reference_number": "RFC 1723",
+      "publisher": "Xylogics, Inc.",
+      "date": "November 1994"
+    },
+    {
+      "id": "3",
+      "authors": [
+        "Hinden"
+      ],
+      "title": "IP Next Generation Overview",
+      "reference_number": "Work in Progress",
+      "publisher": "Work in Progress",
+      "date": ""
+    },
+    {
+      "id": "4",
+      "authors": [
+        "Bellman"
+      ],
+      "title": "Dynamic Programming",
+      "reference_number": "",
+      "publisher": "Princeton University Press",
+      "location": "Princeton, N.J.",
+      "date": "1957"
+    },
+    {
+      "id": "5",
+      "authors": [
+        "Bertsekas",
+        "Gallaher"
+      ],
+      "title": "Data Networks",
+      "reference_number": "",
+      "publisher": "Prentice-Hall",
+      "location": "Englewood Cliffs, N.J.",
+      "date": "1987"
+    },
+    {
+      "id": "6",
+      "authors": [
+        "Braden",
+        "Postel"
+      ],
+      "title": "Requirements for Internet Gateways",
+      "reference_number": "RFC 1009",
+      "publisher": "USC/Information Sciences Institute",
+      "standard_id": "STD 4",
+      "date": "June 1987"
+    },
+    {
+      "id": "7",
+      "authors": [
+        "Boggs",
+        "Shoch",
+        "Taft",
+        "Metcalfe"
+      ],
+      "title": "Pup: An Internetwork Architecture",
+      "reference_number": "",
+      "publisher": "IEEE Transactions on Communications",
+      "date": "April 1980"
+    },
+    {
+      "id": "8",
+      "authors": [
+        "Ford",
+        "Fulkerson"
+      ],
+      "title": "Flows in Networks",
+      "reference_number": "",
+      "publisher": "Princeton University Press",
+      "location": "Princeton, N.J.",
+      "date": "1962"
+    },
+    {
+      "id": "9",
+      "authors": [
+        "Xerox Corp."
+      ],
+      "title": "Internet Transport Protocols",
+      "reference_number": "XSIS 028112",
+      "publisher": "Xerox System Integration Standard",
+      "date": "December 1981"
+    },
+    {
+      "id": "10",
+      "authors": [
+        "Narten",
+        "Nordmark",
+        "Simpson"
+      ],
+      "title": "Neighbor Discovery for IP Version 6 (IPv6)",
+      "reference_number": "RFC 1970",
+      "publisher": "",
+      "date": "August 1996"
+    },
+    {
+      "id": "11",
+      "authors": [
+        "Atkinson"
+      ],
+      "title": "IP Authentication Header",
+      "reference_number": "RFC 1826",
+      "publisher": "Naval Research Laboratory",
+      "date": "August 1995"
+    },
+    {
+      "id": "12",
+      "authors": [
+        "Atkinson"
+      ],
+      "title": "IP Encapsulating Security Payload (ESP)",
+      "reference_number": "RFC 1827",
+      "publisher": "Naval Research Laboratory",
+      "date": "August 1995"
+    },
+    {
+      "id": "13",
+      "authors": [
+        "Floyd",
+        "Jacobson"
+      ],
+      "title": "The Synchronization of Periodic Routing Messages",
+      "reference_number": "",
+      "publisher": "Proceedings of ACM SIGCOMM '93",
+      "date": "September 1993"
+    }
+  ],
+  "author": {
+    "authors": [
+      {
+        "name": "Gary Scott Malkin",
+        "organization": "Xylogics, Inc.",
+        "address_line_1": "53 Third Avenue",
+        "address_line_2": "Burlington, MA 01803"
+      },
+      {
+        "name": "Robert E. Minnear",
+        "organization": "Ipsilon Networks, Inc.",
+        "address_line_1": "2191 E. Bayshore Road, Suite 100",
+        "address_line_2": "Palo Alto, CA 94303"
+      }
+    ],
+    "date": {
+      "year": "January",
+      "month": null,
+      "day": null
+    }
+  }
+}

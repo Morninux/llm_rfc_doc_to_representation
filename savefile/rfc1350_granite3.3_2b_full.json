@@ -1,0 +1,13 @@
+{
+  "version": "1.0",
+  "status": "RECOMMENDATION",
+  "area": "APPSOCI",
+  "title": "TFTP Revision 2",
+  "publisher": "USA Standard Code for Information Interchange (USASI) X3.4-1968",
+  "identifier": "RFC 1350",
+  "howpublished": "RFC 1350, 'TFTP Revision 2', July 1992, <https://tools.ietf.org/html-single/rfc1350>",
+  "series": "Request for Comments",
+  "copyright": "{C} Karen R. Sollins, Massachusetts Institute of Technology Laboratory for Computer Science",
+  "revision": "2",
+  "abstract": "This document describes TFTP Revision 2, which provides enhanced functionality, improved error handling, and a more robust data transfer mechanism. It introduces new packet types, including the WRQ, DATA, ACK, and ERROR packets, as well as a mechanism for normal termination and error handling. The document also discusses the use of transfer identifiers (TIDs) for source and destination ports, aligning TFTP with the Internet User Datagram Protocol (UDP)."
+}

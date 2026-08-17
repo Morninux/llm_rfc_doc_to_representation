@@ -1,0 +1,89 @@
+{
+  "protocol": "User Datagram Protocol (UDP)",
+  "rfc": "768",
+  "packet": [
+    {
+      "name": "user_datagram_header",
+      "pdus": [
+        "user_datagram_header"
+      ],
+      "bit_string_types": [
+        {
+          "name": "source_address",
+          "size_bits": 32,
+          "description": "Source IP address (32 bits)"
+        },
+        {
+          "name": "destination_address",
+          "size_bits": 32,
+          "description": "Destination IP address (32 bits)"
+        },
+        {
+          "name": "protocol",
+          "size_bits": 8,
+          "description": "Protocol (8 bits, typically UDP)"
+        },
+        {
+          "name": "udp_length",
+          "size_bits": 16,
+          "description": "UDP header length and data length (16 bits)"
+        },
+        {
+          "name": "checksum",
+          "size_bits": 16,
+          "description": "Checksum (16 bits)"
+        }
+      ],
+      "structure_types": [
+        {
+          "name": "user_datagram_header",
+          "byte_order": "big_endian",
+          "fields": [
+            {
+              "name": "source_port",
+              "display_name": "Source Port",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "integer",
+              "optional": true,
+              "description": "Source port number, zero if not used"
+            },
+            {
+              "name": "destination_port",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "integer",
+              "description": "Destination port number"
+            },
+            {
+              "name": "length",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "integer",
+              "description": "Total length of the UDP header and data"
+            },
+            {
+              "name": "checksum",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "integer",
+              "description": "1's complement of the one's complement sum of the header and data"
+            }
+          ],
+          "payload": {
+            "name": "data_octets",
+            "offset_bits": 0,
+            "size": "expression: length - 8"
+          },
+          "constraints": [],
+          "parse_from": "network byte order",
+          "serialize_to": "network byte order"
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}

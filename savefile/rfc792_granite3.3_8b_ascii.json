@@ -1,0 +1,1001 @@
+{
+  "protocol": "ICMP",
+  "rfc": "792",
+  "packet": [
+    {
+      "name": "destination_unreachable",
+      "pdus": [
+        "destination_unreachable"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "icmp_header",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "type",
+              "display_name": "Type",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Indicates the ICMP message type.",
+              "constraints": [
+                "type == 3"
+              ]
+            },
+            {
+              "name": "code",
+              "display_name": "Code",
+              "offset_bits": 16,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Provides additional detail about the ICMP message type.",
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Provides error-checking information.",
+              "constraints": []
+            },
+            {
+              "name": "unused",
+              "display_name": "Unused",
+              "offset_bits": 48,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Reserved bytes, should be zero.",
+              "constraints": []
+            },
+            {
+              "name": "internet_header_plus_64_bits_of_original_data",
+              "display_name": "Internet Header + 64 bits of Original Data Datagram",
+              "offset_bits": 64,
+              "size_bits": null,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Includes the original IP datagram.",
+              "constraints": []
+            }
+          ],
+          "ip_fields": [
+            {
+              "name": "destination_address",
+              "display_name": "Destination Address",
+              "description": "The source network and address from the original datagram's data."
+            }
+          ]
+        }
+      ],
+      "ip_fields": [],
+      "icmp_fields": [
+        {
+          "name": "type",
+          "display_name": "Type",
+          "description": "Indicates the ICMP message type, for destination_unreachable it's 3."
+        },
+        {
+          "name": "code",
+          "display_name": "Code",
+          "description": "Provides additional detail about the ICMP message type, for destination_unreachable it's typically 0, 1, 2, 3, or 4."
+        }
+      ]
+    },
+    {
+      "name": "echo_request",
+      "pdus": [
+        "echo_request"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "icmp_header",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "type",
+              "display_name": "Type",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Indicates the ICMP message type.",
+              "constraints": [
+                "type == 8"
+              ]
+            },
+            {
+              "name": "code",
+              "display_name": "Code",
+              "offset_bits": 16,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Provides additional detail about the ICMP message type.",
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Provides error-checking information.",
+              "constraints": []
+            },
+            {
+              "name": "identifier",
+              "display_name": "Identifier",
+              "offset_bits": 48,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "For echo messages, this field identifies the echo request.",
+              "constraints": []
+            },
+            {
+              "name": "sequence_number",
+              "display_name": "Sequence Number",
+              "offset_bits": 64,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "For echo messages, this field specifies the sequence of echo requests.",
+              "constraints": []
+            }
+          ],
+          "ip_fields": []
+        }
+      ],
+      "ip_fields": [],
+      "icmp_fields": [
+        {
+          "name": "type",
+          "display_name": "Type",
+          "description": "Indicates the ICMP message type, for echo_request it's 8."
+        },
+        {
+          "name": "identifier",
+          "display_name": "Identifier",
+          "description": "For echo messages, this field identifies the echo request."
+        },
+        {
+          "name": "sequence_number",
+          "display_name": "Sequence Number",
+          "description": "For echo messages, this field specifies the sequence of echo requests."
+        }
+      ]
+    },
+    {
+      "name": "echo_reply",
+      "pdus": [
+        "echo_reply"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "icmp_header",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "type",
+              "display_name": "Type",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Indicates the ICMP message type.",
+              "constraints": [
+                "type == 0"
+              ]
+            },
+            {
+              "name": "code",
+              "display_name": "Code",
+              "offset_bits": 16,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Provides additional detail about the ICMP message type.",
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Provides error-checking information.",
+              "constraints": []
+            },
+            {
+              "name": "identifier",
+              "display_name": "Identifier",
+              "offset_bits": 48,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "For echo replies, this field matches the identifier of the corresponding echo request.",
+              "constraints": []
+            },
+            {
+              "name": "sequence_number",
+              "display_name": "Sequence Number",
+              "offset_bits": 64,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "For echo replies, this field matches the sequence number of the corresponding echo request.",
+              "constraints": []
+            }
+          ],
+          "ip_fields": []
+        }
+      ],
+      "ip_fields": [],
+      "icmp_fields": [
+        {
+          "name": "type",
+          "display_name": "Type",
+          "description": "Indicates the ICMP message type, for echo_reply it's 0."
+        },
+        {
+          "name": "identifier",
+          "display_name": "Identifier",
+          "description": "For echo replies, this field matches the identifier of the corresponding echo request."
+        },
+        {
+          "name": "sequence_number",
+          "display_name": "Sequence Number",
+          "description": "For echo replies, this field matches the sequence number of the corresponding echo request."
+        }
+      ]
+    },
+    {
+      "name": "redirect",
+      "pdus": [
+        "redirect"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "icmp_header",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "type",
+              "display_name": "Type",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Indicates the ICMP message type.",
+              "constraints": [
+                "type == 5"
+              ]
+            },
+            {
+              "name": "code",
+              "display_name": "Code",
+              "offset_bits": 16,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Provides additional detail about the ICMP message type.",
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Provides error-checking information.",
+              "constraints": []
+            },
+            {
+              "name": "gateway_internet_address",
+              "display_name": "Gateway Internet Address",
+              "offset_bits": 48,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Contains the IP address of the first hop on the route to the requested network or host.",
+              "constraints": []
+            },
+            {
+              "name": "internet_header_plus_64_bits_of_original_data",
+              "display_name": "Internet Header + 64 bits of Original Data Datagram",
+              "offset_bits": 64,
+              "size_bits": null,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Includes the original IP datagram.",
+              "constraints": []
+            }
+          ],
+          "ip_fields": []
+        }
+      ],
+      "ip_fields": [],
+      "icmp_fields": [
+        {
+          "name": "type",
+          "display_name": "Type",
+          "description": "Indicates the ICMP message type, for redirect it's 5."
+        },
+        {
+          "name": "gateway_internet_address",
+          "display_name": "Gateway Internet Address",
+          "description": "Contains the IP address of the first hop on the route to the requested network or host."
+        }
+      ]
+    },
+    {
+      "name": "timestamp_request",
+      "pdus": [
+        "timestamp_request"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "icmp_header",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "type",
+              "display_name": "Type",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Indicates the ICMP message type.",
+              "constraints": [
+                "type == 13"
+              ]
+            },
+            {
+              "name": "code",
+              "display_name": "Code",
+              "offset_bits": 16,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Provides additional detail about the ICMP message type.",
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Provides error-checking information.",
+              "constraints": []
+            },
+            {
+              "name": "origin_timestamp",
+              "display_name": "Origin Timestamp",
+              "offset_bits": 48,
+              "size_bits": 6,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Time when the request was sent, in milliseconds.",
+              "constraints": []
+            },
+            {
+              "name": "round_trip_timestamp",
+              "display_name": "Round Trip Timestamp",
+              "offset_bits": 64,
+              "size_bits": 6,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Reserved for response.",
+              "constraints": []
+            }
+          ],
+          "ip_fields": []
+        }
+      ],
+      "ip_fields": [],
+      "icmp_fields": [
+        {
+          "name": "type",
+          "display_name": "Type",
+          "description": "Indicates the ICMP message type, for timestamp_request it's 13."
+        },
+        {
+          "name": "origin_timestamp",
+          "display_name": "Origin Timestamp",
+          "description": "Time when the request was sent, in milliseconds."
+        }
+      ]
+    },
+    {
+      "name": "timestamp_reply",
+      "pdus": [
+        "timestamp_reply"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "icmp_header",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "type",
+              "display_name": "Type",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Indicates the ICMP message type.",
+              "constraints": [
+                "type == 14"
+              ]
+            },
+            {
+              "name": "code",
+              "display_name": "Code",
+              "offset_bits": 16,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Provides additional detail about the ICMP message type.",
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Provides error-checking information.",
+              "constraints": []
+            },
+            {
+              "name": "origin_timestamp",
+              "display_name": "Origin Timestamp",
+              "offset_bits": 48,
+              "size_bits": 6,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Time when the request was sent, in milliseconds.",
+              "constraints": []
+            },
+            {
+              "name": "round_trip_timestamp",
+              "display_name": "Round Trip Timestamp",
+              "offset_bits": 64,
+              "size_bits": 6,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Time when the reply was received, in milliseconds.",
+              "constraints": []
+            }
+          ],
+          "ip_fields": []
+        }
+      ],
+      "ip_fields": [],
+      "icmp_fields": [
+        {
+          "name": "type",
+          "display_name": "Type",
+          "description": "Indicates the ICMP message type, for timestamp_reply it's 14."
+        },
+        {
+          "name": "origin_timestamp",
+          "display_name": "Origin Timestamp",
+          "description": "Time when the request was sent, in milliseconds."
+        },
+        {
+          "name": "round_trip_timestamp",
+          "display_name": "Round Trip Timestamp",
+          "description": "Time when the reply was received, in milliseconds."
+        }
+      ]
+    },
+    {
+      "name": "source_quota_exceeded",
+      "pdus": [
+        "source_quota_exceeded"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "icmp_header",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "type",
+              "display_name": "Type",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Indicates the ICMP message type.",
+              "constraints": [
+                "type == 15"
+              ]
+            },
+            {
+              "name": "code",
+              "display_name": "Code",
+              "offset_bits": 16,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Provides additional detail about the ICMP message type.",
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Provides error-checking information.",
+              "constraints": []
+            }
+          ],
+          "ip_fields": []
+        }
+      ],
+      "ip_fields": [],
+      "icmp_fields": [
+        {
+          "name": "type",
+          "display_name": "Type",
+          "description": "Indicates the ICMP message type, for source_quota_exceeded it's 15."
+        }
+      ]
+    },
+    {
+      "name": "destination_unreachable",
+      "pdus": [
+        "destination_unreachable"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "icmp_header",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "type",
+              "display_name": "Type",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Indicates the ICMP message type.",
+              "constraints": [
+                "type == 0"
+              ]
+            },
+            {
+              "name": "code",
+              "display_name": "Code",
+              "offset_bits": 16,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Provides additional detail about the ICMP message type.",
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Provides error-checking information.",
+              "constraints": []
+            }
+          ],
+          "ip_fields": []
+        }
+      ],
+      "ip_fields": [],
+      "icmp_fields": [
+        {
+          "name": "type",
+          "display_name": "Type",
+          "description": "Indicates the ICMP message type, for destination_unreachable it's 0."
+        }
+      ]
+    },
+    {
+      "name": "packet_too_big",
+      "pdus": [
+        "packet_too_big"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "icmp_header",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "type",
+              "display_name": "Type",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Indicates the ICMP message type.",
+              "constraints": [
+                "type == 1"
+              ]
+            },
+            {
+              "name": "code",
+              "display_name": "Code",
+              "offset_bits": 16,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Provides additional detail about the ICMP message type.",
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Provides error-checking information.",
+              "constraints": []
+            },
+            {
+              "name": "mtu",
+              "display_name": "MTU",
+              "offset_bits": 48,
+              "size_bits": 6,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Maximum transmission unit that caused the error.",
+              "constraints": []
+            }
+          ],
+          "ip_fields": []
+        }
+      ],
+      "ip_fields": [],
+      "icmp_fields": [
+        {
+          "name": "type",
+          "display_name": "Type",
+          "description": "Indicates the ICMP message type, for packet_too_big it's 1."
+        },
+        {
+          "name": "mtu",
+          "display_name": "MTU",
+          "description": "Maximum transmission unit that caused the error."
+        }
+      ]
+    },
+    {
+      "name": "time_exceeded",
+      "pdus": [
+        "time_exceeded"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "icmp_header",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "type",
+              "display_name": "Type",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Indicates the ICMP message type.",
+              "constraints": [
+                "type == 2"
+              ]
+            },
+            {
+              "name": "code",
+              "display_name": "Code",
+              "offset_bits": 16,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Provides additional detail about the ICMP message type.",
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Provides error-checking information.",
+              "constraints": []
+            }
+          ],
+          "ip_fields": []
+        }
+      ],
+      "ip_fields": [],
+      "icmp_fields": [
+        {
+          "name": "type",
+          "display_name": "Type",
+          "description": "Indicates the ICMP message type, for time_exceeded it's 2."
+        }
+      ]
+    },
+    {
+      "name": "echo_request",
+      "pdus": [
+        "echo_request"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "icmp_header",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "type",
+              "display_name": "Type",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Indicates the ICMP message type.",
+              "constraints": [
+                "type == 8"
+              ]
+            },
+            {
+              "name": "code",
+              "display_name": "Code",
+              "offset_bits": 16,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Provides additional detail about the ICMP message type.",
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Provides error-checking information.",
+              "constraints": []
+            },
+            {
+              "name": "identifier",
+              "display_name": "Identifier",
+              "offset_bits": 48,
+              "size_bits": 3,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Value used to identify the request.",
+              "constraints": []
+            },
+            {
+              "name": "sequence_number",
+              "display_name": "Sequence Number",
+              "offset_bits": 64,
+              "size_bits": 6,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Value used to identify the request.",
+              "constraints": []
+            }
+          ],
+          "ip_fields": []
+        }
+      ],
+      "ip_fields": [],
+      "icmp_fields": [
+        {
+          "name": "type",
+          "display_name": "Type",
+          "description": "Indicates the ICMP message type, for echo_request it's 8."
+        },
+        {
+          "name": "identifier",
+          "display_name": "Identifier",
+          "description": "Value used to identify the request."
+        },
+        {
+          "name": "sequence_number",
+          "display_name": "Sequence Number",
+          "description": "Value used to identify the request."
+        }
+      ]
+    },
+    {
+      "name": "echo_reply",
+      "pdus": [
+        "echo_reply"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "icmp_header",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "type",
+              "display_name": "Type",
+              "offset_bits": 8,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Indicates the ICMP message type.",
+              "constraints": [
+                "type == 0"
+              ]
+            },
+            {
+              "name": "code",
+              "display_name": "Code",
+              "offset_bits": 16,
+              "size_bits": 8,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Provides additional detail about the ICMP message type.",
+              "constraints": []
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Provides error-checking information.",
+              "constraints": []
+            },
+            {
+              "name": "identifier",
+              "display_name": "Identifier",
+              "offset_bits": 48,
+              "size_bits": 3,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Value used to identify the request.",
+              "constraints": []
+            },
+            {
+              "name": "sequence_number",
+              "display_name": "Sequence Number",
+              "offset_bits": 64,
+              "size_bits": 6,
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Value used to identify the request.",
+              "constraints": []
+            }
+          ],
+          "ip_fields": []
+        }
+      ],
+      "ip_fields": [],
+      "icmp_fields": [
+        {
+          "name": "type",
+          "display_name": "Type",
+          "description": "Indicates the ICMP message type, for echo_reply it's 0."
+        },
+        {
+          "name": "identifier",
+          "display_name": "Identifier",
+          "description": "Value used to identify the request."
+        },
+        {
+          "name": "sequence_number",
+          "display_name": "Sequence Number",
+          "description": "Value used to identify the request."
+        }
+      ]
+    }
+  ]
+}
