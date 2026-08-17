@@ -16,8 +16,8 @@ from result_exporter import (
 from rfc_loader import discover_rfc_numbers
 
 
-EXPECTED_MODEL_COUNT = 10
-RFC_LIMIT = 10
+EXPECTED_MODEL_COUNT = 15
+RFC_LIMIT = 5
 
 
 def parse_arguments():
