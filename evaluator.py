@@ -119,6 +119,23 @@ def score_merge_output(reference, standardized_test_file):
     return precision, recall, f1
 
 
+def format_standardized():
+    input_folder = "savefile"
+    output_folder = "savefile/standardized_file"
+    os.makedirs(output_folder, exist_ok=True)
+
+    for name in os.listdir(input_folder):
+        if name.endswith(".json"):
+            with open(input_folder + "/" + name, "r", encoding="utf-8") as file:
+                data = json.load(file)
+
+            data = json.dumps(data)
+            data = data.lower().replace("_", " ")
+
+            with open(output_folder + "/" + name, "w", encoding="utf-8") as file:
+                file.write(data)
+
+
 def save_evaluation_results():
     project_folder = os.path.dirname(os.path.abspath(__file__))
     reference_folder = project_folder + "/reference/standardized_file"
@@ -126,6 +143,8 @@ def save_evaluation_results():
     result_folder = project_folder + "/evaluation_results"
     result_path = result_folder + "/result.txt"
     model_scores = {}
+
+    format_standardized()
 
     for name in os.listdir(generated_folder):
         if not name.endswith(".json"):
