@@ -1,83 +1,72 @@
 {
   "protocol": "User Datagram Protocol (UDP)",
-  "rfc": "768",
+  "rfc": "RFC 768",
   "packet": [
     {
-      "name": "user_datagram_header",
+      "name": "udp_header",
       "pdus": [
-        "user_datagram_header"
+        "udp_header"
       ],
-      "bit_string_types": [
-        {
-          "name": "source_address",
-          "size_bits": 32,
-          "description": "Source IP address (32 bits)"
-        },
-        {
-          "name": "destination_address",
-          "size_bits": 32,
-          "description": "Destination IP address (32 bits)"
-        },
-        {
-          "name": "protocol",
-          "size_bits": 8,
-          "description": "Protocol (8 bits, typically UDP)"
-        },
-        {
-          "name": "udp_length",
-          "size_bits": 16,
-          "description": "UDP header length and data length (16 bits)"
-        },
-        {
-          "name": "checksum",
-          "size_bits": 16,
-          "description": "Checksum (16 bits)"
-        }
-      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
       "structure_types": [
         {
-          "name": "user_datagram_header",
-          "byte_order": "big_endian",
+          "name": "udp_header",
+          "header_size_bytes": null,
+          "byte_order": null,
           "fields": [
             {
               "name": "source_port",
               "display_name": "Source Port",
               "offset_bits": 16,
               "size_bits": 16,
-              "type": "integer",
+              "type": "bit_string",
               "optional": true,
-              "description": "Source port number, zero if not used"
+              "presence_condition": null,
+              "description": "Optional field indicating the sender's port.",
+              "constraints": []
             },
             {
               "name": "destination_port",
+              "display_name": "Destination Port",
               "offset_bits": 16,
               "size_bits": 16,
-              "type": "integer",
-              "description": "Destination port number"
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Represents the port of the intended recipient.",
+              "constraints": []
             },
             {
               "name": "length",
+              "display_name": "Length",
               "offset_bits": 16,
               "size_bits": 16,
-              "type": "integer",
-              "description": "Total length of the UDP header and data"
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Length of the UDP data, minimum 8 octets.",
+              "constraints": [
+                "length >= 8"
+              ]
             },
             {
               "name": "checksum",
-              "offset_bits": 0,
+              "display_name": "Checksum",
+              "offset_bits": 16,
               "size_bits": 16,
-              "type": "integer",
-              "description": "1's complement of the one's complement sum of the header and data"
+              "type": "bit_string",
+              "optional": false,
+              "presence_condition": null,
+              "description": "16-bit one's complement of checksum of header and data.",
+              "constraints": []
             }
           ],
-          "payload": {
-            "name": "data_octets",
-            "offset_bits": 0,
-            "size": "expression: length - 8"
-          },
-          "constraints": [],
-          "parse_from": "network byte order",
-          "serialize_to": "network byte order"
+          "constraints": [
+            "length >= 8"
+          ],
+          "parse_from": null,
+          "serialize_to": null
         }
       ],
       "array_types": [],

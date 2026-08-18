@@ -5,7 +5,7 @@
     {
       "name": "User Datagram Header Format",
       "pdus": [
-        "UDP Datagram"
+        "UDP Header"
       ],
       "bit_string_types": [],
       "enumerated_types": [],
@@ -23,7 +23,7 @@
               "type": null,
               "optional": true,
               "presence_condition": null,
-              "description": "port of the sending process",
+              "description": "indicates the port of the sending process",
               "constraints": []
             },
             {
@@ -34,7 +34,7 @@
               "type": null,
               "optional": false,
               "presence_condition": null,
-              "description": "destination port",
+              "description": "Destination Port",
               "constraints": []
             },
             {
@@ -45,7 +45,7 @@
               "type": null,
               "optional": false,
               "presence_condition": null,
-              "description": "length of header and data",
+              "description": "Length",
               "constraints": [
                 "length >= 8"
               ]
@@ -58,21 +58,22 @@
               "type": null,
               "optional": false,
               "presence_condition": null,
-              "description": "16-bit one's complement of the one's complement sum of a pseudo header, UDP header, and data",
+              "description": "16-bit one's complement of the one's complement sum",
               "constraints": []
             }
           ],
-          "payload": {
-            "name": "data",
-            "offset_bits": 64,
-            "size": "length - 8"
-          },
           "constraints": [],
           "parse_from": null,
           "serialize_to": null
         }
       ],
-      "array_types": [],
+      "array_types": [
+        {
+          "name": "data_octets",
+          "element_type": "bit_string",
+          "length": "length - 8"
+        }
+      ],
       "parsing_context": [],
       "helper_functions": [],
       "transform_functions": []
@@ -80,13 +81,13 @@
     {
       "name": "Pseudo Header",
       "pdus": [
-        "Pseudo Header"
+        "UDP Pseudo Header"
       ],
       "bit_string_types": [],
       "enumerated_types": [],
       "structure_types": [
         {
-          "name": "pseudo_header",
+          "name": "udp_pseudo_header",
           "header_size_bytes": null,
           "byte_order": null,
           "fields": [
@@ -146,7 +147,6 @@
               "constraints": []
             }
           ],
-          "payload": null,
           "constraints": [],
           "parse_from": null,
           "serialize_to": null

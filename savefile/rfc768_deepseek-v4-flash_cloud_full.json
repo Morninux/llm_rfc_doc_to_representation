@@ -3,36 +3,41 @@
   "rfc": "RFC 768",
   "packet": [
     {
-      "name": "udp_header",
+      "name": "user_datagram_header_format",
       "pdus": [
-        "udp_datagram"
+        "user_datagram"
       ],
       "bit_string_types": [
         {
           "name": "source_port",
           "size_bits": 16,
-          "description": "Source Port, optional; indicates port of sending process; zero if not used."
+          "description": "Port of sending process; zero if not used."
         },
         {
           "name": "destination_port",
           "size_bits": 16,
-          "description": "Destination Port, meaning within context of a particular internet destination address."
+          "description": "Port of destination, meaningful within context of internet destination address."
         },
         {
           "name": "length",
           "size_bits": 16,
-          "description": "Length in octets of user datagram including header and data; minimum value is eight."
+          "description": "Length in octets of user datagram including header and data."
         },
         {
           "name": "checksum",
           "size_bits": 16,
-          "description": "16-bit one's complement of one's complement sum of pseudo header, UDP header, and data, padded with zero octets to make a multiple of two octets."
+          "description": "16-bit one's complement sum of pseudo header, UDP header, and data, padded to multiple of two octets; zero transmitted as all ones; all zero transmitted means no checksum."
+        },
+        {
+          "name": "octet",
+          "size_bits": 8,
+          "description": "A data octet."
         }
       ],
       "enumerated_types": [],
       "structure_types": [
         {
-          "name": "udp_datagram",
+          "name": "user_datagram",
           "header_size_bytes": 8,
           "byte_order": null,
           "fields": [
@@ -44,7 +49,7 @@
               "type": "source_port",
               "optional": true,
               "presence_condition": null,
-              "description": "Optional; indicates port of sending process; zero if not used.",
+              "description": "Port of sending process; zero if not used.",
               "constraints": []
             },
             {
@@ -55,7 +60,7 @@
               "type": "destination_port",
               "optional": false,
               "presence_condition": null,
-              "description": "Meaning within context of a particular internet destination address.",
+              "description": "Port of destination, meaningful within context of internet destination address.",
               "constraints": []
             },
             {
@@ -66,7 +71,7 @@
               "type": "length",
               "optional": false,
               "presence_condition": null,
-              "description": "Length in octets of user datagram including header and data; minimum value is eight.",
+              "description": "Length in octets of user datagram including header and data.",
               "constraints": [
                 "length >= 8"
               ]
@@ -79,40 +84,73 @@
               "type": "checksum",
               "optional": false,
               "presence_condition": null,
-              "description": "16-bit one's complement checksum; zero transmitted means no checksum generated.",
+              "description": "16-bit one's complement sum of pseudo header, UDP header, and data, padded to multiple of two octets; zero transmitted as all ones; all zero transmitted means no checksum.",
+              "constraints": []
+            },
+            {
+              "name": "data",
+              "display_name": "Data Octets",
+              "offset_bits": 64,
+              "size_bits": "(length - 8) * 8",
+              "type": "data_octets",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Payload data octets.",
               "constraints": []
             }
           ],
-          "payload": {
-            "name": "data",
-            "offset_bits": 64,
-            "size": "length - 8"
-          },
-          "constraints": [],
+          "constraints": [
+            "length >= 8"
+          ],
           "parse_from": null,
           "serialize_to": null
         }
       ],
-      "array_types": [],
-      "parsing_context": [],
-      "helper_functions": [],
+      "array_types": [
+        {
+          "name": "data_octets",
+          "element_type": "octet",
+          "length": "length - 8"
+        }
+      ],
+      "parsing_context": [
+        {
+          "name": "source_address",
+          "type": "ipv4_address",
+          "description": "Source IP address from IP header, used in pseudo header for checksum."
+        },
+        {
+          "name": "destination_address",
+          "type": "ipv4_address",
+          "description": "Destination IP address from IP header."
+        },
+        {
+          "name": "protocol",
+          "type": "uint8",
+          "description": "IP protocol number; for UDP is 17."
+        }
+      ],
+      "helper_functions": [
+        {
+          "name": "compute_checksum",
+          "description": "Computes 16-bit one's complement sum of pseudo header, UDP header, and data, padded with zero octets to multiple of two octets; if result is zero, transmitted as all ones."
+        }
+      ],
       "transform_functions": []
     },
     {
       "name": "pseudo_header",
-      "pdus": [
-        "pseudo_header"
-      ],
+      "pdus": [],
       "bit_string_types": [
         {
           "name": "source_address",
           "size_bits": 32,
-          "description": "Source address from IP header."
+          "description": "Source IP address from IP header."
         },
         {
           "name": "destination_address",
           "size_bits": 32,
-          "description": "Destination address from IP header."
+          "description": "Destination IP address from IP header."
         },
         {
           "name": "zero",
@@ -122,7 +160,7 @@
         {
           "name": "protocol",
           "size_bits": 8,
-          "description": "Protocol field from IP header; for UDP, value is 17."
+          "description": "IP protocol number; for UDP is 17."
         },
         {
           "name": "udp_length",
@@ -145,7 +183,7 @@
               "type": "source_address",
               "optional": false,
               "presence_condition": null,
-              "description": "Source address from IP header.",
+              "description": "Source IP address from IP header.",
               "constraints": []
             },
             {
@@ -156,7 +194,7 @@
               "type": "destination_address",
               "optional": false,
               "presence_condition": null,
-              "description": "Destination address from IP header.",
+              "description": "Destination IP address from IP header.",
               "constraints": []
             },
             {
@@ -180,7 +218,7 @@
               "type": "protocol",
               "optional": false,
               "presence_condition": null,
-              "description": "Protocol field from IP header; for UDP, value is 17.",
+              "description": "IP protocol number; for UDP is 17.",
               "constraints": [
                 "protocol == 17"
               ]
@@ -197,12 +235,10 @@
               "constraints": []
             }
           ],
-          "payload": {
-            "name": null,
-            "offset_bits": null,
-            "size": null
-          },
-          "constraints": [],
+          "constraints": [
+            "zero == 0",
+            "protocol == 17"
+          ],
           "parse_from": null,
           "serialize_to": null
         }
@@ -210,17 +246,27 @@
       "array_types": [],
       "parsing_context": [
         {
-          "name": "ip_header",
-          "type": "IP header",
-          "description": "Source address, destination address, and protocol field are obtained from the IP header."
-        }
-      ],
-      "helper_functions": [
+          "name": "source_address",
+          "type": "ipv4_address",
+          "description": "Source IP address from IP header."
+        },
         {
-          "name": "compute_checksum",
-          "description": "Computes 16-bit one's complement of one's complement sum of pseudo header, UDP header, and data, padded with zero octets to make a multiple of two octets. If computed checksum is zero, transmitted as all ones; all zero transmitted means no checksum generated."
+          "name": "destination_address",
+          "type": "ipv4_address",
+          "description": "Destination IP address from IP header."
+        },
+        {
+          "name": "protocol",
+          "type": "uint8",
+          "description": "IP protocol number; for UDP is 17."
+        },
+        {
+          "name": "udp_length",
+          "type": "uint16",
+          "description": "UDP length from UDP header."
         }
       ],
+      "helper_functions": [],
       "transform_functions": []
     }
   ]

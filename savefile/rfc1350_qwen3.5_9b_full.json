@@ -1,5 +1,0 @@
-{
-  "goal": "Extract information from the provided RFC document text to answer user queries.",
-  "constraints": "Use ONLY the provided text content for extraction and reasoning. Do not bring in external knowledge.",
-  "formatting": "Respond naturally, do not quote large blocks of text unless specifically asked or needed for clarification."
-}

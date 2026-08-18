@@ -88,11 +88,6 @@
               "constraints": []
             }
           ],
-          "payload": {
-            "name": "data_octets",
-            "offset_bits": 64,
-            "size": "length - 8"
-          },
           "constraints": [
             "length >= 8"
           ],
@@ -202,11 +197,6 @@
               "constraints": []
             }
           ],
-          "payload": {
-            "name": "",
-            "offset_bits": null,
-            "size": null
-          },
           "constraints": [],
           "parse_from": null,
           "serialize_to": null

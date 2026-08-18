@@ -1,4 +1,0 @@
-{
-  "user": "This looks like a document content, I am interested in understanding the document title and author",
-  "goal": "Extract the title and author of the document."
-}

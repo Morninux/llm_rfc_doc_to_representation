@@ -220,12 +220,6 @@ The JSON must follow this structure:
             }
           ],
 
-          "payload": {
-            "name": "string",
-            "offset_bits": "integer or null",
-            "size": "integer, expression, or null"
-          },
-
           "constraints": [
             "string"
           ],

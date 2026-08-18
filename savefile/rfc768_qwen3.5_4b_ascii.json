@@ -1,87 +1,88 @@
 {
-  "protocol": "User Datagram Protocol",
-  "rfc": "768",
+  "protocol": "UDP",
+  "rfc": "RFC 768",
   "packet": [
     {
-      "name": "UDPacket",
-      "pdus": [],
-      "bit_string_types": [],
+      "name": "User Datagram Protocol",
+      "pdus": [
+        "format"
+      ],
+      "bit_string_types": [
+        {
+          "name": "source_port",
+          "size_bits": "16",
+          "description": "Source Port is an optional field, when meaningful, it indicates the port of the sending process, and may be assumed to be the port to which a reply should be addressed in the absence of any other information. If not used, a value of zero is inserted."
+        },
+        {
+          "name": "destination_port",
+          "size_bits": "16",
+          "description": "Destination Port"
+        }
+      ],
       "enumerated_types": [],
       "structure_types": [
         {
-          "name": "User Datagram Header",
+          "name": "udp_header",
           "header_size_bytes": 8,
-          "byte_order": null,
+          "byte_order": "network",
           "fields": [
             {
               "name": "source_port",
               "display_name": "Source Port",
-              "offset_bits": 0,
-              "size_bits": 16,
-              "type": "bit_string_type",
+              "offset_bits": "0",
+              "size_bits": "16",
+              "type": "bit_string",
               "optional": true,
               "presence_condition": null,
-              "description": "The port of the sending process. If not used, a value of zero is inserted.",
+              "description": "when meaningful, it indicates the port of the sending process, and may be assumed to be the port to which a reply should be addressed in the absence of any other information. If not used, a value of zero is inserted.",
               "constraints": []
             },
             {
               "name": "destination_port",
               "display_name": "Destination Port",
-              "offset_bits": 16,
-              "size_bits": 16,
-              "type": "bit_string_type",
-              "optional": false,
+              "offset_bits": "16",
+              "size_bits": "16",
+              "type": "bit_string",
+              "optional": null,
               "presence_condition": null,
-              "description": "The port to which a reply should be addressed.",
+              "description": "",
               "constraints": []
             },
             {
               "name": "length",
               "display_name": "Length",
-              "offset_bits": 32,
-              "size_bits": 16,
-              "type": "bit_string_type",
-              "optional": false,
+              "offset_bits": "32",
+              "size_bits": "16",
+              "type": "bit_string",
+              "optional": null,
               "presence_condition": null,
-              "description": "The length of the UDP datagram in octets.",
+              "description": "",
               "constraints": []
             },
             {
               "name": "checksum",
               "display_name": "Checksum",
-              "offset_bits": 48,
-              "size_bits": 16,
-              "type": "bit_string_type",
-              "optional": false,
+              "offset_bits": "48",
+              "size_bits": "16",
+              "type": "bit_string",
+              "optional": null,
               "presence_condition": null,
-              "description": "The 16-bit one's complement of the one's complement sum of a pseudo header of information from the IP header, the UDP header, and the data.",
-              "constraints": []
-            },
-            {
-              "name": "data",
-              "display_name": "Data Octets",
-              "offset_bits": 64,
-              "size_bits": null,
-              "type": "bit_string_type",
-              "optional": false,
-              "presence_condition": null,
-              "description": "User data.",
+              "description": "",
               "constraints": []
             }
           ],
-          "payload": {
-            "name": "data",
-            "offset_bits": 64,
-            "size": null
-          },
-          "constraints": [
-            "length >= 8"
-          ],
+          "constraints": [],
           "parse_from": null,
           "serialize_to": null
         }
       ],
-      "array_types": [],
+      "array_types": [
+        {
+          "name": "payload",
+          "element_type": "octet",
+          "length": "integer"
+        }
+      ],
       "parsing_context": [],
       "helper_functions": [],
       "transform_functions": []

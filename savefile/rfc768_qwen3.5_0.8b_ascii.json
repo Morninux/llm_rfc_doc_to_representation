@@ -1,94 +1,305 @@
 {
-  "protocol": "HTTP/1.0",
-  "rfc": "RFC 768 packet-diagram candidates were located locally.",
+  "frame_number": "0",
+  "protocol": "IP/UDP",
+  "rfc": "RFC 768 packet-diagram candidates were located locally. Use only the candidate diagrams and their nearby RFC text below as evidence.",
   "packet": [
     {
-      "name": "user_data",
+      "name": "IP packet",
       "pdus": [
-        "User Datagram Header"
+        "IP header"
       ],
       "bit_string_types": [
         {
-          "name": "Source Port",
-          "size_bits": 0,
-          "description": "Optional field indicating the port of sending process."
+          "name": "Source Address",
+          "size_bits": "16",
+          "description": "Source address"
         },
         {
-          "name": "Destination Port",
-          "size_bits": 0,
-          "description": "Optional field indicating the port to which a reply should be addressed in the absence of any other information. If not used, a value of zero is inserted."
+          "name": "Destination Address",
+          "size_bits": "16",
+          "description": "Destination address"
         }
       ],
-      "enumerated_types": [],
+      "enumerated_types": [
+        {
+          "name": "Protocol",
+          "variants": [
+            {
+              "type": "IP",
+              "condition": "User Datagram Protocol (UDP)"
+            },
+            {
+              "type": "TCP"
+            }
+          ]
+        }
+      ],
       "structure_types": [
         {
-          "name": "User Datagram Header",
-          "header_size_bytes": 0,
-          "byte_order": null,
+          "name": "Source Address Structure",
+          "header_size_bytes": 8,
+          "byte_order": "endianness",
+          "fields": [
+            {
+              "name": "Source Address",
+              "display_name": "Source address",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "string or null",
+              "optional": "true",
+              "presence_condition": "if meaningful",
+              "constraints": [],
+              "description": "Source port"
+            },
+            {
+              "name": "Destination Address",
+              "display_name": "Destination address",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "string or null",
+              "optional": "false",
+              "presence_condition": "if needed",
+              "constraints": [],
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "UDP Header Structure",
+          "header_size_bytes": 8,
+          "byte_order": "endianness",
           "fields": [
             {
               "name": "Source Port",
-              "display_name": "Source Port",
-              "offset_bits": 16,
-              "size_bits": 32,
-              "type": "integer or null",
-              "optional": true,
-              "presence_condition": "x != 0",
-              "description": "Optional field indicating the port of sending process, and may be assumed to be the port to which a reply should be addressed in the absence of any other information.",
-              "constraints": []
+              "display_name": "Source port",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "string or null",
+              "optional": "true",
+              "presence_condition": "if meaningful",
+              "constraints": [],
+              "description": ""
             },
             {
               "name": "Destination Port",
-              "display_name": "Destination Port",
-              "offset_bits": 16,
-              "size_bits": 32,
-              "type": "integer or null",
-              "optional": true,
-              "presence_condition": "x == 0",
-              "description": "Optional field indicating the port to which a reply should be addressed in the absence of any other information. If not used, a value of zero is inserted.",
-              "constraints": []
-            },
-            {
-              "name": "Length",
-              "display_name": "Length",
-              "offset_bits": 16,
-              "size_bits": 32,
-              "type": "integer or null",
-              "optional": true,
-              "presence_condition": "",
-              "description": "Length of the data octet(s).",
-              "constraints": [
-                "length >= 8"
-              ]
+              "display_name": "Destination port",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "string or null",
+              "optional": "false",
+              "presence_condition": "if needed",
+              "constraints": [],
+              "description": ""
             },
             {
               "name": "Checksum",
               "display_name": "Checksum",
-              "offset_bits": 16,
-              "size_bits": 32,
-              "type": "integer or null",
-              "optional": true,
-              "presence_condition": "x == 0",
-              "description": "16-bit one's complement of the one's complement sum of a pseudo header of information from the IP header, the UDP header, and the data, padded with zero octets at the end (if necessary) to make a multiple of two octets.",
-              "constraints": []
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "string or null",
+              "optional": "true",
+              "presence_condition": "if not zero",
+              "constraints": [
+                "checksum value != 0"
+              ],
+              "description": ""
+            },
+            {
+              "name": "Protocol",
+              "display_name": "Protocol",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "string or null",
+              "optional": "false",
+              "presence_condition": "if needed",
+              "constraints": [],
+              "description": ""
+            },
+            {
+              "name": "UDP Length",
+              "display_name": "UDP length",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "string or null",
+              "optional": "true",
+              "presence_condition": "if not zero",
+              "constraints": [
+                "length == 8 bytes"
+              ],
+              "description": ""
             }
-          ],
-          "payload": {
-            "name": "data",
-            "offset_bits": 0,
-            "size": "length - 8"
-          },
-          "constraints": [
-            "Length >= 8"
-          ],
-          "parse_from": "null",
-          "serialize_to": null
+          ]
+        },
+        {
+          "name": "Data Structure",
+          "header_size_bytes": null,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "Source Port",
+              "display_name": "Source port",
+              "offset_bits": null,
+              "size_bits": null,
+              "type": "string or null",
+              "optional": "true",
+              "presence_condition": "if meaningful",
+              "constraints": [],
+              "description": ""
+            },
+            {
+              "name": "Destination Port",
+              "display_name": "Destination port",
+              "offset_bits": null,
+              "size_bits": null,
+              "type": "string or null",
+              "optional": "true",
+              "presence_condition": "if needed",
+              "constraints": [],
+              "description": ""
+            },
+            {
+              "name": "Checksum",
+              "display_name": "Checksum",
+              "offset_bits": null,
+              "size_bits": null,
+              "type": "string or null",
+              "optional": "true",
+              "presence_condition": "if not zero",
+              "constraints": [
+                "checksum value != 0"
+              ],
+              "description": ""
+            },
+            {
+              "name": "Protocol",
+              "display_name": "Protocol",
+              "offset_bits": null,
+              "size_bits": null,
+              "type": "string or null",
+              "optional": "false",
+              "presence_condition": "if needed",
+              "constraints": [],
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "User Datagram Packet",
+          "header_size_bytes": 10,
+          "byte_order": "little_endian",
+          "fields": [
+            {
+              "name": "Source Address",
+              "display_name": "Source address",
+              "offset_bits": null,
+              "size_bits": null,
+              "type": "string or null",
+              "optional": "true",
+              "presence_condition": "if meaningful",
+              "constraints": [],
+              "description": ""
+            },
+            {
+              "name": "Destination Address",
+              "display_name": "Destination address",
+              "offset_bits": null,
+              "size_bits": null,
+              "type": "string or null",
+              "optional": "false",
+              "presence_condition": "if needed",
+              "constraints": [],
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "Data Packet",
+          "header_size_bytes": 8,
+          "byte_order": "little_endian",
+          "fields": [
+            {
+              "name": "Source Port",
+              "display_name": "Source port",
+              "offset_bits": null,
+              "size_bits": null,
+              "type": "string or null",
+              "optional": "true",
+              "presence_condition": "if meaningful",
+              "constraints": [],
+              "description": ""
+            },
+            {
+              "name": "Destination Port",
+              "display_name": "Destination port",
+              "offset_bits": null,
+              "size_bits": null,
+              "type": "string or null",
+              "optional": "true",
+              "presence_condition": "if needed",
+              "constraints": [],
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "Data Packet",
+          "header_size_bytes": 10,
+          "byte_order": "little_endian",
+          "fields": [
+            {
+              "name": "Source Address",
+              "display_name": "Source address",
+              "offset_bits": null,
+              "size_bits": null,
+              "type": "string or null",
+              "optional": "true",
+              "presence_condition": "if meaningful",
+              "constraints": [],
+              "description": ""
+            },
+            {
+              "name": "Destination Address",
+              "display_name": "Destination address",
+              "offset_bits": null,
+              "size_bits": null,
+              "type": "string or null",
+              "optional": "false",
+              "presence_condition": "if needed",
+              "constraints": [],
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "Data Packet",
+          "header_size_bytes": 8,
+          "byte_order": "little_endian",
+          "fields": [
+            {
+              "name": "Source Port",
+              "display_name": "Source port",
+              "offset_bits": null,
+              "size_bits": null,
+              "type": "string or null",
+              "optional": "true",
+              "presence_condition": "if meaningful",
+              "constraints": [],
+              "description": ""
+            },
+            {
+              "name": "Destination Port",
+              "display_name": "Destination port",
+              "offset_bits": null,
+              "size_bits": null,
+              "type": "string or null",
+              "optional": "true",
+              "presence_condition": "if needed",
+              "constraints": [],
+              "description": ""
+            }
+          ]
         }
-      ],
-      "array_types": [],
-      "parsing_context": [],
-      "helper_functions": [],
-      "transform_functions": []
+      ]
     }
   ]
 }

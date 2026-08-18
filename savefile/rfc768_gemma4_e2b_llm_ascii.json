@@ -1,6 +1,6 @@
 {
   "protocol": "TCP",
-  "rfc": "N/A",
+  "rfc": "unknown",
   "packet": [
     {
       "name": "user_datagram_header",
@@ -27,14 +27,35 @@
           "name": "checksum",
           "size_bits": 16,
           "description": "Checksum"
+        },
+        {
+          "name": "data",
+          "size_bits": "length - 32",
+          "description": "Data octets"
         }
       ],
-      "enumerated_types": [],
+      "enumerated_types": [
+        {
+          "name": "checksum_value",
+          "variants": [
+            {
+              "name": "all_ones",
+              "type": "16-bit",
+              "condition": "computed_checksum == 0"
+            },
+            {
+              "name": "all_zeros",
+              "type": "16-bit",
+              "condition": "no_checksum_generated"
+            }
+          ]
+        }
+      ],
       "structure_types": [
         {
           "name": "user_datagram_header",
-          "header_size_bytes": 8,
-          "byte_order": "network",
+          "header_size_bytes": 20,
+          "byte_order": "big_endian",
           "fields": [
             {
               "name": "source_port",
@@ -43,8 +64,11 @@
               "size_bits": 16,
               "type": "unsigned_int",
               "optional": true,
-              "presence_condition": "true",
-              "description": "Source Port"
+              "presence_condition": "meaningful",
+              "description": "Port of the sending process. May be assumed to be the port to which a reply should be addressed in the absence of any other information. If not used, a value of zero is inserted.",
+              "constraints": [
+                "0 <= value <= 65535"
+              ]
             },
             {
               "name": "destination_port",
@@ -53,8 +77,11 @@
               "size_bits": 16,
               "type": "unsigned_int",
               "optional": true,
-              "presence_condition": "true",
-              "description": "Destination Port"
+              "presence_condition": "meaningful",
+              "description": "Port of the receiving process.",
+              "constraints": [
+                "0 <= value <= 65535"
+              ]
             },
             {
               "name": "length",
@@ -62,9 +89,12 @@
               "offset_bits": 32,
               "size_bits": 16,
               "type": "unsigned_int",
-              "optional": true,
-              "presence_condition": "true",
-              "description": "Length of the data (data octets ...)"
+              "optional": false,
+              "presence_condition": null,
+              "description": "Total length of the UDP segment (implied by context, based on diagram alignment).",
+              "constraints": [
+                "length >= 0"
+              ]
             },
             {
               "name": "checksum",
@@ -72,24 +102,41 @@
               "offset_bits": 48,
               "size_bits": 16,
               "type": "unsigned_int",
-              "optional": true,
-              "presence_condition": "true",
-              "description": "Checksum"
+              "optional": false,
+              "presence_condition": null,
+              "description": "One's complement sum of a pseudo header of information from the IP header, the UDP header, and the data, padded with zero octets at the end (if necessary) to make a multiple of two octets).",
+              "constraints": [
+                "0 <= value <= 65535"
+              ]
             }
           ],
-          "payload": {
-            "name": "data_octets",
-            "offset_bits": 64,
-            "size": "length - 32"
-          },
-          "constraints": [],
+          "constraints": [
+            "source_port_is_optional_and_zero_if_not_used"
+          ],
           "parse_from": null,
           "serialize_to": null
         }
       ],
-      "array_types": [],
-      "parsing_context": [],
-      "helper_functions": [],
+      "array_types": [
+        {
+          "name": "data",
+          "element_type": "octet",
+          "length": "length - 32"
+        }
+      ],
+      "parsing_context": [
+        {
+          "name": "checksum_calculation",
+          "type": "calculation",
+          "description": "Checksum is the 16-bit one's complement of the one's complement sum of a pseudo header of information from the IP header, the UDP header, and the data, padded with zero octets at the end (if necessary) to make a multiple of two octets)."
+        }
+      ],
+      "helper_functions": [
+        {
+          "name": "checksum_computation",
+          "description": "Calculates the checksum, involving a pseudo header of information from IP header, UDP header, and data."
+        }
+      ],
       "transform_functions": []
     }
   ]

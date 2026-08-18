@@ -1,4 +1,0 @@
-{
-  "document_id": "RFC 792",
-  "summary": "This document describes the Internet Control Message Protocol (ICMP), which is a network layer protocol used by network devices to communicate error messages and operational information. network devices like hosts and gateways. It defines several types of ICMP messages, including Echo (8) and Echo Reply (0), used for diagnostics like ping; Timestamp (13) and Timestamp Reply (14), used for clock synchronization; and Information Request (15) and Information Reply (16), used for network identification. The document also specifies the checksum calculation method and the standard format for the same, as well as how different message types are used to maintain network communication efficiency and error reporting (e.g., Destination Unreachable, Source Quench, and Source Redirect)."
-}

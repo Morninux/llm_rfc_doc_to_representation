@@ -1,5 +1,5 @@
 {
-  "protocol": "IP",
+  "protocol": "TCP",
   "rfc": "768",
   "packet": [
     {
@@ -11,29 +11,40 @@
         {
           "name": "Source Port",
           "size_bits": 16,
-          "description": "Source Port"
+          "description": "Port of the sending process, or zero if not used."
         },
         {
           "name": "Destination Port",
           "size_bits": 16,
-          "description": "Destination Port"
+          "description": "Port to which a reply should be addressed."
         },
         {
           "name": "Length",
           "size_bits": 16,
-          "description": "Length"
+          "description": "Total length of the segment (minimum value is 8)."
         },
         {
           "name": "Checksum",
           "size_bits": 16,
-          "description": "Checksum"
+          "description": "One's complement sum checksum."
         }
       ],
-      "enumerated_types": [],
+      "enumerated_types": [
+        {
+          "name": "Protocol",
+          "variants": [
+            {
+              "name": "IP",
+              "type": "IP",
+              "condition": null
+            }
+          ]
+        }
+      ],
       "structure_types": [
         {
-          "name": "User Datagram Header Format",
-          "header_size_bytes": 8,
+          "name": "TCP Header",
+          "header_size_bytes": 20,
           "byte_order": "network",
           "fields": [
             {
@@ -44,10 +55,8 @@
               "type": "uint16",
               "optional": true,
               "presence_condition": "true",
-              "description": "Source Port",
-              "constraints": [
-                "0 <= value <= 65535"
-              ]
+              "description": "Port of the sending process. May be assumed to be the port to which a reply should be addressed. If not used, a value of zero is inserted.",
+              "constraints": []
             },
             {
               "name": "destination_port",
@@ -57,10 +66,8 @@
               "type": "uint16",
               "optional": true,
               "presence_condition": "true",
-              "description": "Destination Port",
-              "constraints": [
-                "0 <= value <= 65535"
-              ]
+              "description": "Port to which a reply should be addressed.",
+              "constraints": []
             },
             {
               "name": "length",
@@ -68,11 +75,11 @@
               "offset_bits": 32,
               "size_bits": 16,
               "type": "uint16",
-              "optional": true,
+              "optional": false,
               "presence_condition": "true",
-              "description": "Length of the data section",
+              "description": "Total length of the segment.",
               "constraints": [
-                "length >= 8"
+                "value >= 8"
               ]
             },
             {
@@ -81,18 +88,21 @@
               "offset_bits": 48,
               "size_bits": 16,
               "type": "uint16",
-              "optional": true,
+              "optional": false,
               "presence_condition": "true",
-              "description": "Checksum",
-              "constraints": [
-                "16-bit one's complement sum of pseudo header and data"
-              ]
+              "description": "One's complement sum checksum. Calculated over pseudo header information and data.",
+              "constraints": []
             }
-          ]
-        },
-        "array_types അഭ",
-        "parsing_context"
+          ],
+          "constraints": [
+            "length >= 8"
+          ],
+          "parse_from": null,
+          "serialize_to": null
+        }
       ],
+      "array_types": [],
+      "parsing_context": [],
       "helper_functions": [],
       "transform_functions": []
     }

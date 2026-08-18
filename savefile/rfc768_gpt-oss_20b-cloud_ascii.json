@@ -1,34 +1,13 @@
 {
-  "protocol": "UDP",
+  "protocol": "User Datagram Protocol",
   "rfc": "RFC 768",
   "packet": [
     {
-      "name": "udp_hdr",
+      "name": "udp_header",
       "pdus": [
-        "udp_packet"
+        "User Datagram"
       ],
-      "bit_string_types": [
-        {
-          "name": "source_port",
-          "size_bits": 16,
-          "description": "Source Port"
-        },
-        {
-          "name": "destination_port",
-          "size_bits": 16,
-          "description": "Destination Port"
-        },
-        {
-          "name": "length",
-          "size_bits": 16,
-          "description": "Length of UDP header and data (bytes)"
-        },
-        {
-          "name": "checksum",
-          "size_bits": 16,
-          "description": "Checksum of pseudo header, UDP header, and data"
-        }
-      ],
+      "bit_string_types": [],
       "enumerated_types": [],
       "structure_types": [
         {
@@ -41,10 +20,10 @@
               "display_name": "Source Port",
               "offset_bits": 0,
               "size_bits": 16,
-              "type": null,
-              "optional": false,
+              "type": "uint16",
+              "optional": true,
               "presence_condition": null,
-              "description": "Optional field used for reply destination. Zero if omitted.",
+              "description": "Optional field indicating the source port of the sending process; zero if unused.",
               "constraints": []
             },
             {
@@ -52,10 +31,10 @@
               "display_name": "Destination Port",
               "offset_bits": 16,
               "size_bits": 16,
-              "type": null,
+              "type": "uint16",
               "optional": false,
               "presence_condition": null,
-              "description": "Port of receiving process.",
+              "description": "Destination port of the receiving process.",
               "constraints": []
             },
             {
@@ -63,109 +42,37 @@
               "display_name": "Length",
               "offset_bits": 32,
               "size_bits": 16,
-              "type": null,
+              "type": "uint16",
               "optional": false,
               "presence_condition": null,
-              "description": "Length in bytes of UDP header and data.",
-              "constraints": []
+              "description": "Total length of the UDP datagram in octets, including this header.",
+              "constraints": [
+                "length >= 8"
+              ]
             },
             {
               "name": "checksum",
               "display_name": "Checksum",
               "offset_bits": 48,
               "size_bits": 16,
-              "type": null,
+              "type": "uint16",
               "optional": false,
               "presence_condition": null,
-              "description": "Checksum over pseudo header, UDP header, and data.",
+              "description": "16‑bit checksum of the UDP pseudo-header, header, and data; zero indicates no checksum generated.",
+              "constraints": []
+            },
+            {
+              "name": "data",
+              "display_name": "Data",
+              "offset_bits": 48,
+              "size_bits": "(length - 8) * 8",
+              "type": "octets",
+              "optional": false,
+              "presence_condition": null,
+              "description": "Variable-length payload data.",
               "constraints": []
             }
           ],
-          "payload": {
-            "name": "data",
-            "offset_bits": 64,
-            "size": "(length - 8) * 8"
-          },
-          "constraints": [
-            "length >= 8"
-          ],
-          "parse_from": null,
-          "serialize_to": null
-        }
-      ],
-      "array_types": [],
-      "parsing_context": [],
-      "helper_functions": [],
-      "transform_functions": []
-    },
-    {
-      "name": "pseudo_header",
-      "pdus": [],
-      "bit_string_types": [],
-      "enumerated_types": [],
-      "structure_types": [
-        {
-          "name": "pseudo_header",
-          "header_size_bytes": 12,
-          "byte_order": "big_endian",
-          "fields": [
-            {
-              "name": "source_address",
-              "display_name": "Source Address",
-              "offset_bits": 0,
-              "size_bits": 32,
-              "type": null,
-              "optional": false,
-              "presence_condition": null,
-              "description": "Source IPv4 address.",
-              "constraints": []
-            },
-            {
-              "name": "destination_address",
-              "display_name": "Destination Address",
-              "offset_bits": 32,
-              "size_bits": 32,
-              "type": null,
-              "optional": false,
-              "presence_condition": null,
-              "description": "Destination IPv4 address.",
-              "constraints": []
-            },
-            {
-              "name": "zero",
-              "display_name": "Zero",
-              "offset_bits": 64,
-              "size_bits": 8,
-              "type": null,
-              "optional": false,
-              "presence_condition": null,
-              "description": "Zero field.",
-              "constraints": []
-            },
-            {
-              "name": "protocol",
-              "display_name": "Protocol",
-              "offset_bits": 72,
-              "size_bits": 8,
-              "type": null,
-              "optional": false,
-              "presence_condition": null,
-              "description": "Protocol number for UDP.",
-              "constraints": []
-            },
-            {
-              "name": "udp_length",
-              "display_name": "UDP Length",
-              "offset_bits": 80,
-              "size_bits": 16,
-              "type": null,
-              "optional": false,
-              "presence_condition": null,
-              "description": "Length of UDP header and data.",
-              "constraints": []
-            }
-          ],
-          "payload": null,
           "constraints": [],
           "parse_from": null,
           "serialize_to": null
@@ -173,7 +80,12 @@
       ],
       "array_types": [],
       "parsing_context": [],
-      "helper_functions": [],
+      "helper_functions": [
+        {
+          "name": "compute_checksum",
+          "description": "Computes the 16-bit one's complement checksum over the pseudo-header, UDP header, and data, padded to an even number of octets."
+        }
+      ],
       "transform_functions": []
     }
   ]

@@ -1,3 +1,0 @@
-{
-  "<model_response_analysis>": "The user wants me to extract the packet format and structure from the provided RFC snippet about IGMP. I must follow strict JSON formatting rules with specific field requirements. No markdown, code fences, or analysis outside the JSON object is allowed. The schema requires 'protocol', 'rfc', 'packet' array, each containing sub-fields like name, pdus, bit_string_types, enumerated_types, structure_types, etc. I need to parse this RFC to find IGMP-specific fields and format them according to the example schema provided in the instructions."
-}

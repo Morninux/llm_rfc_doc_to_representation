@@ -3,71 +3,84 @@
   "rfc": "RFC 768",
   "packet": [
     {
-      "name": "User Datagram",
+      "name": "UDP Header",
       "pdus": [],
       "bit_string_types": [],
       "enumerated_types": [],
       "structure_types": [
         {
-          "name": "User Datagram Header",
-          "header_size_bytes": 8,
-          "byte_order": "little-endian",
+          "name": "UDP Header",
+          "header_size_bytes": "8",
+          "byte_order": "big",
           "fields": [
             {
               "name": "Source Port",
               "display_name": "Source Port",
-              "offset_bits": "0-7",
+              "offset_bits": "0-4",
               "size_bits": "8",
-              "type": "Bit String Type",
-              "optional": true,
-              "presence_condition": "source_port != 0",
-              "constraints": [
-                "0 <= source_port <= 65535"
-              ],
-              "parse_from": "field[8]",
-              "serialize_to": "field[8]"
+              "type": "Enumerated Type",
+              "variants": [
+                {
+                  "name": "zero",
+                  "condition": "Source Port == 0"
+                }
+              ]
             },
             {
               "name": "Destination Port",
               "display_name": "Destination Port",
-              "offset_bits": "8-15",
+              "offset_bits": "6-7",
               "size_bits": "8",
-              "type": "Bit String Type",
-              "optional": true,
-              "presence_condition": "destination_port != 0",
-              "constraints": [
-                "0 <= destination_port <= 65535"
-              ],
-              "parse_from": "field[16]",
-              "serialize_to": "field[16]"
+              "type": "Enumerated Type",
+              "variants": [
+                {
+                  "name": "zero",
+                  "condition": "Destination Port == 0"
+                }
+              ]
             },
             {
               "name": "Length",
               "display_name": "Length",
-              "offset_bits": "16-19",
+              "offset_bits": "8-15",
               "size_bits": "16",
               "type": "Bit String Type",
-              "optional": false,
+              "optional": true,
               "presence_condition": "",
+              "description": "Total length of the PDU, including this header.",
               "constraints": [
-                "length <= 65535"
+                "Length <= 65535"
               ],
-              "parse_from": "field[20]",
-              "serialize_to": "field[20]"
+              "parse_from": "Length field value",
+              "serialize_to": "Length field value"
             },
             {
               "name": "Checksum",
               "display_name": "Checksum",
-              "offset_bits": "20-23",
+              "offset_bits": "15-19",
               "size_bits": "16",
               "type": "Bit String Type",
-              "optional": false,
+              "optional": true,
               "presence_condition": "",
+              "description": "Used for error-checking. Calculated over all PDU fields except for the length.",
               "constraints": [
-                "checksum is valid"
+                "Checksum == (Length mod 256) ^ (Checksum mod 256)"
               ],
-              "parse_from": "field[24]",
-              "serialize_to": "field[24]"
+              "parse_from": "Checksum field value",
+              "serialize_to": "Checksum field value"
+            },
+            {
+              "name": "Data",
+              "display_name": "Data",
+              "offset_bits": "20-",
+              "size_bits": "N",
+              "type": "Variable Length",
+              "optional": true,
+              "presence_condition": "Length > 0",
+              "description": "User data.",
+              "constraints": [],
+              "parse_from": "Data octets",
+              "serialize_to": "Data octets"
             }
           ]
         }

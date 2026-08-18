@@ -3,7 +3,7 @@
   "rfc": "RFC 768",
   "packet": [
     {
-      "name": "udp_header",
+      "name": "udp_packet",
       "pdus": [
         "User Datagram Header"
       ],
@@ -11,60 +11,58 @@
       "enumerated_types": [],
       "structure_types": [
         {
-          "name": "udp_header",
+          "name": "user_datagram_header",
           "header_size_bytes": 8,
-          "byte_order": "big_endian",
+          "byte_order": null,
           "fields": [
             {
               "name": "source_port",
               "display_name": "Source Port",
-              "offset_bits": 16,
+              "offset_bits": 0,
               "size_bits": 16,
-              "type": "bit_string",
-              "optional": false,
-              "description": "Optional field; if not used, a value of zero is inserted."
+              "type": null,
+              "optional": true,
+              "presence_condition": null,
+              "description": "The port of the sending process.",
+              "constraints": []
             },
             {
               "name": "destination_port",
               "display_name": "Destination Port",
-              "offset_bits": 32,
+              "offset_bits": 16,
               "size_bits": 16,
-              "type": "bit_string",
+              "type": null,
               "optional": false,
-              "description": "Destination Port has a meaning within the context of a particular internet destination address."
+              "presence_condition": null,
+              "description": "The port to which a response should be addressed.",
+              "constraints": []
             },
             {
               "name": "length",
               "display_name": "Length",
-              "offset_bits": 48,
+              "offset_bits": 32,
               "size_bits": 16,
-              "type": "bit_string",
+              "type": null,
               "optional": false,
-              "description": "Length in octets of this user datagram including this header and the data. Minimum value of the length is eight."
-            },
-            {
-              "name": "checksum",
-              "display_name": "Checksum",
-              "offset_bits": 64,
-              "size_bits": 16,
-              "type": "bit_string",
-              "optional": false,
-              "description": "16-bit one's complement of the one's complement sum of a pseudo header of information from the IP header, the UDP header, and the data, padded with zero octets at the end (if necessary) to make a multiple of two octets."
+              "presence_condition": null,
+              "description": "The length in octets of this user datagram including this header and the data.",
+              "constraints": [
+                "length >= 8"
+              ]
             }
           ],
-          "payload": {
-            "name": "data_octets",
-            "offset_bits": 128,
-            "size": "length - 16"
-          },
-          "constraints": [
-            "length >= 8"
-          ],
+          "constraints": [],
           "parse_from": null,
           "serialize_to": null
         }
       ],
-      "array_types": [],
+      "array_types": [
+        {
+          "name": "udp_data",
+          "element_type": "byte",
+          "length": "length - 8"
+        }
+      ],
       "parsing_context": [],
       "helper_functions": [],
       "transform_functions": []

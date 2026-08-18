@@ -1,42 +1,40 @@
 {
-  "protocol": "udp",
-  "rfc": "768",
+  "protocol": "UDP",
+  "rfc": "RFC 768",
   "packet": [
     {
-      "name": "datagram",
+      "name": "udp_header_diagram_1",
       "pdus": [
-        "User Datagram Header"
+        "datagram"
       ],
       "bit_string_types": [],
       "enumerated_types": [],
       "structure_types": [
         {
-          "name": "user_datagram_header",
-          "header_size_bytes": null,
-          "byte_order": null,
+          "name": "udp_pdu",
+          "header_size_bytes": 8,
+          "byte_order": "network",
           "fields": [
             {
               "name": "source_port",
               "display_name": "Source Port",
               "offset_bits": 0,
               "size_bits": 16,
-              "type": "integer",
+              "type": "port",
               "optional": true,
               "presence_condition": null,
-              "description": "port of the sending process, or zero if not used",
-              "constraints": [
-                "length >= 8"
-              ]
+              "description": "indicates the port of the sending process, and may be assumed to be the port to which a reply should be addressed in the absence of any other information. If not used, a value of zero is inserted.",
+              "constraints": []
             },
             {
               "name": "destination_port",
               "display_name": "Destination Port",
               "offset_bits": 16,
               "size_bits": 16,
-              "type": "integer",
+              "type": "port",
               "optional": null,
               "presence_condition": null,
-              "description": "port of the receiving process",
+              "description": "",
               "constraints": []
             },
             {
@@ -44,37 +42,24 @@
               "display_name": "Length",
               "offset_bits": 32,
               "size_bits": 16,
-              "type": "integer",
-              "optional": null,
+              "type": "length",
+              "optional": false,
               "presence_condition": null,
-              "description": "total length of the UDP datagram including header and data",
-              "constraints": [
-                "length >= 8"
-              ]
+              "description": "the length of the user datagram header and the data. (This means the minimum value of the length is eight.)",
+              "constraints": []
             },
             {
               "name": "checksum",
               "display_name": "Checksum",
               "offset_bits": 48,
               "size_bits": 16,
-              "type": "integer",
-              "optional": null,
+              "type": "checksum",
+              "optional": false,
               "presence_condition": null,
-              "description": "one's complement checksum of pseudo header and payload",
+              "description": "the 16-bit one's complement of the one's complement sum of a pseudo header of information from the IP header, the UDP header, and the data, padded with zero octets at the end (if necessary) to make a multiple of two octets.",
               "constraints": []
-            },
-            {
-              "name": "payload",
-              "display_name": "Data",
-              "offset_bits": 64,
-              "size": "length - 8"
             }
           ],
-          "payload": {
-            "name": "data_octets",
-            "offset_bits": 64,
-            "size": "length - 8"
-          },
           "constraints": [],
           "parse_from": null,
           "serialize_to": null
@@ -84,8 +69,8 @@
       "parsing_context": [],
       "helper_functions": [
         {
-          "name": "checksum_calculation",
-          "description": "compute one's complement of one's complement sum of pseudo header and data"
+          "name": "pseudo_header_checksum",
+          "description": "the 16-bit one's complement of the one's complement sum of a pseudo header of information from the IP header, the UDP header, and the data, padded with zero octets at the end (if necessary) to make a multiple of two octets."
         }
       ],
       "transform_functions": []

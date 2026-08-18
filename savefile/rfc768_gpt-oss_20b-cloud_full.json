@@ -1,1 +1,87 @@
-"{\"protocol\":\"UDP\",\"rfc\":\"RFC 768\",\"packet\":[{\"name\":\"udp_header_format\",\"pdus\":[\"udp\"],\"bit_string_types\":[],\"enumerated_types\":[],\"structure_types\":[{\"name\":\"udp_header\",\"header_size_bytes\":8,\"byte_order\":\"big_endian\",\"fields\":[{\"name\":\"source_port\",\"display_name\":\"Source Port\",\"offset_bits\":0,\"size_bits\":16,\"type\":\"uint16\",\"optional\":true,\"presence_condition\":null,\"description\":\"Optional port number. If not used, insert zero.\",\"constraints\":[]},{\"name\":\"destination_port\",\"display_name\":\"Destination Port\",\"offset_bits\":16,\"size_bits\":16,\"type\":\"uint16\",\"optional\":null,\"presence_condition\":null,\"description\":\"Port number of destination process.\",\"constraints\":[]},{\"name\":\"length\",\"display_name\":\"Length\",\"offset_bits\":32,\"size_bits\":16,\"type\":\"uint16\",\"optional\":null,\"presence_condition\":null,\"description\":\"Total length of UDP datagram in octets, including header.\",\"constraints\":[\"length >= 8\"]},{\"name\":\"checksum\",\"display_name\":\"Checksum\",\"offset_bits\":48,\"size_bits\":16,\"type\":\"uint16\",\"optional\":null,\"presence_condition\":null,\"description\":\"One's complement checksum of pseudo-header, UDP header and data, with padding to even length.\",\"constraints\":[]}],\"payload\":{\"name\":\"payload\",\"offset_bits\":64,\"size\":\"length - 8\"},\"constraints\":[],\"parse_from\":null,\"serialize_to\":null}],\"array_types\":[],\"parsing_context\":[],\"helper_functions\":[],\"transform_functions\":[]}]"
+{
+  "protocol": "User Datagram Protocol",
+  "rfc": "RFC 768",
+  "packet": [
+    {
+      "name": "udp_header",
+      "pdus": [
+        "udp_datagram"
+      ],
+      "bit_string_types": [],
+      "enumerated_types": [],
+      "structure_types": [
+        {
+          "name": "udp_header",
+          "header_size_bytes": 8,
+          "byte_order": null,
+          "fields": [
+            {
+              "name": "source_port",
+              "display_name": "Source Port",
+              "offset_bits": 0,
+              "size_bits": 16,
+              "type": "integer",
+              "optional": null,
+              "presence_condition": null,
+              "description": "Port of sending process; zero if not used",
+              "constraints": []
+            },
+            {
+              "name": "destination_port",
+              "display_name": "Destination Port",
+              "offset_bits": 16,
+              "size_bits": 16,
+              "type": "integer",
+              "optional": null,
+              "presence_condition": null,
+              "description": "Port within context of destination address",
+              "constraints": []
+            },
+            {
+              "name": "length",
+              "display_name": "Length",
+              "offset_bits": 32,
+              "size_bits": 16,
+              "type": "integer",
+              "optional": null,
+              "presence_condition": null,
+              "description": "Length in octets of whole datagram including header; minimum 8",
+              "constraints": [
+                "length >= 8"
+              ]
+            },
+            {
+              "name": "checksum",
+              "display_name": "Checksum",
+              "offset_bits": 48,
+              "size_bits": 16,
+              "type": "integer",
+              "optional": null,
+              "presence_condition": null,
+              "description": "16-bit one’s complement checksum; computed over pseudo header, header, and data",
+              "constraints": []
+            },
+            {
+              "name": "data",
+              "display_name": "Data Octets",
+              "offset_bits": 64,
+              "size_bits": "(length - 8) * 8",
+              "type": "bytes",
+              "optional": null,
+              "presence_condition": null,
+              "description": "Payload data of the datagram",
+              "constraints": []
+            }
+          ],
+          "constraints": [],
+          "parse_from": null,
+          "serialize_to": null
+        }
+      ],
+      "array_types": [],
+      "parsing_context": [],
+      "helper_functions": [],
+      "transform_functions": []
+    }
+  ]
+}
